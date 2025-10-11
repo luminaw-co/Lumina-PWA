@@ -78,11 +78,11 @@
         "links": {
           "type": "object",
           "properties": {
-            "site": {
+            "github": {
               "type": "string",
               "format": "uri"
             },
-            "github": {
+            "demo": {
               "type": "string",
               "format": "uri"
             },

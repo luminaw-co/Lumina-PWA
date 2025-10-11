@@ -28,13 +28,11 @@ function toggleTheme() {
 function init() {
   applyTheme(currentTheme());
 
-  // cambia si el sistema cambia y NO hay override del usuario
   const mq = window.matchMedia("(prefers-color-scheme: dark)");
   mq.addEventListener?.("change", () => {
     if (!localStorage.getItem(KEY)) applyTheme(systemPrefersDark() ? "dark" : "light");
   });
 
-  // listeners
   for (const id of ["theme-toggle", "theme-toggle-mobile"]) {
     const btn = document.getElementById(id);
     if (btn) btn.addEventListener("click", toggleTheme);

@@ -1,19 +1,72 @@
 ---
 title: "Ubuntu"
-subtitle: "Economía circular y compostaje"
+subtitle: "Landing page"
+pubDate: 2025-10-09
 summary:
-  cover: "/images/projects/ubuntu /logo.svg"
+  cover: "/images/projects/ubuntu /landing-ubuntu.png"
   note: "Prototipo y piloto en Medellín."
 briefTitle: "Ubuntu"
-briefText: "Servicio de compostaje con economía circular."
+briefText: "Landing page tipo MVP creada para validar una iniciativa de economía circular que transforma residuos orgánicos en compost de alta calidad."
 stack: ["Astro", "Tailwind", "TypeScript"]
 valueBullets:
   - "Recolección domiciliaria"
   - "Suscripciones mensuales"
 gallery:
-  - "/images/projects/ubuntu /icon.svg"
-  - "/images/projects/ubuntu /icon.svg"
+  - "/images/projects/ubuntu/icon.svg"
+  - "/images/projects/ubuntu/mockup.png"
 links:
   github: "https://github.com/wavival/Ubuntu"
+  demo: "https://eco-ubuntu.netlify.app/"
+  behance: "https://behance.net/wavival0"
 published: true
+
+objectives:
+  - "Presente la propuesta y su enfoque de economía circular."
+  - "Recolecte leads para lista de espera y voluntariado mediante formularios."
+  - "Permita iterar hacia futuras integraciones (trazabilidad, talleres, dashboard)."
+
+technologies:
+  - "Astro"
+  - "Tailwind CSS"
+  - "TypeScript y un poco de JavaScript"
+  - "Supabase para la base de datos y el manejo de formularios"
+  - "Netlify para el despliegue"
+
+sections:
+  - "Hero"
+  - "Qué hacemos"
+  - "Impacto"
+  - "Unirme (formulario conectado a Supabase)"
+  - "Navegación y pie de página"
+  - "Páginas adicionales: privacidad, condiciones, contacto y blog"
+
+learnings:
+  - "Modularización de componentes en Astro y organización de carpetas."
+  - "Integración de formularios con fetch y Supabase, y uso de variables de entorno."
+  - "Uso de IA como apoyo para acelerar estructura y refactor."
+  - "Preparación para despliegue continuo en Netlify."
+
+roadmap:
+  - "Registro con código QR para trazabilidad."
+  - "Mini app del clima para seguimiento del compost en casa."
+  - "Dashboard de usuario con métricas."
+  - "Sistema de talleres y capacitaciones en línea."
+
+techstack:
+  framework: "Astro"
+  languages: ["TypeScript", "JavaScript"]
+  styles: "Tailwind CSS"
+  database: "Supabase"
+  hosting: "Netlify"
+  versionControl: ["Git", "GitHub"]
 ---
+
+export const {
+  objectives,
+  technologies,
+  sections,
+  learnings,
+  roadmap,
+  techstack,
+  links,
+} = frontmatter;

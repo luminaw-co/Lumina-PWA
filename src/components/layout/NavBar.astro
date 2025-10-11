@@ -77,7 +77,6 @@ const isActive = (href: string) => pathname.startsWith(href);
 
   <script is:raw>
     (function () {
-      // ===== Menú móvil con animación suave =====
       const btn  = document.getElementById('menu-btn');
       const menu = document.getElementById('mobile-menu');
 
@@ -103,7 +102,6 @@ const isActive = (href: string) => pathname.startsWith(href);
           open = !open;
         });
 
-        // Cerrar con Escape
         document.addEventListener('keydown', (e) => {
           if (e.key === 'Escape' && open) {
             closeMenu();
@@ -112,7 +110,6 @@ const isActive = (href: string) => pathname.startsWith(href);
         });
       }
 
-      // ===== Tema (igual que tenías) =====
       const ids = ['theme-toggle', 'theme-toggle-mobile'];
       const toggles = ids.map(id => document.getElementById(id)).filter(Boolean);
 
