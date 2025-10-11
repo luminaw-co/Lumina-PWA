@@ -3,7 +3,7 @@ title: "Ubuntu"
 subtitle: "Landing page"
 pubDate: 2025-10-09
 summary:
-  cover: "/images/projects/ubuntu /landing-ubuntu.png"
+  cover: "/images/projects/ubuntu /landing.webp"
   note: "Prototipo y piloto en Medellín."
 briefTitle: "Ubuntu"
 briefText: "Landing page tipo MVP creada para validar una iniciativa de economía circular que transforma residuos orgánicos en compost de alta calidad."
@@ -20,53 +20,34 @@ links:
   behance: "https://behance.net/wavival0"
 published: true
 
-objectives:
-  - "Presente la propuesta y su enfoque de economía circular."
-  - "Recolecte leads para lista de espera y voluntariado mediante formularios."
-  - "Permita iterar hacia futuras integraciones (trazabilidad, talleres, dashboard)."
+objective: "Se desarrolló un prototipo funcional y escalable para impulsar una iniciativa de compostaje urbano en Medellín. La plataforma permite presentar el proyecto, conectar con interesados y sumar voluntarios, además de sentar las bases para futuras integraciones como trazabilidad de residuos, talleres en línea y un panel de usuario."
 
-technologies:
-  - "Astro"
-  - "Tailwind CSS"
-  - "TypeScript y un poco de JavaScript"
-  - "Supabase para la base de datos y el manejo de formularios"
-  - "Netlify para el despliegue"
+build: "El sitio fue desarrollado con un enfoque moderno y escalable, empleando <span class='italic'>Astro</span> como framework principal, <span class='italic'>Tailwind CSS</span> para el diseño visual y <span class='italic'>TypeScript</span> para garantizar un código sólido y mantenible. Integra <span class='italic'>Supabase</span> como base de datos en la nube para la gestión de formularios y se encuentra desplegado en <span class='italic'>Netlify</span>."
 
-sections:
-  - "Hero"
-  - "Qué hacemos"
-  - "Impacto"
-  - "Unirme (formulario conectado a Supabase)"
-  - "Navegación y pie de página"
-  - "Páginas adicionales: privacidad, condiciones, contacto y blog"
+results: "Los resultados del proyecto incluyen un <span class='italic'>sitio totalmente responsivo</span>, adaptado a cualquier dispositivo y con <span class='italic'>rendimiento optimizado</span> para una experiencia de navegación fluida. La estructura fue diseñada con una <span class='italic'>arquitectura modular y escalable</span>, pensada para crecer fácilmente con nuevas funciones e integraciones futuras."
 
 learnings:
-  - "Modularización de componentes en Astro y organización de carpetas."
-  - "Integración de formularios con fetch y Supabase, y uso de variables de entorno."
-  - "Uso de IA como apoyo para acelerar estructura y refactor."
-  - "Preparación para despliegue continuo en Netlify."
+  - "Componentes modulares."
+  - "Formularios dinámicos con Supabase."
+  - "Arquitectura organizada."
+  - "IA como asistente de desarrollo."
+  - "Despliegue continuo en Netlify."
+
+images:
+  frontend: "/images/projects/ubuntu /landing.webp"
 
 roadmap:
   - "Registro con código QR para trazabilidad."
   - "Mini app del clima para seguimiento del compost en casa."
   - "Dashboard de usuario con métricas."
   - "Sistema de talleres y capacitaciones en línea."
-
-techstack:
-  framework: "Astro"
-  languages: ["TypeScript", "JavaScript"]
-  styles: "Tailwind CSS"
-  database: "Supabase"
-  hosting: "Netlify"
-  versionControl: ["Git", "GitHub"]
 ---
 
 export const {
   objectives,
-  technologies,
-  sections,
   learnings,
   roadmap,
+  sections,
   techstack,
   links,
 } = frontmatter;

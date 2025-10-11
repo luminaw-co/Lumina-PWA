@@ -1,0 +1,57 @@
+---
+import Link from "../ui/Link.astro";
+import Icon from "../ui/Icon.astro";
+
+interface Links { github?: string; behance?: string }
+
+const { title, cover, href, links = {}, alt = `${title} — portada` } = Astro.props as {
+  title: string;
+  cover: string;
+  href: string;
+  links?: Links;
+  alt?: string;
+};
+
+const moreLabel = `Saber más sobre ${title}`;
+---
+
+<article itemscope itemtype="https://schema.org/CreativeWork" aria-labelledby={`lab-${title}-heading`} class="inline-flex flex-col justify-start items-start overflow-hidden bg-[var(--bg-card)] shadow-md shadow-[var(--shadow-base)] w-[340px] h-96 p-3 gap-4 rounded-md lg:w-[300px] lg:h-[22rem]">
+  <meta itemprop="name" content={title} />
+
+  <figure class="self-stretch flex-1 overflow-hidden rounded-2xl">
+    <img src={cover} alt={alt} itemprop="image" loading="lazy" decoding="async" width="800" height="600" class="w-full h-full object-contain" />
+    <figcaption class="sr-only">{title}</figcaption>
+  </figure>
+
+  <footer class="self-stretch inline-flex justify-between items-center h-auto">
+    <h3 id={`lab-${title}-heading`} class="heading-3 text-[24px] font-semibold truncate text-[var(--text-primary)]">
+      {title}
+    </h3>
+
+    <nav aria-label={`Enlaces de ${title}`}>
+      <ul role="list" class="flex justify-center items-center gap-0">
+        <li role="listitem">
+          <Link href={href} aria-label={moreLabel} class="w-[48px] h-[48px] flex items-center justify-center">
+            <Icon src="/icons/ui/read-more.svg" size="md" class="text-[var(--accent-link)]" />
+          </Link>
+        </li>
+
+        {links.github && (
+          <li role="listitem">
+            <Link href={links.github} target="_blank" rel="noopener noreferrer" aria-label={`GitHub de ${title}`} class="w-[48px] h-[48px] flex items-center justify-center">
+              <Icon src="/icons/social/github.svg" size="md" class="text-[var(--accent-link)]" />
+            </Link>
+          </li>
+        )}
+
+        {links.behance && (
+          <li role="listitem">
+            <Link href={links.behance} target="_blank" rel="noopener noreferrer" aria-label={`Behance de ${title}`} class="w-[48px] h-[48px] flex items-center justify-center">
+              <Icon src="/icons/social/behance.svg" size="md" class="text-[var(--accent-link)]" />
+            </Link>
+          </li>
+        )}
+      </ul>
+    </nav>
+  </footer>
+</article>

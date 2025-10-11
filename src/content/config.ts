@@ -30,7 +30,23 @@ const projects = defineCollection({
     }).partial().optional(),
 
     published: z.boolean().default(true),
-  }),
+
+    objective: z.string().optional(),
+    build: z.string().optional(),
+    learnings: z.array(z.string()).optional(),
+    roadmap: z.array(z.string()).optional(),
+    techstack: z.string().optional(),
+    results: z.string().optional(),
+    images: z.object({
+      frontend: z.string().optional(),
+      backend: z.string().optional(),
+      uxui: z.string().optional(),
+      cms: z.string().optional(),
+      seo: z.string().optional(),
+      ia: z.string().optional(),
+      other: z.string().optional(),
+    }).optional(),
+    }).optional(),
 });
 
 const blog = defineCollection({

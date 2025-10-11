@@ -1,0 +1,53 @@
+---
+import Icon from "../ui/Icon.astro";
+import Link from "../ui/Link.astro";
+
+const { objective, build } = Astro.props;
+const { title = "Laberinto", subtitle = "Técnico" } = Astro.props;
+
+const tools = [
+  { name: "Astro", href: "https://astro.build/", icon: "astro-black" },
+  { name: "Tailwind CSS", href: "https://tailwindcss.com/", icon: "tailwind-css" },
+  { name: "TypeScript", href: "https://www.typescriptlang.org/", icon: "typescript" },
+  { name: "JavaScript", href: "https://developer.mozilla.org/docs/Web/JavaScript", icon: "javascript" },
+  { name: "VS Code", href: "https://code.visualstudio.com/", icon: "vs-code" },
+  { name: "Git", href: "https://git-scm.com/", icon: "git" },
+  { name: "GitHub", href: "https://github.com/", icon: "github-black" },
+  { name: "Netlify", href: "https://www.netlify.com/", icon: "netlify" },
+  { name: "Supabase", href: "https://supabase.com/", icon: "supabase" },
+];
+---
+
+<header class="lg:max-w-[1024px] lg:w-full">
+  <h2 class="text-[28px] font-bold text-[var(--text-primary)]">{title}</h2>
+  <p class="text-body-xl font-bold text-[var(--brand-blue)]">{subtitle}</p>
+</header>
+{objective && (
+  <p class="text-[var(--text-primary)]">{objective}</p>
+)}
+{build && (
+  <section class="mb-8">
+    <p class="text-body-xl font-bold text-[var(--brand-blue)]">Ecosistema</p>
+    <p class="text-[var(--text-primary)]" set:html={build}></p>
+  </section>
+)}
+
+<div class="flex flex-col gap-5 my-4 items-center">
+  <p class="text-md italic text-[var(--text-primary)]">Artillería pesada</p>
+  <div class="flex flex-wrap gap-3 justify-center">
+    {tools.map((tool) => (
+      <Link href={tool.href} target="_blank" rel="noopener noreferrer" title={tool.name}>
+        <span class="relative w-10 h-10 inline-block">
+          {tool.icon.endsWith('-black') ? (
+            <>
+              <Icon src={`/icons/tech/${tool.icon}.svg`} size="md" class="dark:hidden" />
+              <Icon src={`/icons/tech/${tool.icon.replace('-black', '-white')}.svg`} size="md" class="hidden dark:inline" />
+            </>
+          ) : (
+            <Icon src={`/icons/tech/${tool.icon}.svg`} size="md" />
+          )}
+        </span>
+      </Link>
+    ))}
+  </div>
+</div>
