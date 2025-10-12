@@ -1,65 +1,36 @@
-<section class="w-full max-w-[80rem] mx-auto px-6 py-16 text-center dark:bg-[var(--bg-page)]">
-  <header class="mb-10">
+---
+import Link from '../ui/Link.astro';
+
+const { data } = Astro.props;
+---
+
+<section class="w-full max-w-[70rem] mx-auto p-6 text-center min-h-screen h-fit flex flex-col justify-center gap-8 bg-gradient-to-b from-[transparent] to-[var(--brand-blue)] rounded-lg">
+  <header>
     <h2 class="text-3xl font-extrabold text-[var(--text-primary)]">Lúmina</h2>
     <p class="text-xl font-semibold text-[var(--brand-blue)]">en Ubuntu</p>
   </header>
 
-  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-12">
-    <div class="relative overflow-hidden rounded-2xl">
-      <img src="/images/projects/ubuntu /areas/frontend.webp" alt="Desarrollo Frontend" class="w-full h-56 object-cover opacity-80" />
-      <div class="absolute inset-0 flex flex-col items-center justify-center text-[var(--text-primary)] font-semibold">
-        <h3 class="text-lg">Código &</h3>
-        <p class="text-2xl text-[var(--brand-blue)] font-bold">Frontend</p>
+  <section class="grid grid-cols-3 gap-6 max-w-[60rem] m-auto">
+    {Array.isArray(data.images) && data.images.map((img: {
+      src: string;
+      alt: string;
+      h3: string;
+      p: string;
+      class?: string;
+      imgClass?: string;
+    }) => (
+      <div class={`relative hover:scale-105 transition-transform duration-200 ease-out hover:drop-shadow-lg overflow-hidden rounded-md aspect-[4/3] flex ${img.class ?? ""}`}>
+        <img src={img.src} alt={img.alt} class="w-full h-full object-cover opacity-70" />
+        <div class="absolute inset-0 flex flex-col items-center justify-center text-[var(--text-primary)] font-semibold bg-gradient-to-b from-[transparent] to-[var(--bg-page)] dark">
+          <h3 class="text-lg">{img.h3}</h3>
+          <p class="text-2xl text-[var(--brand-blue)] font-bold">{img.p}</p>
+        </div>
       </div>
-    </div>
+    ))}
+  </section>
 
-    <div class="relative overflow-hidden rounded-2xl">
-      <img src="/images/projects/ubuntu /areas/backend.webp" alt="Integración Backend" class="w-full h-56 object-cover opacity-80" />
-      <div class="absolute inset-0 flex flex-col items-center justify-center text-[var(--text-primary)] font-semibold">
-        <h3 class="text-lg">Datos &</h3>
-        <p class="text-2xl text-[var(--brand-blue)] font-bold">Backend</p>
-      </div>
-    </div>
-
-    <div class="relative overflow-hidden rounded-2xl">
-      <img src="/images/projects/ubuntu /areas/ux-ui.webp" alt="Diseño UX/UI" class="w-full h-56 object-cover opacity-80" />
-      <div class="absolute inset-0 flex flex-col items-center justify-center text-[var(--text-primary)] font-semibold">
-        <h3 class="text-lg">Diseño</h3>
-        <p class="text-2xl text-[var(--brand-blue)] font-bold">UX & UI</p>
-      </div>
-    </div>
-
-    <div class="relative overflow-hidden rounded-2xl">
-      <img src="/images/projects/ubuntu /areas/branding.webp" alt="Marca y Comunicación" class="w-full h-56 object-cover opacity-80" />
-      <div class="absolute inset-0 flex flex-col items-center justify-center text-[var(--text-primary)] font-semibold">
-        <h3 class="text-lg">Marca &</h3>
-        <p class="text-2xl text-[var(--brand-blue)] font-bold">Comunicación</p>
-      </div>
-    </div>
-
-    <div class="relative overflow-hidden rounded-2xl">
-      <img src="/images/projects/ubuntu /areas/cms.webp" alt="Gestión de Contenido" class="w-full h-56 object-cover opacity-80" />
-      <div class="absolute inset-0 flex flex-col items-center justify-center text-[var(--text-primary)] font-semibold">
-        <h3 class="text-lg">CMS &</h3>
-        <p class="text-2xl text-[var(--brand-blue)] font-bold">Contenido</p>
-      </div>
-    </div>
-
-    <div class="relative overflow-hidden rounded-2xl">
-      <img src="/images/projects/ubuntu /areas/social.webp" alt="Redes Sociales y Difusión" class="w-full h-56 object-cover opacity-80" />
-      <div class="absolute inset-0 flex flex-col items-center justify-center text-[var(--text-primary)] font-semibold">
-        <h3 class="text-lg">Redes &</h3>
-        <p class="text-2xl text-[var(--brand-blue)] font-bold">Difusión</p>
-      </div>
-    </div>
-  </div>
-
-  <footer class="flex flex-col items-center gap-4">
-    <p class="text-gray-300 max-w-lg">
-      Mi aporte integró desarrollo, comunicación y estrategia digital para construir la identidad y presencia del proyecto Ubuntu.
-    </p>
-    <a href="#proyecto-ubuntu" class="px-5 py-2 rounded-lg bg-blue-600 text-[var(--text-primary)] font-semibold hover:bg-blue-700 transition">
-      SABER MÁS
-    </a>
+  <footer class="flex flex-col items-center gap-6 mt-6">
+    <p class="text-[var(--text-primary)] max-w-lg">El aporte de Lúmina integró desarrollo, comunicación y estrategia digital para construir la identidad y presencia del proyecto Ubuntu.</p>
+    <Link href="#" class="text-[var(--text-button)] hover:text-[var(--text-button)]">Saber más</Link>
   </footer>
 </section>

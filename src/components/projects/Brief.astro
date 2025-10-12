@@ -2,8 +2,8 @@
 import Icon from "../ui/Icon.astro";
 import Link from "../ui/Link.astro";
 
-const { objective, build } = Astro.props;
-const { title = "Laberinto", subtitle = "Técnico" } = Astro.props;
+const { objective, build, results, links } = Astro.props;
+const { title = "Laberinto", subtitle = "Técnico", subtitle2 = "Valor tangible" } = Astro.props;
 
 const tools = [
   { name: "Astro", href: "https://astro.build/", icon: "astro-black" },
@@ -18,36 +18,49 @@ const tools = [
 ];
 ---
 
-<header class="lg:max-w-[1024px] lg:w-full">
-  <h2 class="text-[28px] font-bold text-[var(--text-primary)]">{title}</h2>
-  <p class="text-body-xl font-bold text-[var(--brand-blue)]">{subtitle}</p>
-</header>
-{objective && (
-  <p class="text-[var(--text-primary)]">{objective}</p>
-)}
-{build && (
-  <section class="mb-8">
-    <p class="text-body-xl font-bold text-[var(--brand-blue)]">Ecosistema</p>
-    <p class="text-[var(--text-primary)]" set:html={build}></p>
-  </section>
-)}
-
-<div class="flex flex-col gap-5 my-4 items-center">
-  <p class="text-md italic text-[var(--text-primary)]">Artillería pesada</p>
-  <div class="flex flex-wrap gap-3 justify-center">
-    {tools.map((tool) => (
-      <Link href={tool.href} target="_blank" rel="noopener noreferrer" title={tool.name}>
-        <span class="relative w-10 h-10 inline-block">
-          {tool.icon.endsWith('-black') ? (
-            <>
-              <Icon src={`/icons/tech/${tool.icon}.svg`} size="md" class="dark:hidden" />
-              <Icon src={`/icons/tech/${tool.icon.replace('-black', '-white')}.svg`} size="md" class="hidden dark:inline" />
-            </>
-          ) : (
-            <Icon src={`/icons/tech/${tool.icon}.svg`} size="md" />
-          )}
-        </span>
-      </Link>
-    ))}
+<section>
+  <header class="lg:max-w-[1024px] lg:w-full">
+    <h2 class="text-[28px] font-bold text-[var(--text-primary)]">{title}</h2>
+    <p class="text-body-xl font-bold text-[var(--brand-blue)]">{subtitle}</p>
+  </header>
+  {objective && (
+    <p class="text-[var(--text-primary)]">{objective}</p>
+  )}
+  {build && (
+    <section class="my-10">
+      <p class="text-body-xl font-bold text-[var(--brand-blue)]">Ecosistema</p>
+      <p class="text-[var(--text-primary)]" set:html={build}></p>
+    </section>
+  )}
+  <div class="flex flex-col gap-5 my-10 items-center">
+    <p class="text-md italic text-[var(--text-primary)]">Artillería pesada</p>
+    <div class="flex flex-wrap gap-5 justify-center">
+      {tools.map((tool) => (
+        <Link href={tool.href} target="_blank" rel="noopener noreferrer" title={tool.name}>
+          <span class="relative w-10 h-10 inline-block">
+            {tool.icon.endsWith('-black') ? (
+              <>
+                <Icon src={`/icons/tech/${tool.icon}.svg`} size="md" class="dark:hidden hover:scale-110 transition-transform duration-200 ease-out hover:drop-shadow-lg" />
+                <Icon src={`/icons/tech/${tool.icon.replace('-black', '-white')}.svg`} size="md" class="hidden dark:inline hover:scale-110 transition-transform duration-200 ease-out hover:drop-shadow-lg" />
+              </>
+            ) : (
+              <Icon src={`/icons/tech/${tool.icon}.svg`} size="md" class="hover:scale-110 transition-transform duration-200 ease-out hover:drop-shadow-lg" />
+            )}
+          </span>
+        </Link>
+      ))}
+    </div>
   </div>
-</div>
+  <p class="text-[20px] font-bold text-[var(--brand-blue)]">{subtitle2}</p>
+  {results && (
+    <p class="mb-6 text-[var(--text-primary)]" set:html={results}></p>
+  )}
+  <div class="flex flex-col gap-6 my-4 justify-center">
+    {links?.demo && (
+      <p class="text-[var(--text-primary)]">Sitio web: <a href={links.demo} target="_blank" rel="noopener noreferrer" class="text-[var(--accent-link)] hover:bg-[var(--accent-link)]/10 hover:underline">https://eco-ubuntu.netlify.app/</a></p>
+    )}
+    {links?.github && (
+      <p class="text-[var(--text-primary)]">Repositorio: <a href={links.github} target="_blank" rel="noopener noreferrer" class="text-[var(--accent-link)] hover:bg-[var(--accent-link)]/10 hover:underline">https://github.com/wavival/Ubuntu</a></p>
+    )}
+  </div>
+</section>

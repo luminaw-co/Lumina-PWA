@@ -37,16 +37,17 @@ const projects = defineCollection({
     roadmap: z.array(z.string()).optional(),
     techstack: z.string().optional(),
     results: z.string().optional(),
-    images: z.object({
-      frontend: z.string().optional(),
-      backend: z.string().optional(),
-      uxui: z.string().optional(),
-      cms: z.string().optional(),
-      seo: z.string().optional(),
-      ia: z.string().optional(),
-      other: z.string().optional(),
-    }).optional(),
-    }).optional(),
+    images: z.array(
+      z.object({
+        src: z.string(),
+        alt: z.string(),
+        h3: z.string(),
+        p: z.string(),
+        class: z.string().optional(),
+        imgClass: z.string().optional(),
+      })
+    ).optional(),
+  }),
 });
 
 const blog = defineCollection({

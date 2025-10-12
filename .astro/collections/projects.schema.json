@@ -2,167 +2,169 @@
   "$ref": "#/definitions/projects",
   "definitions": {
     "projects": {
-      "anyOf": [
-        {
-          "not": {}
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
         },
-        {
+        "subtitle": {
+          "type": "string"
+        },
+        "ctas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "label": {
+                "type": "string"
+              },
+              "href": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "label",
+              "href"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "summary": {
           "type": "object",
           "properties": {
-            "title": {
+            "cover": {
               "type": "string"
             },
-            "subtitle": {
+            "note": {
               "type": "string"
-            },
-            "ctas": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "label": {
-                    "type": "string"
-                  },
-                  "href": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "label",
-                  "href"
-                ],
-                "additionalProperties": false
-              }
-            },
-            "summary": {
-              "type": "object",
-              "properties": {
-                "cover": {
-                  "type": "string"
-                },
-                "note": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "cover"
-              ],
-              "additionalProperties": false
-            },
-            "briefTitle": {
-              "type": "string"
-            },
-            "briefText": {
-              "type": "string"
-            },
-            "stack": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              },
-              "default": []
-            },
-            "valueBullets": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              },
-              "default": []
-            },
-            "gallery": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              },
-              "default": []
-            },
-            "href": {
-              "type": "string",
-              "format": "uri"
-            },
-            "links": {
-              "type": "object",
-              "properties": {
-                "github": {
-                  "type": "string",
-                  "format": "uri"
-                },
-                "demo": {
-                  "type": "string",
-                  "format": "uri"
-                },
-                "behance": {
-                  "type": "string",
-                  "format": "uri"
-                }
-              },
-              "additionalProperties": false
-            },
-            "published": {
-              "type": "boolean",
-              "default": true
-            },
-            "objective": {
-              "type": "string"
-            },
-            "build": {
-              "type": "string"
-            },
-            "learnings": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "roadmap": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "techstack": {
-              "type": "string"
-            },
-            "results": {
-              "type": "string"
-            },
-            "images": {
-              "type": "object",
-              "properties": {
-                "frontend": {
-                  "type": "string"
-                },
-                "backend": {
-                  "type": "string"
-                },
-                "uxui": {
-                  "type": "string"
-                },
-                "cms": {
-                  "type": "string"
-                },
-                "seo": {
-                  "type": "string"
-                },
-                "ia": {
-                  "type": "string"
-                },
-                "other": {
-                  "type": "string"
-                }
-              },
-              "additionalProperties": false
             }
           },
           "required": [
-            "title",
-            "summary",
-            "briefTitle",
-            "briefText"
+            "cover"
           ],
           "additionalProperties": false
+        },
+        "briefTitle": {
+          "type": "string"
+        },
+        "briefText": {
+          "type": "string"
+        },
+        "stack": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        },
+        "valueBullets": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        },
+        "gallery": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        },
+        "href": {
+          "type": "string",
+          "format": "uri"
+        },
+        "links": {
+          "type": "object",
+          "properties": {
+            "github": {
+              "type": "string",
+              "format": "uri"
+            },
+            "demo": {
+              "type": "string",
+              "format": "uri"
+            },
+            "behance": {
+              "type": "string",
+              "format": "uri"
+            }
+          },
+          "additionalProperties": false
+        },
+        "published": {
+          "type": "boolean",
+          "default": true
+        },
+        "objective": {
+          "type": "string"
+        },
+        "build": {
+          "type": "string"
+        },
+        "learnings": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "roadmap": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "techstack": {
+          "type": "string"
+        },
+        "results": {
+          "type": "string"
+        },
+        "images": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "src": {
+                "type": "string"
+              },
+              "alt": {
+                "type": "string"
+              },
+              "h3": {
+                "type": "string"
+              },
+              "p": {
+                "type": "string"
+              },
+              "class": {
+                "type": "string"
+              },
+              "imgClass": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "src",
+              "alt",
+              "h3",
+              "p"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "$schema": {
+          "type": "string"
         }
-      ]
+      },
+      "required": [
+        "title",
+        "summary",
+        "briefTitle",
+        "briefText"
+      ],
+      "additionalProperties": false
     }
   },
   "$schema": "http://json-schema.org/draft-07/schema#"

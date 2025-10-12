@@ -1,10 +1,16 @@
 ---
+import Link from '../ui/Link.astro';
+
 const { data, cover, note } = Astro.props;
 ---
 
-{cover && (
-    <figure class="w-full max-w-[25rem] overflow-hidden shadow-lg shadow-[var(--shadow-base)] rounded-lg mx-auto bg-[var(--bg-card)]">
+<section>
+  {cover && (
+    <Link href={data.links?.demo || '#'} target="_blank" rel="noopener noreferrer">
+      <figure class="w-full max-w-[25rem] overflow-hidden shadow-lg shadow-[var(--shadow-base)] rounded-lg mx-auto bg-[var(--bg-card)] hover:scale-[1.01] transition-transform duration-400 ease-out hover:drop-shadow-lg cursor-pointer">
         <img src={cover} alt={data.title} loading="lazy" decoding="async" class="w-full h-auto object-cover" />
-        {note && <figcaption class="p-2 italic text-[var(--text-primary)] text-sm text-center">{note}</figcaption>}
-    </figure>
-)}
+        {note && <figcaption class="p-2 italic text-[var(--text-primary)] text-sm text-center lowercase">{note}</figcaption>}
+      </figure>
+    </Link>
+  )}
+</section>
