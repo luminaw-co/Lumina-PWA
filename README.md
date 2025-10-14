@@ -66,8 +66,6 @@ Todo el diseño, desarrollo y dirección creativa fue realizado por mí. Algunos
 
 > Creado entre café, música y muchas iteraciones. ☕🎧  
 
----
-
 © 2025 **Valentina Ramírez** · Todos los derechos reservados.
 
 El diseño, desarrollo y contenido de este sitio son propiedad de su autora.  
