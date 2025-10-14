@@ -70,4 +70,7 @@ Todo el diseño, desarrollo y dirección creativa fue realizado por mí. Algunos
 
 © 2025 **Valentina Ramírez** · Todos los derechos reservados.
 
+El diseño, desarrollo y contenido de este sitio son propiedad de su autora.  
+No se autoriza su uso ni redistribución sin consentimiento previo.  
+
 🌐 [luminaw.co](https://luminaw.co)
