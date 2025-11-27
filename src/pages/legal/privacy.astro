@@ -1,81 +1,141 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import Link from "../../components/ui/Link.astro";
-import Icon from "../../components/ui/Icon.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Link from "@/components/ui/Link.astro";
+import Icon from "@/components/ui/Icon.astro";
 export const prerender = true;
 
 const lastUpdated = "24 de septiembre de 2025";
 ---
 
 <BaseLayout title="Privacidad - Lúmina">
-  <main class="min-h-screen bg-[var(--bg-page)] px-6 py-[var(--space-64)]">
-    <article class="mx-auto max-w-3xl bg-[var(--bg-card)] border border-[var(--border-base)] rounded-[var(--radius-lg)] shadow-[var(--shadow-base)] p-[var(--space-32)] md:p-[var(--space-40)] space-y-[var(--space-32)]">
-      <header class="space-y-[var(--space-16)] text-center">
-        <div class="flex justify-center">
-          <Icon src="/icons/illustrations/highlights/user-research.svg" size="lg" />
-        </div>
-        <h1 class="font-bold text-[24px] text-[var(--brand-blue)]">Política de Privacidad</h1>
-        <p class=" text-[var(--text-primary)] opacity-80">Última actualización: {lastUpdated}</p>
-      </header>
+	<main class="min-h-screen bg-[var(--bg-page)] px-6 py-[var(--space-64)]">
+		<article
+			class="mx-auto max-w-3xl bg-[var(--bg-card)] border border-[var(--border-base)] rounded-[var(--radius-lg)] shadow-[var(--shadow-base)] p-[var(--space-32)] md:p-[var(--space-40)] space-y-[var(--space-32)]"
+		>
+			<header class="space-y-[var(--space-16)] text-center">
+				<div class="flex justify-center">
+					<Icon
+						src="/icons/illustrations/highlights/user-research.svg"
+						size="lg"
+					/>
+				</div>
+				<h1 class="font-bold text-[24px] text-[var(--brand-blue)]">
+					Política de Privacidad
+				</h1>
+				<p class="text-[var(--text-primary)] opacity-80">
+					Última actualización: {lastUpdated}
+				</p>
+			</header>
 
-      <section class="space-y-[var(--space-12)]">
-        <p class="text-[var(--text-primary)] opacity-90">En <strong>Lúmina</strong> valoramos tu privacidad. Esta política explica de forma simple qué datos podríamos recopilar, para qué los usamos y qué opciones tienes.</p>
-      </section>
+			<section class="space-y-[var(--space-12)]">
+				<p class="text-[var(--text-primary)] opacity-90">
+					En <strong>Lúmina</strong> valoramos tu privacidad. Esta política
+					explica de forma simple qué datos podríamos recopilar, para qué
+					los usamos y qué opciones tienes.
+				</p>
+			</section>
 
-      <section class="space-y-[var(--space-12)]">
-        <h2 class="font-semibold text-[var(--brand-blue)]">Qué datos podríamos recopilar</h2>
-        <ul class="list-disc pl-6 space-y-2 text-[var(--text-primary)]">
-          <li>Datos de uso del sitio (páginas visitadas, tiempo de permanencia, dispositivo/navegador).</li>
-          <li>Datos que compartes voluntariamente (por ejemplo, al escribirnos por el formulario o correo).</li>
-          <li>Cookies o tecnologías similares para mejorar la experiencia (ver “Cookies”).</li>
-        </ul>
-      </section>
+			<section class="space-y-[var(--space-12)]">
+				<h2 class="font-semibold text-[var(--brand-blue)]">
+					Qué datos podríamos recopilar
+				</h2>
+				<ul class="list-disc pl-6 space-y-2 text-[var(--text-primary)]">
+					<li>
+						Datos de uso del sitio (páginas visitadas, tiempo de
+						permanencia, dispositivo/navegador).
+					</li>
+					<li>
+						Datos que compartes voluntariamente (por ejemplo, al
+						escribirnos por el formulario o correo).
+					</li>
+					<li>
+						Cookies o tecnologías similares para mejorar la
+						experiencia (ver “Cookies”).
+					</li>
+				</ul>
+			</section>
 
-      <section class="space-y-[var(--space-12)]">
-        <h2 class="font-semibold text-[var(--brand-blue)]">Para qué usamos la información</h2>
-        <ul class="list-disc pl-6 space-y-2 text-[var(--text-primary)]">
-          <li>Mejorar el contenido, el rendimiento y la accesibilidad del sitio.</li>
-          <li>Responder a tus mensajes y brindarte soporte.</li>
-          <li>Medir qué secciones son más útiles para seguir iterando el producto.</li>
-        </ul>
-      </section>
+			<section class="space-y-[var(--space-12)]">
+				<h2 class="font-semibold text-[var(--brand-blue)]">
+					Para qué usamos la información
+				</h2>
+				<ul class="list-disc pl-6 space-y-2 text-[var(--text-primary)]">
+					<li>
+						Mejorar el contenido, el rendimiento y la accesibilidad
+						del sitio.
+					</li>
+					<li>Responder a tus mensajes y brindarte soporte.</li>
+					<li>
+						Medir qué secciones son más útiles para seguir iterando
+						el producto.
+					</li>
+				</ul>
+			</section>
 
-      <section class="space-y-[var(--space-12)]">
-        <h2 class="font-semibold text-[var(--brand-blue)]">Cookies</h2>
-        <p class="text-[var(--text-primary)]">
-          Usamos cookies para recordar preferencias y entender cómo navegas. Puedes desactivarlas desde la configuración de tu navegador; algunas funciones podrían verse limitadas.
-        </p>
-      </section>
+			<section class="space-y-[var(--space-12)]">
+				<h2 class="font-semibold text-[var(--brand-blue)]">Cookies</h2>
+				<p class="text-[var(--text-primary)]">
+					Usamos cookies para recordar preferencias y entender cómo
+					navegas. Puedes desactivarlas desde la configuración de tu
+					navegador; algunas funciones podrían verse limitadas.
+				</p>
+			</section>
 
-      <section class="space-y-[var(--space-12)]">
-        <h2 class="font-semibold text-[var(--brand-blue)]">Servicios de terceros</h2>
-        <p class="text-[var(--text-primary)]">
-          Podemos usar herramientas de análisis o embeds de terceros. Estos servicios tienen sus propias políticas. Te recomendamos revisarlas si interactúas con ellos.
-        </p>
-      </section>
+			<section class="space-y-[var(--space-12)]">
+				<h2 class="font-semibold text-[var(--brand-blue)]">
+					Servicios de terceros
+				</h2>
+				<p class="text-[var(--text-primary)]">
+					Podemos usar herramientas de análisis o embeds de terceros.
+					Estos servicios tienen sus propias políticas. Te
+					recomendamos revisarlas si interactúas con ellos.
+				</p>
+			</section>
 
-      <section class="space-y-[var(--space-12)]">
-        <h2 class="font-semibold  text-[var(--brand-blue)]">Tus derechos</h2>
-        <ul class="list-disc pl-6 space-y-2 text-[var(--text-primary)]">
-          <li>Acceder o actualizar tus datos si los proporcionaste.</li>
-          <li>Solicitar la eliminación de tu información personal cuando sea aplicable.</li>
-          <li>Optar por no recibir comunicaciones.</li>
-        </ul>
-        <p class="text-[var(--text-primary)]">
-          Escríbenos a
-          <a href="mailto:wavival.dev@luminaw.co" class="rounded-md px-1 text-[var(--accent-link)] hover:bg-[var(--accent-link)]/10">wavival.dev@luminaw.co</a>
-          para ejercer tus derechos o resolver dudas.
-        </p>
-      </section>
+			<section class="space-y-[var(--space-12)]">
+				<h2 class="font-semibold text-[var(--brand-blue)]">
+					Tus derechos
+				</h2>
+				<ul class="list-disc pl-6 space-y-2 text-[var(--text-primary)]">
+					<li>
+						Acceder o actualizar tus datos si los proporcionaste.
+					</li>
+					<li>
+						Solicitar la eliminación de tu información personal
+						cuando sea aplicable.
+					</li>
+					<li>Optar por no recibir comunicaciones.</li>
+				</ul>
+				<p class="text-[var(--text-primary)]">
+					Escríbenos a
+					<a
+						href="mailto:wavival.dev@luminaw.co"
+						class="rounded-md px-1 text-[var(--accent-link)] hover:bg-[var(--accent-link)]/10"
+						>wavival.dev@luminaw.co</a
+					>
+					para ejercer tus derechos o resolver dudas.
+				</p>
+			</section>
 
-      <section class="space-y-[var(--space-12)]">
-        <h2 class="font-semibold text-[var(--brand-blue)]">Cambios a esta política</h2>
-        <p class="text-[var(--text-primary)]">Podemos actualizar esta política para reflejar mejoras del sitio o requisitos legales. Publicaremos la versión vigente en esta página.</p>
-      </section>
+			<section class="space-y-[var(--space-12)]">
+				<h2 class="font-semibold text-[var(--brand-blue)]">
+					Cambios a esta política
+				</h2>
+				<p class="text-[var(--text-primary)]">
+					Podemos actualizar esta política para reflejar mejoras del
+					sitio o requisitos legales. Publicaremos la versión vigente
+					en esta página.
+				</p>
+			</section>
 
-      <footer class="pt-[var(--space-16)] flex justify-center">
-        <Link href="/" rel="noopener" class="self-center text-[var(--accent-link)] hover:bg-[var(--accent-link)]/10">Volver al inicio</Link>
-      </footer>
-    </article>
-  </main>
+			<footer class="pt-[var(--space-16)] flex justify-center">
+				<Link
+					href="/"
+					rel="noopener"
+					class="self-center text-[var(--accent-link)] hover:bg-[var(--accent-link)]/10"
+					>Volver al inicio</Link
+				>
+			</footer>
+		</article>
+	</main>
 </BaseLayout>

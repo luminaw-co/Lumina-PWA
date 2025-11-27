@@ -1,74 +1,118 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import Link from "../../components/ui/Link.astro";
-import Icon from "../../components/ui/Icon.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Link from "@/components/ui/Link.astro";
+import Icon from "@/components/ui/Icon.astro";
 export const prerender = true;
 
 const lastUpdated = "24 de septiembre de 2025";
 ---
 
 <BaseLayout title="Condiciones de uso - Lúmina">
-  <main class="min-h-screen bg-[var(--bg-page)] px-6 py-[var(--space-64)]">
-    <article class="mx-auto max-w-3xl bg-[var(--bg-card)] border border-[var(--border-base)] rounded-[var(--radius-lg)] shadow-[var(--shadow-base)] p-[var(--space-32)] md:p-[var(--space-40)] space-y-[var(--space-32)]">
-      <header class="space-y-[var(--space-16)] text-center">
-        <div class="flex justify-center">
-          <Icon src="/icons/illustrations/highlights/automation.svg" size="lg" />
-        </div>
-        <h1 class="font-bold text-[24px] text-[var(--brand-blue)]">Condiciones de Uso</h1>
-        <p class="text-[var(--text-primary)] opacity-80">Última actualización: {lastUpdated}</p>
-      </header>
+	<main class="min-h-screen bg-[var(--bg-page)] px-6 py-[var(--space-64)]">
+		<article
+			class="mx-auto max-w-3xl bg-[var(--bg-card)] border border-[var(--border-base)] rounded-[var(--radius-lg)] shadow-[var(--shadow-base)] p-[var(--space-32)] md:p-[var(--space-40)] space-y-[var(--space-32)]"
+		>
+			<header class="space-y-[var(--space-16)] text-center">
+				<div class="flex justify-center">
+					<Icon
+						src="/icons/illustrations/highlights/automation.svg"
+						size="lg"
+					/>
+				</div>
+				<h1 class="font-bold text-[24px] text-[var(--brand-blue)]">
+					Condiciones de Uso
+				</h1>
+				<p class="text-[var(--text-primary)] opacity-80">
+					Última actualización: {lastUpdated}
+				</p>
+			</header>
 
-      <section class="space-y-[var(--space-12)]">
-        <p class="text-[var(--text-primary)] opacity-90">
-          Al acceder y utilizar <strong>Lúmina</strong>, aceptas estas condiciones de uso. Te pedimos leerlas con atención, ya que establecen los términos básicos de nuestra relación contigo como usuario.
-        </p>
-      </section>
+			<section class="space-y-[var(--space-12)]">
+				<p class="text-[var(--text-primary)] opacity-90">
+					Al acceder y utilizar <strong>Lúmina</strong>, aceptas estas
+					condiciones de uso. Te pedimos leerlas con atención, ya que
+					establecen los términos básicos de nuestra relación contigo
+					como usuario.
+				</p>
+			</section>
 
-      <section class="space-y-[var(--space-12)]">
-        <h2 class="font-semibold text-[var(--brand-blue)]">Uso permitido</h2>
-        <ul class="list-disc pl-6 space-y-2 text-[var(--text-primary)]">
-          <li>Usar el sitio únicamente con fines personales y no comerciales.</li>
-          <li>No alterar, modificar o dañar el contenido ni la infraestructura del sitio.</li>
-          <li>Respetar los derechos de autor y propiedad intelectual de nuestros contenidos.</li>
-        </ul>
-      </section>
+			<section class="space-y-[var(--space-12)]">
+				<h2 class="font-semibold text-[var(--brand-blue)]">
+					Uso permitido
+				</h2>
+				<ul class="list-disc pl-6 space-y-2 text-[var(--text-primary)]">
+					<li>
+						Usar el sitio únicamente con fines personales y no
+						comerciales.
+					</li>
+					<li>
+						No alterar, modificar o dañar el contenido ni la
+						infraestructura del sitio.
+					</li>
+					<li>
+						Respetar los derechos de autor y propiedad intelectual
+						de nuestros contenidos.
+					</li>
+				</ul>
+			</section>
 
-      <section class="space-y-[var(--space-12)]">
-        <h2 class="font-semibold text-[var(--brand-blue)]">Limitación de responsabilidad</h2>
-        <p class="text-[var(--text-primary)]">
-          Aunque buscamos ofrecer un servicio estable y seguro, <strong>Lúmina</strong> no se responsabiliza por interrupciones temporales, errores en la información publicada o el uso que hagas de ella.
-        </p>
-      </section>
+			<section class="space-y-[var(--space-12)]">
+				<h2 class="font-semibold text-[var(--brand-blue)]">
+					Limitación de responsabilidad
+				</h2>
+				<p class="text-[var(--text-primary)]">
+					Aunque buscamos ofrecer un servicio estable y seguro, <strong
+						>Lúmina</strong
+					> no se responsabiliza por interrupciones temporales, errores
+					en la información publicada o el uso que hagas de ella.
+				</p>
+			</section>
 
-      <section class="space-y-[var(--space-12)]">
-        <h2 class="font-semibold text-[var(--brand-blue)]">Contenido de terceros</h2>
-        <p class="text-[var(--text-primary)]">
-          Nuestro sitio puede contener enlaces o integraciones de terceros. <strong>Lúmina</strong> no controla ni se responsabiliza por las prácticas, políticas o contenidos de estos sitios externos.
-        </p>
-      </section>
+			<section class="space-y-[var(--space-12)]">
+				<h2 class="font-semibold text-[var(--brand-blue)]">
+					Contenido de terceros
+				</h2>
+				<p class="text-[var(--text-primary)]">
+					Nuestro sitio puede contener enlaces o integraciones de
+					terceros. <strong>Lúmina</strong> no controla ni se responsabiliza
+					por las prácticas, políticas o contenidos de estos sitios externos.
+				</p>
+			</section>
 
-      <section class="space-y-[var(--space-12)]">
-        <h2 class="font-semibold text-[var(--brand-blue)]">Modificaciones</h2>
-        <p class="text-[var(--text-primary)]">
-          Podemos modificar estas condiciones cuando sea necesario. Publicaremos la versión vigente en esta misma página, y el uso continuado del sitio implica la aceptación de los cambios.
-        </p>
-      </section>
+			<section class="space-y-[var(--space-12)]">
+				<h2 class="font-semibold text-[var(--brand-blue)]">
+					Modificaciones
+				</h2>
+				<p class="text-[var(--text-primary)]">
+					Podemos modificar estas condiciones cuando sea necesario.
+					Publicaremos la versión vigente en esta misma página, y el
+					uso continuado del sitio implica la aceptación de los
+					cambios.
+				</p>
+			</section>
 
-      <section class="space-y-[var(--space-12)]">
-        <h2 class="font-semibold text-[var(--brand-blue)]">Contacto</h2>
-        <p class="text-[var(--text-primary)]">
-          Si tienes preguntas sobre estas condiciones, escríbenos a
-          <a href="mailto:wavival.dev@luminaw.co" class="rounded-md px-1 text-[var(--accent-link)] hover:bg-[var(--accent-link)]/10">
-            wavival.dev@luminaw.co
-          </a>.
-        </p>
-      </section>
+			<section class="space-y-[var(--space-12)]">
+				<h2 class="font-semibold text-[var(--brand-blue)]">Contacto</h2>
+				<p class="text-[var(--text-primary)]">
+					Si tienes preguntas sobre estas condiciones, escríbenos a
+					<a
+						href="mailto:wavival.dev@luminaw.co"
+						class="rounded-md px-1 text-[var(--accent-link)] hover:bg-[var(--accent-link)]/10"
+					>
+						wavival.dev@luminaw.co
+					</a>.
+				</p>
+			</section>
 
-      <footer class="pt-[var(--space-16)] flex justify-center">
-        <Link href="/" rel="noopener" class="self-center text-[var(--accent-link)] hover:bg-[var(--accent-link)]/10">
-          Volver al inicio
-        </Link>
-      </footer>
-    </article>
-  </main>
+			<footer class="pt-[var(--space-16)] flex justify-center">
+				<Link
+					href="/"
+					rel="noopener"
+					class="self-center text-[var(--accent-link)] hover:bg-[var(--accent-link)]/10"
+				>
+					Volver al inicio
+				</Link>
+			</footer>
+		</article>
+	</main>
 </BaseLayout>

@@ -1,17 +1,29 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import Link from "../components/ui/Link.astro";
-import Icon from "../components/ui/Icon.astro";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Link from "@/components/ui/Link.astro";
+import Icon from "@/components/ui/Icon.astro";
 export const prerender = true;
 ---
 
 <BaseLayout title="Error 404 - Lúmina">
-  <main class="h-screen grid place-items-center px-6 text-center bg-[var(--bg-page)] m-0 p-56 gap-[24px]">
-    <div class="flex flex-col gap-[24px] items-center">
-      <Icon src="/icons/illustrations/highlights/coffee.svg" size="lg" />
-      <h1 class="text-[36px] font-bold text-[var(--brand-blue)]">Oh, no... 404</h1>
-      <p class="text-[var(--text-primary)] opacity-90 max-w-[30rem]">Lo sentimos, no encontramos la página que estabas buscando. Tal vez quieras volver al inicio.</p>
-    </div>
-    <Link href="/" rel="noopener" class="inline-flex items-center justify-center rounded-md text-[var(--accent-link)] hover:bg-[var(--accent-link)]/10">Volver al inicio</Link>
-  </main>
+	<main
+		class="h-screen grid place-items-center px-6 text-center bg-[var(--bg-page)] m-0 p-56 gap-[24px]"
+	>
+		<div class="flex flex-col gap-[24px] items-center">
+			<Icon src="/icons/illustrations/highlights/coffee.svg" size="lg" />
+			<h1 class="text-[36px] font-bold text-[var(--brand-blue)]">
+				Oh, no... 404
+			</h1>
+			<p class="text-[var(--text-primary)] opacity-90 max-w-[30rem]">
+				Lo sentimos, no encontramos la página que estabas buscando. Tal
+				vez quieras volver al inicio.
+			</p>
+		</div>
+		<Link
+			href="/"
+			rel="noopener"
+			class="inline-flex items-center justify-center rounded-md text-[var(--accent-link)] hover:bg-[var(--accent-link)]/10"
+			>Volver al inicio</Link
+		>
+	</main>
 </BaseLayout>

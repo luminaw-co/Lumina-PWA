@@ -1,0 +1,44 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Hero from "@/components/home/Hero.astro";
+import LabPreview from "@/components/home/LabPreview.astro";
+import AboutPreview from "@/components/home/AboutPreview.astro";
+import CtaContact from "@/components/home/CtaContact.astro";
+import "@/styles/global.css";
+
+const labProjects = [
+	{
+		title: "Ubuntu",
+		slug: "ubuntu",
+		cover: "/images/projects/ubuntu /icon.svg",
+		alt: "Icono de la marca Ubuntu",
+		href: "/projects/ubuntu",
+		links: {
+			site: "#",
+			github: "https://github.com/wavival/Ubuntu",
+		},
+	},
+	{
+		title: "CryptoNest",
+		slug: "cryptonest",
+		cover: "/images/projects/cryptonest/icon.svg",
+		alt: "Icono de CryptoNest",
+		links: {
+			github: "https://github.com/wavival/cryptonest",
+		},
+	},
+];
+---
+
+<BaseLayout title="Lúmina Portfolio">
+	<Hero
+		primary={{ label: "Ver Proyectos", href: "/projects" }}
+		secondary={{ label: "Contáctame", href: "/contact" }}
+	/>
+
+	<LabPreview projects={labProjects} id="projects" />
+
+	<AboutPreview id="about" />
+
+	<CtaContact />
+</BaseLayout>

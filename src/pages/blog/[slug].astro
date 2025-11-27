@@ -1,19 +1,36 @@
 ---
 import { getCollection } from "astro:content";
-import BlogLayout from "../../layouts/BlogLayout.astro";
+import BlogLayout from "@/layouts/BlogLayout.astro";
 
 export async function getStaticPaths() {
-  const posts = await getCollection("blog", ({ data }) => !data.draft);
-  return posts.map((post) => ({ params: { slug: post.slug }, props: { post } }));
+	const posts = await getCollection("blog", ({ data }) => !data.draft);
+	return posts.map((post) => ({
+		params: { slug: post.slug },
+		props: { post },
+	}));
 }
 const { post } = Astro.props;
 const { Content } = await post.render();
 ---
-<BlogLayout pageTitle={`${post.data.title} — Lúmina Blog`} pageDescription={post.data.excerpt}>
-  <article class="prose max-w-none font-['Raleway']">
-    <h1 class="!font-['Poppins']">{post.data.title}</h1>
-    <p class="text-sm opacity-70">{new Date(post.data.date).toLocaleDateString('es-CO')}</p>
-    {post.data.cover && <img src={post.data.cover} alt={post.data.title} class="rounded-xl my-4" />}
-    <Content />
-  </article>
+
+<BlogLayout
+	pageTitle={`${post.data.title} — Lúmina Blog`}
+	pageDescription={post.data.excerpt}
+>
+	<article class="prose max-w-none font-['Raleway']">
+		<h1 class="!font-['Poppins']">{post.data.title}</h1>
+		<p class="text-sm opacity-70">
+			{new Date(post.data.date).toLocaleDateString("es-CO")}
+		</p>
+		{
+			post.data.cover && (
+				<img
+					src={post.data.cover}
+					alt={post.data.title}
+					class="rounded-xl my-4"
+				/>
+			)
+		}
+		<Content />
+	</article>
 </BlogLayout>
