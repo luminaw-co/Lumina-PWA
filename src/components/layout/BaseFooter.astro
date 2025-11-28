@@ -1,14 +1,55 @@
 ---
 import Link from "@/components/ui/Link.astro";
 import Container from "@/components/ui/Container.astro";
+import { services } from "@/data/services";
 
 const year = new Date().getFullYear();
-const links = [
-	{ href: "/legal/privacy", label: "Privacidad" },
-	{ href: "/legal/conditions", label: "Condiciones" },
-	{ href: "/blog/", label: "Blog" },
-	{ href: "/", label: "Inicio" },
+
+const enterpriseLinks = [
+	{ href: "/enterprise/us", label: "Nosotros" },
+	{ href: "/enterprise/cases", label: "Proyectos" },
+	{ href: "/enterprise/contact", label: "Contacto" },
 ];
+
+const servicesLinks = [
+	{ slug: "web", title: "Desarrollo Web" },
+	{ slug: "ux-ui", title: "UX/UI" },
+	{ slug: "automatizaciones", title: "Automatizaciones" },
+	{ slug: "ia", title: "Inteligencia A.I." },
+	{ slug: "ciberseguridad", title: "Ciberseguridad" },
+	{ slug: "consultoria", title: "Consultoría" },
+];
+
+const resourcesLinks = [
+	{ href: "/blog/", label: "Blog" },
+	{ href: "/enterprise/cases", label: "Casos de éxito" },
+	{ href: "/enterprise/culture", label: "Cultura de equipo" },
+	{ href: "/enterprise/jobs", label: "Trabaja con nosotros" },
+];
+
+const legalLinks = [
+	{ href: "/legal/conditions", label: "Términos y condiciones" },
+	{ href: "/legal/privacy", label: "Política de privacidad" },
+];
+
+const socialLinks = [
+	{
+		href: "https://www.linkedin.com/company/luminaw",
+		icon: "/icons/social/linkedin.svg",
+		label: "LinkedIn",
+	},
+	{
+		href: "https://github.com/luminaw",
+		icon: "/icons/social/github.svg",
+		label: "GitHub",
+	},
+	{
+		href: "https://www.instagram.com/luminaw",
+		icon: "/icons/social/instagram.svg",
+		label: "Instagram",
+	},
+];
+
 const icons = [
 	{
 		src: "/brand/lumina-logo-light.svg",
@@ -23,40 +64,133 @@ const icons = [
 ];
 ---
 
-<footer class="base-footer bg-bg-card/90">
-	<Container class="ctn-footer">
-		<nav
-			aria-label="Footer"
-			class="inline-flex justify-center items-center gap-32"
+<footer class="base-footer border-t border-white/10 pt-16 pb-8 px-4">
+	<Container class="max-w-7xl mx-auto flex flex-col gap-16">
+		<div
+			class="flex-col-center-10 md:flex-row md:items-start md:gap-16 flex"
 		>
-			{
-				links.slice(0, 3).map((link) => (
-					<Link href={link.href} class="nav-link">
-						{link.label}
-					</Link>
-				))
-			}
-		</nav>
-
-		<Container class="inline-flex-center gap-16 md:justify-end">
-			<a
-				href={links[3].href}
-				aria-label={links[3].label}
-				class="flex items-center gap-3"
+			<div class="flex-1 flex flex-col gap-4 min-w-[220px]">
+				<a
+					href={icons[3].href}
+					aria-label={icons[3].label}
+					class="flex items-center gap-3"
+				>
+					{
+						icons.map((icon) => (
+							<img
+								src={icon.src}
+								alt={icon.alt}
+								class={`h-32 ${icon.show === "light" ? "dark:hidden" : "hidden dark:block"}`}
+							/>
+						))
+					}
+				</a>
+				<p class="font-bold text-lg">Lúmina</p>
+				<p class="text-sm text-white/70">
+					Diseño, desarrollo y estrategia para negocios reales.
+				</p>
+				<div class="flex gap-3 mt-2">
+					{
+						socialLinks.map((s) => (
+							<a
+								href={s.href}
+								target="_blank"
+								rel="noopener noreferrer"
+								aria-label={s.label}
+								class="inline-flex-center w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 transition"
+							>
+								<img
+									src={s.icon}
+									alt={s.label}
+									class="w-5 h-5"
+								/>
+							</a>
+						))
+					}
+				</div>
+			</div>
+			<!-- Navegación -->
+			<div
+				class="flex-1 grid grid-cols-1 sm:grid-cols-3 gap-8 w-full mt-10 md:mt-0"
 			>
+				<div>
+					<p class="font-semibold mb-3 text-white/90">Empresa</p>
+					<ul class="flex flex-col gap-2">
+						{
+							enterpriseLinks.map((l) => (
+								<li>
+									<Link
+										href={l.href}
+										class="hover:underline text-white/80"
+									>
+										{l.label}
+									</Link>
+								</li>
+							))
+						}
+					</ul>
+				</div>
+				<div>
+					<p class="font-semibold mb-3 text-white/90">Servicios</p>
+					<ul class="flex flex-col gap-2">
+						{
+							servicesLinks.map((s) => (
+								<li>
+									<Link
+										href={`/enterprise/services/${s.slug}`}
+										class="hover:underline text-white/80"
+									>
+										{s.title}
+									</Link>
+								</li>
+							))
+						}
+					</ul>
+				</div>
+				<div>
+					<p class="font-semibold mb-3 text-white/90">Recursos</p>
+					<ul class="flex flex-col gap-2">
+						{
+							resourcesLinks.map((l) => (
+								<li>
+									<Link
+										href={l.href}
+										class="hover:underline text-white/80"
+									>
+										{l.label}
+									</Link>
+								</li>
+							))
+						}
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<!-- Datos de contacto -->
+		<div class="flex-col-center-6 mt-8 mb-4">
+			<p class="text-white/80 text-sm">contacto@lumina.dev</p>
+			<p class="text-white/60 text-xs">Medellín, Colombia (o remoto)</p>
+		</div>
+
+		<!-- Legal + copyright -->
+		<div
+			class="max-w-7xl mx-auto pt-8 border-t border-white/10 flex-col-center-6 md:flex-row md:items-center md:justify-between gap-4 text-xs text-white/60"
+		>
+			<div class="flex gap-4">
 				{
-					icons.map((icon) => (
-						<img
-							src={icon.src}
-							alt={icon.alt}
-							class={`h-32 ${icon.show === "light" ? "dark:hidden" : "hidden dark:block"}`}
-						/>
+					legalLinks.map((l) => (
+						<Link href={l.href} class="hover:underline">
+							{l.label}
+						</Link>
 					))
 				}
-			</a>
-			<span class="text-body-xs text-[var(--text-primary)]">
-				© Lúmina {year}
-			</span>
-		</Container>
+			</div>
+
+			<span>© {year} Lúmina. Todos los derechos reservados.</span>
+			<span class="text-white/40"
+				>Powered by Lúmina 💘 Hecho en LATAM.</span
+			>
+		</div>
 	</Container>
 </footer>

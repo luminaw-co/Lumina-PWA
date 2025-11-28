@@ -62,18 +62,46 @@ const isActive = (href: string) => pathname.startsWith(href);
 						>
 							{l.label === "Servicios" ? (
 								<>
-									<Link
-										href={l.href}
-										aria-current={
-											isActive(l.href)
-												? "page"
-												: undefined
-										}
-										tabindex="0"
+									<div class="flex items-center select-none">
+										<Link
+											href={l.href}
+											aria-current={
+												isActive(l.href)
+													? "page"
+													: undefined
+											}
+											tabindex="0"
+										>
+											{l.label}
+										</Link>
+										<button
+											type="button"
+											class="flex items-center justify-center w-6 h-6 hover:bg-[var(--ui-hover)]/20 transition"
+											id="services-drop-toggle"
+											aria-label="Mostrar menú de servicios"
+											tabindex="0"
+										>
+											<svg
+												class="w-10 h-10 transition-transform duration-200 pointer-events-none"
+												viewBox="0 0 20 20"
+												fill="none"
+												xmlns="http://www.w3.org/2000/svg"
+												id="services-drop-arrow"
+											>
+												<path
+													d="M6 8L10 12L14 8"
+													stroke="#1E90FF"
+													stroke-width="2"
+													stroke-linecap="round"
+													stroke-linejoin="round"
+												/>
+											</svg>
+										</button>
+									</div>
+									<ul
+										class="drop-menu"
+										id="services-drop-menu"
 									>
-										{l.label}
-									</Link>
-									<ul class="drop-menu">
 										{serviceLinks.map((s) => (
 											<li class="relative group/item">
 												<Link
@@ -149,9 +177,9 @@ const isActive = (href: string) => pathname.startsWith(href);
 
 	<Container
 		class="hidden md:flex fixed w-full left-0 z-40 justify-end items-center gap-4 px-32"
-		style="top: 5.5rem; background: none; pointer-events: none; height: 0;"
+		style="top: 6.0rem; height: 0;"
 	>
-		<div class="flex gap-4 pointer-events-auto">
+		<div class="flex gap-4 items-center justify-center">
 			<Link href="/portfolio/" style="padding: 0.75rem 1.25rem;">
 				Portfolio
 			</Link>
@@ -310,6 +338,35 @@ const isActive = (href: string) => pathname.startsWith(href);
 				});
 			}
 
+			// Dropmenu Servicios: click para fijar
+			const dropToggle = document.getElementById("services-drop-toggle");
+			const dropMenu = document.getElementById("services-drop-menu");
+			const dropArrow = document.getElementById("services-drop-arrow");
+			const dropGroup = document.getElementById("services-group");
+			let dropFixed = false;
+
+			if (dropToggle && dropMenu && dropArrow && dropGroup) {
+				dropToggle.addEventListener("click", (e) => {
+					e.stopPropagation();
+					dropFixed = !dropFixed;
+					dropGroup.classList.toggle("drop-fixed", dropFixed);
+					dropArrow.classList.toggle("rotate-180", dropFixed);
+				});
+
+				document.addEventListener("click", (e) => {
+					if (
+						dropFixed &&
+						!dropMenu.contains(e.target) &&
+						!dropToggle.contains(e.target)
+					) {
+						dropFixed = false;
+						dropGroup.classList.remove("drop-fixed");
+						dropArrow.classList.remove("rotate-180");
+					}
+				});
+			}
+
+			// Theme toggles
 			const ids = ["theme-toggle", "theme-toggle-mobile"];
 			const toggles = ids
 				.map((id) => document.getElementById(id))
