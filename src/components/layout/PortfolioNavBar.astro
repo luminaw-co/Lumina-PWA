@@ -37,6 +37,15 @@ const isActive = (href: string) => pathname.startsWith(href);
 			aria-label="Navegación principal"
 		>
 			<ul role="list" class="flex items-center gap-32">
+				<li>
+					<Link
+						href="/"
+						class="nav-link uppercase"
+						aria-label="Inicio"
+					>
+						Inicio
+					</Link>
+				</li>
 				{
 					links.map((l) => (
 						<li>

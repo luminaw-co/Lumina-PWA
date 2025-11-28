@@ -3,11 +3,27 @@ import Container from "@/components/ui/Container.astro";
 import Button from "@/components/ui/Button.astro";
 import Icon from "@/components/ui/Icon.astro";
 import Link from "@/components/ui/Link.astro";
+import { services } from "@/data/services";
 
 const links = [
-	{ href: "/projects", label: "Proyectos" },
-	{ href: "/more/about", label: "Sobre mí" },
+	{ href: "/", label: "Inicio" },
+	{ href: "/enterprise/services", label: "Servicios" },
+	{ href: "/enterprise/cases", label: "Clientes" },
+	{ href: "/enterprise/us", label: "Nosotros" },
+	{ href: "/enterprise/contact", label: "Contacto" },
 ];
+
+const serviceLinks = services.map((s) => ({
+	href: `/enterprise/services/${s.slug}`,
+	label: s.title,
+	desc: s.description,
+}));
+
+const iconsSrc = {
+	ui: "/icons/ui/",
+	social: "/icons/social/",
+};
+
 const pathname = Astro.url.pathname;
 const isActive = (href: string) => pathname.startsWith(href);
 ---
@@ -39,26 +55,59 @@ const isActive = (href: string) => pathname.startsWith(href);
 			<ul role="list" class="flex items-center gap-32">
 				{
 					links.map((l) => (
-						<li>
-							<Link
-								href={l.href}
-								aria-current={
-									isActive(l.href) ? "page" : undefined
-								}
-								class="nav-link uppercase"
-							>
-								{l.label}
-							</Link>
+						<li
+							class={
+								l.label === "Servicios" ? "relative group" : ""
+							}
+						>
+							{l.label === "Servicios" ? (
+								<>
+									<Link
+										href={l.href}
+										aria-current={
+											isActive(l.href)
+												? "page"
+												: undefined
+										}
+										tabindex="0"
+									>
+										{l.label}
+									</Link>
+									<ul class="drop-menu">
+										{serviceLinks.map((s) => (
+											<li class="relative group/item">
+												<Link
+													href={s.href}
+													class="flex items-center py-4 transition w-full text-[14px] !text-left"
+												>
+													<span class="text-left">
+														{s.label}
+													</span>
+													<span
+														class="card-info"
+														style="min-width: 220px; text-transform: none;"
+													>
+														{s.desc}
+													</span>
+												</Link>
+											</li>
+										))}
+									</ul>
+								</>
+							) : (
+								<Link
+									href={l.href}
+									aria-current={
+										isActive(l.href) ? "page" : undefined
+									}
+								>
+									{l.label}
+								</Link>
+							)}
 						</li>
 					))
 				}
 			</ul>
-			<Button
-				href="mailto:wavival.dev@luminaw.co"
-				target="_blank"
-				icon="ui/send-email-white"
-				text="Contáctame"
-			/>
 		</nav>
 
 		<div class="hidden md:flex items-center gap-3">
@@ -66,7 +115,7 @@ const isActive = (href: string) => pathname.startsWith(href);
 				class="p-2 rounded-lg hover:bg-[var(--ui-hover)]/10"
 				aria-label="Cambiar idioma"
 			>
-				<Icon src="/icons/ui/switch-language.svg" size="md" />
+				<Icon src={`${iconsSrc.ui}switch-language.svg`} size="md" />
 			</button>
 			<button
 				id="theme-toggle"
@@ -75,11 +124,15 @@ const isActive = (href: string) => pathname.startsWith(href);
 				aria-label="Cambiar tema"
 			>
 				<Icon
-					src="/icons/ui/sun.svg"
+					src={`${iconsSrc.ui}sun.svg`}
 					size="md"
 					class="hidden dark:inline-flex"
 				/>
-				<Icon src="/icons/ui/moon.svg" size="md" class="dark:hidden" />
+				<Icon
+					src={`${iconsSrc.ui}moon.svg`}
+					size="md"
+					class="inline-flex dark:hidden"
+				/>
 			</button>
 		</div>
 
@@ -90,30 +143,71 @@ const isActive = (href: string) => pathname.startsWith(href);
 			aria-controls="mobile-menu"
 			aria-label="Abrir menú"
 		>
-			<Icon src="/icons/ui/open-menu.svg" />
+			<Icon src={`${iconsSrc.ui}open-menu.svg`} />
 		</button>
+	</Container>
+
+	<Container
+		class="hidden md:flex fixed w-full left-0 z-40 justify-end items-center gap-4 px-32"
+		style="top: 5.5rem; background: none; pointer-events: none; height: 0;"
+	>
+		<div class="flex gap-4 pointer-events-auto">
+			<Link href="/portfolio/" style="padding: 0.75rem 1.25rem;">
+				Portfolio
+			</Link>
+			<Button
+				href="mailto:wavival.dev@luminaw.co"
+				target="_blank"
+				icon="ui/send-email-white"
+				text="Solicitar servicio"
+			/>
+		</div>
 	</Container>
 
 	<nav
 		id="mobile-menu"
 		aria-label="Menú móvil"
 		aria-hidden="true"
-		class="md:hidden absolute right-16 top-42 w-auto h-auto rounded-2xl bg-[var(--bg-blur)] p-5 overflow-hidden backdrop-blur-lg shadow-[var(--shadow-base)] opacity-0 translate-y-2 scale-95 invisible pointer-events-none transition-all duration-300 ease-out will-change-transform will-change-opacity motion-reduce:transition-none"
+		class="md:hidden absolute right-16 top-42 w-auto h-auto rounded-2xl bg-[var(--bg-page)] dark:bg-[var(--bg-page)] shadow-[var(--shadow-base)] opacity-0 translate-y-2 scale-95 invisible pointer-events-none transition-all duration-300 ease-out will-change-transform will-change-opacity motion-reduce:transition-none"
 	>
 		<div class="h-full flex flex-col justify-between items-end gap-32">
 			<ul role="list" class="flex flex-col items-end gap-12">
 				{
 					links.map((l) => (
 						<li>
-							<Link
-								href={l.href}
-								aria-current={
-									isActive(l.href) ? "page" : undefined
-								}
-								class="nav-link uppercase"
-							>
-								{l.label}
-							</Link>
+							{l.label === "Servicios" ? (
+								<details class="w-full">
+									<summary class="cursor-pointer">
+										{l.label}
+									</summary>
+									<ul class="flex flex-col gap-2 mt-2">
+										{serviceLinks.map((s) => (
+											<li>
+												<Link
+													href={s.href}
+													class="flex flex-col px-4 py-2"
+												>
+													<span class="font-semibold">
+														{s.label}
+													</span>
+													<span class="text-xs">
+														{s.desc}
+													</span>
+												</Link>
+											</li>
+										))}
+									</ul>
+								</details>
+							) : (
+								<Link
+									href={l.href}
+									aria-current={
+										isActive(l.href) ? "page" : undefined
+									}
+								>
+									{l.label}
+								</Link>
+							)}
 						</li>
 					))
 				}
@@ -138,12 +232,12 @@ const isActive = (href: string) => pathname.startsWith(href);
 					<Icon
 						src="/icons/ui/sun.svg"
 						size="md"
-						class="dark:hidden"
+						class="hidden dark:inline-flex"
 					/>
 					<Icon
 						src="/icons/ui/moon.svg"
 						size="md"
-						class="hidden dark:inline-flex"
+						class="dark:hidden"
 					/>
 				</button>
 			</div>

@@ -35,14 +35,22 @@ const iconSrc = `/icons/${icon}.svg`;
 			target={target}
 			rel={rel}
 			download={download}
-			class={`${base} ${extra}`}
+			class={`group ${base} ${extra}`}
 		>
-			<Icon src={iconSrc} size="md" />
+			<Icon
+				src={iconSrc}
+				size="md"
+				class="group-hover:scale-110 group-hover:rotate-12 transition-transform duration-200"
+			/>
 			{text}
 		</a>
 	) : (
-		<button type={type} class={`${base} ${extra}`}>
-			<Icon src={iconSrc} size="md" />
+		<button type={type} class={`group ${base} ${extra}`}>
+			<Icon
+				src={iconSrc}
+				size="md"
+				class="group-hover:scale-110 group-hover:rotate-12 transition-transform duration-200"
+			/>
 			{text}
 		</button>
 	)
