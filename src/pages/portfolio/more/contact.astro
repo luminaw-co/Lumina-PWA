@@ -1,16 +1,22 @@
 ---
-import BaseLayout from "@/layouts/BaseLayout.astro";
+import PortfolioLayout from "@/layouts/PortfolioLayout.astro";
 import Link from "@/components/ui/Link.astro";
 import Icon from "@/components/ui/Icon.astro";
 export const prerender = true;
+const routes = [{ href: "/", label: "Volver al inicio" }];
+const icons = [
+	{
+		src: "/icons/illustrations/highlights/coffee.svg",
+	},
+];
 ---
 
-<BaseLayout title="Construyendo Lúmina">
+<PortfolioLayout title="Construyendo Lúmina">
 	<main
 		class="h-screen grid place-items-center px-6 text-center bg-[var(--bg-page)] m-0 p-56 gap-[24px]"
 	>
 		<div class="flex flex-col gap-[24px] items-center">
-			<Icon src="/icons/illustrations/highlights/coffee.svg" size="lg" />
+			<Icon src={icons[0].src} size="lg" />
 			<h1 class="text-[36px] font-bold text-[var(--brand-blue)]">
 				¿En construcción?
 			</h1>
@@ -20,10 +26,10 @@ export const prerender = true;
 			</p>
 		</div>
 		<Link
-			href="/"
+			href={routes[0].href}
 			rel="noopener"
 			class="inline-flex items-center justify-center rounded-md text-[var(--accent-link)] hover:bg-[var(--accent-link)]/10"
-			>Volver al inicio</Link
+			>{routes[0].label}</Link
 		>
 	</main>
-</BaseLayout>
+</PortfolioLayout>

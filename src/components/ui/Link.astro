@@ -1,14 +1,14 @@
 ---
 import type { HTMLAttributes } from "astro/types";
 
-interface Props extends HTMLAttributes<'a'> {
-  href: string;
-  text?: string;
+interface Props extends HTMLAttributes<"a"> {
+	href: string;
+	text?: string;
 }
 
 const { href, class: extra = "", text, ...rest } = Astro.props as Props;
 ---
 
-<a href={href} class={`text-[var(--accent-link)] hover:text-[var(--accent-hover)] text-center font-display font-semibold uppercase leading-none ${extra}`} {...rest}>
-  { text ? text : <slot /> }
+<a href={href} class={`link ${extra}`} {...rest}>
+	{text ? text : <slot />}
 </a>

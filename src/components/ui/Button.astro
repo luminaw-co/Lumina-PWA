@@ -1,23 +1,49 @@
 ---
 import Icon from "./Icon.astro";
 
-interface Props { href?: string; target?: "_blank" | "_self"; rel?: string; download?: boolean | string; class?: string; type?: "button" | "submit" | "reset"; icon: string; text: string; }
+interface Props {
+	href?: string;
+	target?: "_blank" | "_self";
+	rel?: string;
+	download?: boolean | string;
+	class?: string;
+	type?: "button" | "submit" | "reset";
+	icon: string;
+	text: string;
+}
 
-const { href, target, rel, download, class: extra = "", type = "button", icon, text, } = Astro.props;
+const {
+	href,
+	target,
+	rel,
+	download,
+	class: extra = "",
+	type = "button",
+	icon,
+	text,
+} = Astro.props;
 
-const base = "inline-flex justify-center items-center gap-2 px-3 py-3 rounded-md font-display font-semibold uppercase whitespace-nowrap transition-colors duration-200 bg-[var(--accent-link)] text-[var(--text-button)] hover:bg-[var(--accent-hover)] disabled:bg-[var(--status-disabled)] disabled:cursor-not-allowed";
+const base = "btn-primary";
 
 const iconSrc = `/icons/${icon}.svg`;
 ---
 
-{href ? (
-  <a href={href} target={target} rel={rel} download={download} class={`${base} ${extra}`}>
-    <Icon src={iconSrc} size="md" />
-    {text}
-  </a>
-) : (
-  <button type={type} class={`${base} ${extra}`}>
-    <Icon src={iconSrc} size="md" />
-    {text}
-  </button>
-)}
+{
+	href ? (
+		<a
+			href={href}
+			target={target}
+			rel={rel}
+			download={download}
+			class={`${base} ${extra}`}
+		>
+			<Icon src={iconSrc} size="md" />
+			{text}
+		</a>
+	) : (
+		<button type={type} class={`${base} ${extra}`}>
+			<Icon src={iconSrc} size="md" />
+			{text}
+		</button>
+	)
+}

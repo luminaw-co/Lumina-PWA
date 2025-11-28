@@ -1,12 +1,22 @@
 ---
 interface Props {
-  href?: string;
-  selected?: boolean;
-  class?: string;
+	href?: string;
+	selected?: boolean;
+	class?: string;
 }
 
-const { href, selected = false, class: extra = "" } = Astro.props;
-const base = `chip text-[var(--brand-blue)] bg-[var(--bg-blur)] rounded-2xl text-center px-2`;
+const { href, class: extra = "" } = Astro.props;
+const base = `chip`;
 ---
 
-{href ? <a href={href} class={`${base} ${extra}`}><slot /></a> : <button type="button" class={`${base} ${extra}`}><slot /></button>}
+{
+	href ? (
+		<a href={href} class={`${base} ${extra}`}>
+			<slot />
+		</a>
+	) : (
+		<button type="button" class={`${base} ${extra}`}>
+			<slot />
+		</button>
+	)
+}

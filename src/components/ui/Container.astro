@@ -1,13 +1,13 @@
 ---
 interface Props {
-  as?: string;      
-  class?: string;
+	as?: string;
+	class?: string;
 }
 
 const { as = "section", class: cls = "" } = Astro.props;
 const Tag = as as any;
 ---
 
-<Tag class={`container-prose ${cls}`}>
-  <slot />
+<Tag class={`container-prose ${cls}`} {...Astro.props}>
+	<slot />
 </Tag>

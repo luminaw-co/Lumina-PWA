@@ -1,15 +1,27 @@
 ---
 interface Props {
-  src?: string;                    
-  alt?: string;
-  size?: "sm" | "md" | "lg" | "xl"; 
-  class?: string;
+	src?: string;
+	alt?: string;
+	size?: "sm" | "md" | "lg" | "xl";
+	class?: string;
+	[key: string]: any;
 }
 
 const { src, alt = "", size = "md", class: extra = "" } = Astro.props;
 const sizeClass = `icon-${size}`;
 ---
 
-{src
-  ? <img src={src} alt={alt} class={`inline-flex shrink-0 ${sizeClass} ${extra}`} />
-  : <span class={`inline-flex shrink-0 ${sizeClass} ${extra}`}><slot /></span>}
+{
+	src ? (
+		<img
+			src={src}
+			alt={alt}
+			class={`icon ${sizeClass} ${extra}`}
+			{...Astro.props}
+		/>
+	) : (
+		<span class={`icon ${sizeClass} ${extra}`} {...Astro.props}>
+			<slot />
+		</span>
+	)
+}

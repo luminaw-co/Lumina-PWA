@@ -1,0 +1,62 @@
+---
+import Link from "@/components/ui/Link.astro";
+import Card from "@/components/portfolio/projects/Card.astro";
+
+interface Project {
+	slug: string;
+	title: string;
+	cover: string;
+	summary?: string;
+	href?: string;
+	links?: { site?: string; github?: string; behance?: string };
+}
+
+interface Props {
+	title?: string;
+	subtitle?: string;
+	projects: Project[];
+	moreHref?: string;
+	id: string;
+}
+
+const {
+	title = "Laboratorio",
+	subtitle = "Creativo y Producción",
+	projects = [],
+	moreHref = "/portfolio/projects",
+} = Astro.props as Props;
+---
+
+<section
+	class="py-9 px-[32px] flex flex-col w-full justify-self-center lg:justify-center lg:items-center"
+>
+	<header class="lg:max-w-[1024px] lg:w-full mb-6">
+		<h2 class="text-[28px] font-bold text-[var(--text-primary)]">
+			{title}
+		</h2>
+		<p class="text-body-xl font-bold text-[var(--brand-blue)]">
+			{subtitle}
+		</p>
+	</header>
+
+	<ul
+		role="list"
+		class="flex flex-col gap-7 md:flex-row md:overflow-x-auto md:snap-x md:snap-mandatory md:pb-2 lg:grid lg:grid-cols-3 lg:gap-[32px] lg:overflow-visible self-center mb-7 lg:max-w-[1024px] lg:w-full"
+		aria-label="Proyectos del laboratorio"
+	>
+		{
+			projects.map((p) => (
+				<li class="snap-start md:min-w-[320px] md:max-w-[420px] lg:min-w-0">
+					<Card
+						title={p.title}
+						cover={p.cover}
+						href={p.href ?? `/portfolio/projects/${p.slug}`}
+						summary={p.summary}
+						links={p.links}
+					/>
+				</li>
+			))
+		}
+	</ul>
+	<Link href={moreHref} class="nav-link">Ver más</Link>
+</section>

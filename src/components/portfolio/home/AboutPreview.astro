@@ -1,0 +1,110 @@
+---
+import Chip from "@/components/ui/Chip.astro";
+import Link from "@/components/ui/Link.astro";
+import Icon from "@/components/ui/Icon.astro";
+import Slider from "@/components/ui/Slider.astro";
+import Container from "@/components/ui/Container.astro";
+import TitleUI from "@/components/ui/TitleUI.astro";
+
+const titleUi = { title: "Más allá de", subtitle: "Código e Interfaces" };
+const links = [
+	{ href: "/portfolio/more/about", label: "Conocer más" },
+	{ href: "/cv_frontend_ux-ui_en.pdf", label: "Descargar CV" },
+];
+const icons = [
+	{ src: "/images/about/photo-no-bg.webp", alt: "Foto de Valentina Ramírez" },
+	{ src: "/icons/ui/download-cv-blue.svg", alt: "Icono de descargar" },
+];
+
+const stack = [
+	{
+		label: "JavaScript",
+		href: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
+	},
+	{ label: "React", href: "https://react.dev" },
+	{ label: "TailwindCSS", href: "https://tailwindcss.com" },
+	{ label: "Astro", href: "https://astro.build" },
+	{ label: "Materialize", href: "https://materializecss.com" },
+	{ label: "Figma", href: "https://www.figma.com" },
+	{ label: "Notion", href: "https://www.notion.so" },
+	{ label: "GitHub", href: "https://github.com" },
+	{ label: "Behance", href: "https://www.behance.net" },
+];
+---
+
+<section
+	class="py-9 px-[32px] flex flex-col w-full justify-self-center lg:justify-center lg:items-center"
+>
+	<Container class="flex flex-col gap-10 w-full lg:max-w-[1024px]">
+		<TitleUI title={titleUi.title} subtitle={titleUi.subtitle} />
+		<Container
+			class="flex-col-bet-center md:flex-row gap-10 md:gap-20 lg:max-w-[800px] lg:self-center"
+		>
+			<Container class="flex-col-center-6 w-full md:items-start">
+				<img
+					src={icons[0].src}
+					alt={icons[0].alt}
+					class="rounded-img-320"
+				/>
+			</Container>
+			<Container>
+				<h3 class="text-gradient-1 text-[22px] md:text-start">
+					Valentina, un placer.
+				</h3>
+				<p class="text-[var(--text-primary)] leading-relaxed">
+					Soy una amante del café y de mi playlist súper crossover;
+					una autodidacta apasionada por aprender, cocinar y tocar la
+					batería. <br /><br /> Me encantan las películas animadas, los
+					animales, el azul y Twenty One Pilots. <br /><br /> Sueño con
+					dominar la Ciberseguridad, Linux y el Backend, entre otras cosas.
+				</p>
+			</Container>
+		</Container>
+
+		<Container>
+			<h3
+				class="text-[18px] mb-3 text-[var(--text-primary)] md:text-center"
+			>
+				Mi Stack favorito.
+			</h3>
+			<Container class="flex-wrap-center-2 lg:max-w-[1024px] lg:w-full">
+				{
+					stack.map((item) => (
+						<a
+							href={item.href}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="focus:outline-none"
+						>
+							<Chip>{item.label}</Chip>
+						</a>
+					))
+				}
+			</Container>
+		</Container>
+
+		<Slider />
+
+		<Container class="flex-col-center-6">
+			<p class="text-center-italic">
+				¿Te animas a descubrir qué hay detrás de mi pasión por el
+				aprendizaje, el café y mi musa?
+			</p>
+			<Container class="flex gap-2">
+				<Link
+					href={links[0].href}
+					rel="noopener"
+					class="inline-flex-center">{links[0].label}</Link
+				>
+				<Link
+					href={links[1].href}
+					rel="noopener"
+					class="inline-flex-center w-11 h-11"
+					target="_blank"
+				>
+					<Icon src={icons[1].src} alt={icons[1].alt} size="md" />
+				</Link>
+			</Container>
+		</Container>
+	</Container>
+</section>

@@ -1,0 +1,163 @@
+---
+import Button from "@/components/ui/Button.astro";
+import Icon from "@/components/ui/Icon.astro";
+import Link from "@/components/ui/Link.astro";
+import TitleUI from "@/components/ui/TitleUI.astro";
+import Container from "@/components/ui/Container.astro";
+
+const liveId = `live-${Math.random().toString(36).slice(2)}`;
+const linksWeb = {
+	email: "wavival.dev@luminaw.co",
+	whatsapp:
+		"https://wa.me/573021011753?text=Hola%2C%20me%20gustaria%20contratar%20un%20servicio",
+	figma: "https://www.figma.com/@wavival",
+	platzi: "https://www.platzi.com/p/wavival",
+};
+const links = [{ href: "/portfolio/more/contact", label: "Saber más" }];
+const iconsSrc = {
+	ui: "/icons/ui/",
+	social: "/icons/social/",
+	illustrations: "/icons/illustrations/highlights",
+};
+---
+
+<section
+	aria-label="Contacto rápido"
+	class="flex-col-center-10 w-full px-[32px] py-9"
+>
+	<TitleUI title="" subtitle="A un clic" />
+	<Container class="white-rounded-card">
+		<TitleUI title="¿Tienes una idea rondando en tu cabeza?" subtitle="" />
+		<Icon
+			src={`${iconsSrc.illustrations}/target
+			.svg`}
+			alt="Icono de objetivo"
+			size="md"
+		/>
+		<Container class="mt-4">
+			<Button
+				href={`mailto:${linksWeb.email}`}
+				target="_blank"
+				icon="ui/send-email-white"
+				text="Contáctame"
+			/>
+		</Container>
+	</Container>
+
+	<p class="text-center-italic w-fit">
+		Gracias por llegar hasta aquí. Tu idea podría ser el próximo diseño que
+		cobre vida.
+	</p>
+
+	<Container
+		class="blurred-rounded-card"
+		id="copy-email"
+		data-copy-value={linksWeb.email}
+		data-live-id={liveId}
+		role="button"
+		tabindex="0"
+	>
+		<p>{linksWeb.email}</p>
+		<Icon
+			src={`${iconsSrc.ui}/copy-email.svg`}
+			size="md"
+			class="shrink-0 transition-opacity duration-300"
+			id="img"
+		/>
+		<span id="copy-msg" class="text-modal" style="opacity:0"
+			>Email copiado</span
+		>
+	</Container>
+
+	<Container class="flex-col-center-6">
+		<p class="text-center text-[var(--text-primary)]">
+			Descubre más de mi mundo
+		</p>
+		<nav aria-label="Redes sociales" class="inline-flex-center">
+			<Link href={linksWeb.whatsapp} target="_blank" rel="noopener"
+				><Icon
+					src={`${iconsSrc.social}/whatsapp.svg`}
+					size="md"
+				/></Link
+			>
+			<Link href={linksWeb.figma} target="_blank" rel="noopener"
+				><Icon src={`${iconsSrc.social}/figma.svg`} size="md" /></Link
+			>
+			<Link href={linksWeb.platzi} target="_blank" rel="noopener"
+				><Icon src={`${iconsSrc.ui}/see-demo.svg`} size="md" /></Link
+			>
+		</nav>
+	</Container>
+
+	<Container>
+		<Link href={links[0].href} rel="noopener">{links[0].label}</Link>
+	</Container>
+
+	<span id={liveId} class="sr-only" aria-live="polite"></span>
+
+	<script>
+		document.addEventListener("DOMContentLoaded", () => {
+			const copyEl = document.getElementById("copy-email");
+			const iconEl = document.getElementById("img");
+			const msgEl = document.getElementById("copy-msg");
+
+			if (!copyEl || !iconEl || !msgEl) {
+				console.warn(
+					"No se encontró algún elemento necesario para copiar el email.",
+				);
+				return;
+			}
+
+			copyEl.addEventListener("click", () => {
+				const value = copyEl.getAttribute("data-copy-value");
+				if (!value) {
+					console.warn("No hay valor para copiar.");
+					return;
+				}
+
+				navigator.clipboard
+					.writeText(value)
+					.then(() => {
+						iconEl.style.opacity = "0";
+						setTimeout(() => {
+							if (iconEl.tagName === "IMG") {
+								iconEl.setAttribute(
+									"src",
+									"/icons/ui/done.svg",
+								);
+							} else if (iconEl.tagName.toLowerCase() === "svg") {
+								iconEl.classList.add("icon-done");
+							}
+							iconEl.style.opacity = "1";
+						}, 300);
+
+						msgEl.style.opacity = "1";
+
+						setTimeout(() => {
+							iconEl.style.opacity = "0";
+							setTimeout(() => {
+								if (iconEl.tagName === "IMG") {
+									iconEl.setAttribute(
+										"src",
+										"/icons/ui/copy-email.svg",
+									);
+								} else if (
+									iconEl.tagName.toLowerCase() === "svg"
+								) {
+									iconEl.classList.remove("icon-done");
+								}
+								iconEl.style.opacity = "1";
+							}, 300);
+							msgEl.style.opacity = "0";
+						}, 2000);
+					})
+					.catch((err) => {
+						console.error(
+							"No se pudo copiar al portapapeles:",
+							err,
+						);
+					});
+			});
+		});
+	</script>
+</section>

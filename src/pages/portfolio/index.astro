@@ -1,9 +1,9 @@
 ---
-import BaseLayout from "@/layouts/BaseLayout.astro";
-import Hero from "@/components/home/Hero.astro";
-import LabPreview from "@/components/home/LabPreview.astro";
-import AboutPreview from "@/components/home/AboutPreview.astro";
-import CtaContact from "@/components/home/CtaContact.astro";
+import PortfolioLayout from "@/layouts/PortfolioLayout.astro";
+import Hero from "@/components/portfolio/home/Hero.astro";
+import LabPreview from "@/components/portfolio/home/LabPreview.astro";
+import AboutPreview from "@/components/portfolio/home/AboutPreview.astro";
+import CtaContact from "@/components/portfolio/home/CtaContact.astro";
 import "@/styles/global.css";
 
 const labProjects = [
@@ -12,7 +12,7 @@ const labProjects = [
 		slug: "ubuntu",
 		cover: "/images/projects/ubuntu /icon.svg",
 		alt: "Icono de la marca Ubuntu",
-		href: "/projects/ubuntu",
+		href: "/portfolio/projects/ubuntu",
 		links: {
 			site: "#",
 			github: "https://github.com/wavival/Ubuntu",
@@ -30,15 +30,12 @@ const labProjects = [
 ];
 ---
 
-<BaseLayout title="Lúmina Portfolio">
-	<Hero
-		primary={{ label: "Ver Proyectos", href: "/projects" }}
-		secondary={{ label: "Contáctame", href: "/contact" }}
-	/>
+<PortfolioLayout title="@wavival Portfolio">
+	<Hero />
 
 	<LabPreview projects={labProjects} id="projects" />
 
 	<AboutPreview id="about" />
 
 	<CtaContact />
-</BaseLayout>
+</PortfolioLayout>

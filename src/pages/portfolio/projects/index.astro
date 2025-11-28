@@ -1,29 +1,36 @@
 ---
-import BaseLayout from "@/layouts/BaseLayout.astro";
+import PortfolioLayout from "@/layouts/PortfolioLayout.astro";
+import Container from "@/components/ui/Container.astro";
 import Link from "@/components/ui/Link.astro";
 import Icon from "@/components/ui/Icon.astro";
 export const prerender = true;
+
+const info = {
+	title: "¿En construcción?",
+	description:
+		"Estamos trabajando para mejorar tu experiencia. Vuelve pronto y descubre las novedades.",
+};
+const routes = [{ href: "/", label: "Volver al inicio" }];
+const icons = [
+	{
+		src: "/icons/illustrations/highlights/coffee.svg",
+	},
+];
 ---
 
-<BaseLayout title="Construyendo Lúmina">
+<PortfolioLayout title="Construyendo Lúmina">
 	<main
-		class="h-screen grid place-items-center px-6 text-center bg-[var(--bg-page)] m-0 p-56 gap-[24px]"
+		class="h-screen grid place-items-center px-6 text-center bg-[var(--bg-page)] m-0 p-56 gap-[14px]"
 	>
-		<div class="flex flex-col gap-[24px] items-center">
-			<Icon src="/icons/illustrations/highlights/coffee.svg" size="lg" />
+		<Container class="flex-col-center-6">
+			<Icon src={icons[0].src} size="lg" />
 			<h1 class="text-[36px] font-bold text-[var(--brand-blue)]">
-				¿En construcción?
+				{info.title}
 			</h1>
-			<p class="text-[var(--text-primary)] opacity-90 max-w-[40rem]">
-				Estamos trabajando para mejorar tu experiencia. Vuelve pronto y
-				descubre las novedades.
+			<p class="text-[var(--text-primary)] opacity-90 max-w-[30rem]">
+				{info.description}
 			</p>
-		</div>
-		<Link
-			href="/"
-			rel="noopener"
-			class="inline-flex items-center justify-center rounded-md text-[var(--accent-link)] hover:bg-[var(--accent-link)]/10"
-			>Volver al inicio</Link
-		>
+			<Link href={routes[0].href} rel="noopener">{routes[0].label}</Link>
+		</Container>
 	</main>
-</BaseLayout>
+</PortfolioLayout>

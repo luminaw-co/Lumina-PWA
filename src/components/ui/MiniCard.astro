@@ -1,17 +1,27 @@
 ---
-import Icon from "../ui/Icon.astro";
+import Icon from "@/components/ui/Icon.astro";
 
-interface Props { text: string; icon?: string; class?: string; }
+interface Props {
+	text: string;
+	icon?: string;
+	class?: string;
+}
 
-const { text, icon = "/icons/ui/code.svg", class: extra = "" } = Astro.props as Props;
+const {
+	text,
+	icon = "/icons/ui/code.svg",
+	class: extra = "",
+} = Astro.props as Props;
 ---
 
-<article class={`w-full h-[140px] p-6 rounded-xl bg-bg-card shadow-md shadow-base grid grid-cols-[auto,1fr] items-center gap-4 overflow-hidden shrink-0 ${extra}`} aria-label="Tarjeta informativa">
-  <figure class="w-20 h-20 flex items-center justify-center" aria-hidden="true">
-    <Icon src={icon} size="xl" />
-  </figure>
+<article class={`mini-card ${extra}`} aria-label="Tarjeta informativa">
+	<figure class="img-m-card" aria-hidden="true">
+		<Icon src={icon} size="xl" />
+	</figure>
 
-  <section class="flex">
-    <p class="m-auto text-center text-text-primary text-body-md leading-snug italic"> {text} </p>
-  </section>
+	<section class="flex">
+		<p class="text-center-italic text-[14px]">
+			{text}
+		</p>
+	</section>
 </article>
