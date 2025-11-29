@@ -1,27 +1,35 @@
 ---
 import Link from "@/components/ui/Link.astro";
 import Container from "@/components/ui/Container.astro";
+import Icon from "@/components/ui/Icon.astro";
 import { services } from "@/data/services";
 
 const year = new Date().getFullYear();
 
-const enterpriseLinks = [
+const email = "contact@luminaw.co";
+
+const iconsSrc = {
+	ui: "/icons/ui/",
+	social: "/icons/social/",
+};
+
+const empresaLinks = [
 	{ href: "/enterprise/us", label: "Nosotros" },
 	{ href: "/enterprise/cases", label: "Proyectos" },
 	{ href: "/enterprise/contact", label: "Contacto" },
 ];
 
-const servicesLinks = [
+const serviciosLinks = [
 	{ slug: "web", title: "Desarrollo Web" },
-	{ slug: "ux-ui", title: "UX/UI" },
+	{ slug: "ux-ui", title: "Diseño UX/UI" },
 	{ slug: "automatizaciones", title: "Automatizaciones" },
-	{ slug: "ia", title: "Inteligencia A.I." },
+	{ slug: "ia", title: "Inteligencia Artificial" },
 	{ slug: "ciberseguridad", title: "Ciberseguridad" },
 	{ slug: "consultoria", title: "Consultoría" },
 ];
 
-const resourcesLinks = [
-	{ href: "/blog/", label: "Blog" },
+const recursosLinks = [
+	{ href: "/blog", label: "Blog técnico" },
 	{ href: "/enterprise/cases", label: "Casos de éxito" },
 	{ href: "/enterprise/culture", label: "Cultura de equipo" },
 	{ href: "/enterprise/jobs", label: "Trabaja con nosotros" },
@@ -30,22 +38,24 @@ const resourcesLinks = [
 const legalLinks = [
 	{ href: "/legal/conditions", label: "Términos y condiciones" },
 	{ href: "/legal/privacy", label: "Política de privacidad" },
+	{ href: "/legal/cookies", label: "Política de cookies" },
+	{ href: "/legal/faq", label: "Preguntas frecuentes" },
 ];
 
 const socialLinks = [
 	{
 		href: "https://www.linkedin.com/company/luminaw",
-		icon: "/icons/social/linkedin.svg",
+		icon: `${iconsSrc.social}linkedin.svg`,
 		label: "LinkedIn",
 	},
 	{
 		href: "https://github.com/luminaw",
-		icon: "/icons/social/github.svg",
+		icon: `${iconsSrc.social}github.svg`,
 		label: "GitHub",
 	},
 	{
 		href: "https://www.instagram.com/luminaw",
-		icon: "/icons/social/instagram.svg",
+		icon: `${iconsSrc.ui}see-demo.svg`,
 		label: "Instagram",
 	},
 ];
@@ -64,133 +74,120 @@ const icons = [
 ];
 ---
 
-<footer class="base-footer border-t border-white/10 pt-16 pb-8 px-4">
-	<Container class="max-w-7xl mx-auto flex flex-col gap-16">
-		<div
-			class="flex-col-center-10 md:flex-row md:items-start md:gap-16 flex"
-		>
-			<div class="flex-1 flex flex-col gap-4 min-w-[220px]">
-				<a
-					href={icons[3].href}
-					aria-label={icons[3].label}
-					class="flex items-center gap-3"
-				>
-					{
-						icons.map((icon) => (
-							<img
-								src={icon.src}
-								alt={icon.alt}
-								class={`h-32 ${icon.show === "light" ? "dark:hidden" : "hidden dark:block"}`}
-							/>
-						))
-					}
-				</a>
-				<p class="font-bold text-lg">Lúmina</p>
-				<p class="text-sm text-white/70">
-					Diseño, desarrollo y estrategia para negocios reales.
-				</p>
-				<div class="flex gap-3 mt-2">
-					{
-						socialLinks.map((s) => (
-							<a
-								href={s.href}
-								target="_blank"
-								rel="noopener noreferrer"
-								aria-label={s.label}
-								class="inline-flex-center w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 transition"
-							>
-								<img
-									src={s.icon}
-									alt={s.label}
-									class="w-5 h-5"
-								/>
-							</a>
-						))
-					}
-				</div>
-			</div>
-			<!-- Navegación -->
-			<div
-				class="flex-1 grid grid-cols-1 sm:grid-cols-3 gap-8 w-full mt-10 md:mt-0"
+<footer class="base-footer flex gap-5 justify-between">
+	<Container class="flex-col-center-6 !items-start">
+		<Container class="flex-col-center-6 !items-start">
+			<a
+				href={icons[0].src}
+				aria-label={icons[0].alt}
+				class="flex items-center gap-3"
 			>
-				<div>
-					<p class="font-semibold mb-3 text-white/90">Empresa</p>
-					<ul class="flex flex-col gap-2">
-						{
-							enterpriseLinks.map((l) => (
-								<li>
-									<Link
-										href={l.href}
-										class="hover:underline text-white/80"
-									>
-										{l.label}
-									</Link>
-								</li>
-							))
-						}
-					</ul>
-				</div>
-				<div>
-					<p class="font-semibold mb-3 text-white/90">Servicios</p>
-					<ul class="flex flex-col gap-2">
-						{
-							servicesLinks.map((s) => (
-								<li>
-									<Link
-										href={`/enterprise/services/${s.slug}`}
-										class="hover:underline text-white/80"
-									>
-										{s.title}
-									</Link>
-								</li>
-							))
-						}
-					</ul>
-				</div>
-				<div>
-					<p class="font-semibold mb-3 text-white/90">Recursos</p>
-					<ul class="flex flex-col gap-2">
-						{
-							resourcesLinks.map((l) => (
-								<li>
-									<Link
-										href={l.href}
-										class="hover:underline text-white/80"
-									>
-										{l.label}
-									</Link>
-								</li>
-							))
-						}
-					</ul>
-				</div>
-			</div>
-		</div>
-
-		<!-- Datos de contacto -->
-		<div class="flex-col-center-6 mt-8 mb-4">
-			<p class="text-white/80 text-sm">contacto@lumina.dev</p>
-			<p class="text-white/60 text-xs">Medellín, Colombia (o remoto)</p>
-		</div>
-
-		<!-- Legal + copyright -->
-		<div
-			class="max-w-7xl mx-auto pt-8 border-t border-white/10 flex-col-center-6 md:flex-row md:items-center md:justify-between gap-4 text-xs text-white/60"
-		>
-			<div class="flex gap-4">
 				{
-					legalLinks.map((l) => (
-						<Link href={l.href} class="hover:underline">
-							{l.label}
-						</Link>
+					icons.map((icon) => (
+						<img
+							src={icon.src}
+							alt={icon.alt}
+							class={`h-120 ${icon.show === "light" ? "dark:hidden" : "hidden dark:block"}`}
+						/>
 					))
 				}
-			</div>
-
-			<span>© {year} Lúmina. Todos los derechos reservados.</span>
-			<span class="text-white/40"
-				>Powered by Lúmina 💘 Hecho en LATAM.</span
+			</a>
+			<span class="text-body-xs text-[var(--text-primary)] text-left">
+				© Lúmina {year}
+			</span>
+		</Container>
+		<Container class="flex-col-center-6 !gap-[16px] !items-start">
+			<Container class="inline-flex-center gap-5 !justify-start">
+				{
+					socialLinks.map((s) => (
+						<Icon
+							href={s.href}
+							target="_blank"
+							rel="noopener noreferrer"
+							aria-label={s.label}
+							class="w-[22px]"
+						>
+							<img src={s.icon} alt={s.label} />
+						</Icon>
+					))
+				}
+			</Container>
+			<Link
+				href={`mailto:${email}`}
+				class="text-[16px] !lowercase font-normal text-left !p-0"
+				>{email}</Link
 			>
-		</div>
+			<p class="text-center-italic text-left">
+				Medellín, Colombia (o remoto)
+			</p>
+		</Container>
 	</Container>
+
+	<nav
+		aria-label="Footer"
+		class="grid grid-cols-4 items-start gap-32 w-[70%] text-left"
+	>
+		<Container>
+			<p class="heading-3 !text-start">Empresa</p>
+			<ul class="flex flex-col">
+				{
+					empresaLinks.map((l) => (
+						<li>
+							<Link href={l.href} class="text-[12px]t !text-left">
+								{l.label}
+							</Link>
+						</li>
+					))
+				}
+			</ul>
+		</Container>
+		<Container>
+			<p class="heading-3 !text-start">Servicios</p>
+			<ul class="flex flex-col">
+				{
+					serviciosLinks.map((s) => (
+						<li>
+							<Link
+								href={`/enterprise/services/${s.slug}`}
+								class="text-[12px] !text-left"
+							>
+								{s.title}
+							</Link>
+						</li>
+					))
+				}
+			</ul>
+		</Container>
+		<Container>
+			<p class="heading-3 !text-start">Recursos</p>
+			<ul class="flex flex-col">
+				{
+					recursosLinks.map((l) => (
+						<li>
+							<Link href={l.href} class="text-[12px] !text-left">
+								{l.label}
+							</Link>
+						</li>
+					))
+				}
+			</ul>
+		</Container>
+		<Container>
+			<p class="heading-3 !text-start mb-2">Legal</p>
+			<ul class="flex flex-col">
+				{
+					legalLinks.slice(0, 3).map((link) => (
+						<li>
+							<Link
+								href={link.href}
+								class="text-[12px] !text-left"
+							>
+								{link.label}
+							</Link>
+						</li>
+					))
+				}
+			</ul>
+		</Container>
+	</nav>
 </footer>

@@ -3,7 +3,6 @@ import "@/styles/global.css";
 import "@/styles/tokens.css";
 import BaseNavBar from "@/components/layout/BaseNavBar.astro";
 import BaseFooter from "@/components/layout/BaseFooter.astro";
-import PortfolioFooter from "@/components/layout/PortfolioFooter.astro";
 
 interface Props {
 	title?: string;
@@ -36,7 +35,6 @@ const { title = "Lúmina", description = "Portafolio de Valentina Ramírez" } =
 	>
 		<BaseNavBar />
 		<main><slot /></main>
-		<PortfolioFooter />
 		<BaseFooter />
 		<script type="module">
 			import "../scripts/theme-toggle.ts";
