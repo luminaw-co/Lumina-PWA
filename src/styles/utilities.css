@@ -23,7 +23,7 @@
 		@apply grid md:grid-cols-2 gap-6 place-self-center items-center;
 	}
 	.icon {
-		@apply shrink-0 transition-transform duration-200 hover:scale-110 hover:rotate-12;
+		@apply shrink-0 transition-transform duration-200 hover:scale-110 hover:rotate-12 !cursor-pointer;
 	}
 	.link {
 		@apply inline-block text-[var(--accent-link)] hover:text-[var(--accent-hover)] text-center font-display font-semibold uppercase leading-none p-3 transition-transform duration-200 hover:scale-105 !cursor-pointer;
@@ -65,10 +65,7 @@
 		@apply flex gap-5 py-2 overflow-x-auto overscroll-x-contain snap-x snap-mandatory scroll-smooth shrink-0 [scrollbar-width:thin] [scrollbar-color:var(--brand-blue)_transparent] [&::-webkit-scrollbar]:h-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:rounded-full active:[&::-webkit-scrollbar-thumb]:bg-[var(--brand-blue)] [&::-webkit-scrollbar-corner]:bg-transparent;
 	}
 	.base-footer {
-		@apply w-full backdrop-blur backdrop-saturate-150 bg-[var(--bg-blur)] dark:bg-[var(--bg-blur)] md:px-16 lg:px-24;
-	}
-	.ctn-footer {
-		@apply w-full px-[16px] py-5 opacity-90 inline-flex flex-col justify-center items-center gap-6 md:flex-row md:justify-between md:items-center md:gap-0 md:opacity-100;
+		@apply backdrop-blur backdrop-saturate-150 bg-[var(--bg-blur)] dark:bg-[var(--bg-blur)] md:px-16 lg:px-24 w-full px-[32px] py-[24px] opacity-90 inline-flex flex-col justify-center items-center gap-6 md:flex-row md:justify-between md:items-center md:gap-0 md:opacity-100;
 	}
 	.rounded-img-320 {
 		@apply w-[320px] h-[320px] rounded-full object-cover bg-gradient-to-b from-brand-blue to-bg-page shadow-md shadow-[var(--shadow-base)];
@@ -77,6 +74,15 @@
 		@apply absolute left-full top-1/2 -translate-y-1/2 ml-6 w-64 text-sm rounded-xl p-3 opacity-0 pointer-events-none group-hover/item:opacity-100 group-hover/item:pointer-events-auto transition-opacity duration-200 z-[100] text-center text-[var(--text-primary)] border-solid border border-[var(--border-secondary)] bg-[var(--bg-page)] dark:bg-[var(--bg-page)];
 	}
 	.drop-menu {
-		@apply hidden group-hover:flex group-focus-within:flex flex-col absolute left-0 top-[2.2rem] min-w-[340px] text-[var(--text-primary)] rounded-2xl p-8 z-50 bg-[var(--bg-page)] dark:bg-[var(--bg-page)] shadow-[var(--shadow-base)] text-left;
+		@apply flex flex-col absolute left-0 top-full mt-4 min-w-[320px] text-[var(--text-primary)] rounded-2xl p-8 z-50 bg-[var(--bg-page)] dark:bg-[var(--bg-page)] shadow-[var(--shadow-base)] text-left
+			opacity-0 translate-y-4 pointer-events-none
+			transition-all duration-300 ease-out
+			group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto;
+	}
+	.drop-fixed .drop-menu {
+		@apply opacity-100 translate-y-0 pointer-events-auto;
+	}
+	.heading-3 {
+		@apply text-[18px] mb-3 text-[var(--text-primary)] md:text-center;
 	}
 }

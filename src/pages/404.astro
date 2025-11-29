@@ -5,7 +5,7 @@ import Icon from "@/components/ui/Icon.astro";
 export const prerender = true;
 ---
 
-<BaseLayout title="Error 404 - Lúmina">
+<BaseLayout title="Construyendo Lúmina">
 	<main
 		class="h-screen grid place-items-center px-6 text-center bg-[var(--bg-page)] m-0 p-56 gap-[24px]"
 	>
@@ -18,7 +18,12 @@ export const prerender = true;
 				Lo sentimos, no encontramos la página que estabas buscando. Tal
 				vez quieras volver al inicio.
 			</p>
+			<Link
+				href="/"
+				rel="noopener"
+				class="inline-flex items-center justify-center rounded-md text-[var(--accent-link)] hover:bg-[var(--accent-link)]/10"
+				>Volver al inicio</Link
+			>
 		</div>
-		<Link href="/" rel="noopener">Volver al inicio</Link>
 	</main>
 </BaseLayout>

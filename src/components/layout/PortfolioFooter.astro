@@ -1,0 +1,61 @@
+---
+import Link from "@/components/ui/Link.astro";
+import Container from "@/components/ui/Container.astro";
+
+const year = new Date().getFullYear();
+const links = [
+	{ href: "/legal/privacy", label: "Privacidad" },
+	{ href: "/legal/conditions", label: "Condiciones" },
+	{ href: "/blog/", label: "Blog" },
+];
+const icons = [
+	{
+		src: "/brand/lumina-logo-light.svg",
+		alt: "Logo claro de Lúmina",
+		show: "light",
+	},
+	{
+		src: "/brand/lumina-logo-dark.svg",
+		alt: "Logo oscuro de Lúmina",
+		show: "dark",
+	},
+];
+---
+
+<footer class="base-footer bg-bg-card/90">
+	<Container class="ctn-footer">
+		<nav
+			aria-label="Footer"
+			class="inline-flex justify-center items-center gap-32"
+		>
+			{
+				links.slice(0, 3).map((link) => (
+					<Link href={link.href} class="nav-link">
+						{link.label}
+					</Link>
+				))
+			}
+		</nav>
+
+		<Container class="inline-flex-center gap-16 md:justify-end">
+			<a
+				href={links[2].href}
+				aria-label={links[2].label}
+				class="flex items-center gap-3"
+			>
+				{
+					icons.map((icon) => (
+						<img
+							src={icon.src}
+							alt={icon.alt}
+							class={`h-32 ${icon.show === "light" ? "dark:hidden" : "hidden dark:block"}`}
+						/>
+					))
+				}
+			</a>
+			<span class="text-body-xs text-[var(--text-primary)]">
+				© Lúmina {year}
+			</span>
+		</Container>
+	</Container>
+</footer>
