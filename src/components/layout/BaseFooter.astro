@@ -2,44 +2,34 @@
 import Link from "@/components/ui/Link.astro";
 import Container from "@/components/ui/Container.astro";
 import Icon from "@/components/ui/Icon.astro";
-import { services } from "@/data/services";
+import Button from "@/components/ui/Button.astro";
+import {
+	serviceLinks,
+	iconsSrc,
+	enterpriseRoute,
+	links,
+} from "@/components/layout/BaseNavBar.astro";
 
 const year = new Date().getFullYear();
 
 const email = "contact@luminaw.co";
 
-const iconsSrc = {
-	ui: "/icons/ui/",
-	social: "/icons/social/",
-};
+const slogan =
+	"Si no se entiende, no sirve. Diseñamos y desarrollamos para que las cosas simplemente tengan sentido.";
 
-const empresaLinks = [
-	{ href: "/enterprise/us", label: "Nosotros" },
-	{ href: "/enterprise/cases", label: "Proyectos" },
-	{ href: "/enterprise/contact", label: "Contacto" },
-];
-
-const serviciosLinks = [
-	{ slug: "web", title: "Desarrollo Web" },
-	{ slug: "ux-ui", title: "Diseño UX/UI" },
-	{ slug: "automatizaciones", title: "Automatizaciones" },
-	{ slug: "ia", title: "Inteligencia Artificial" },
-	{ slug: "ciberseguridad", title: "Ciberseguridad" },
-	{ slug: "consultoria", title: "Consultoría" },
-];
+const legalRoute = "/legal/";
 
 const recursosLinks = [
 	{ href: "/blog", label: "Blog técnico" },
-	{ href: "/enterprise/cases", label: "Casos de éxito" },
-	{ href: "/enterprise/culture", label: "Cultura de equipo" },
-	{ href: "/enterprise/jobs", label: "Trabaja con nosotros" },
+	{ href: `${enterpriseRoute}culture`, label: "Cultura de equipo" },
+	{ href: `${enterpriseRoute}jobs`, label: "Trabaja con nosotros" },
 ];
 
 const legalLinks = [
-	{ href: "/legal/conditions", label: "Términos y condiciones" },
-	{ href: "/legal/privacy", label: "Política de privacidad" },
-	{ href: "/legal/cookies", label: "Política de cookies" },
-	{ href: "/legal/faq", label: "Preguntas frecuentes" },
+	{ href: `${legalRoute}conditions`, label: "Términos y condiciones" },
+	{ href: `${legalRoute}privacy`, label: "Política de privacidad" },
+	{ href: `${legalRoute}cookies`, label: "Política de cookies" },
+	{ href: `${legalRoute}faq`, label: "Preguntas frecuentes" },
 ];
 
 const socialLinks = [
@@ -59,135 +49,177 @@ const socialLinks = [
 		label: "Instagram",
 	},
 ];
-
-const icons = [
-	{
-		src: "/brand/lumina-logo-light.svg",
-		alt: "Logo claro de Lúmina",
-		show: "light",
-	},
-	{
-		src: "/brand/lumina-logo-dark.svg",
-		alt: "Logo oscuro de Lúmina",
-		show: "dark",
-	},
-];
 ---
 
-<footer class="base-footer flex gap-5 justify-between">
-	<Container class="flex-col-center-6 !items-start">
-		<Container class="flex-col-center-6 !items-start">
-			<a
-				href={icons[0].src}
-				aria-label={icons[0].alt}
-				class="flex items-center gap-3"
-			>
-				{
-					icons.map((icon) => (
-						<img
-							src={icon.src}
-							alt={icon.alt}
-							class={`h-120 ${icon.show === "light" ? "dark:hidden" : "hidden dark:block"}`}
-						/>
-					))
-				}
-			</a>
-			<span class="text-body-xs text-[var(--text-primary)] text-left">
-				© Lúmina {year}
-			</span>
-		</Container>
-		<Container class="flex-col-center-6 !gap-[16px] !items-start">
-			<Container class="inline-flex-center gap-5 !justify-start">
-				{
-					socialLinks.map((s) => (
-						<Icon
-							href={s.href}
-							target="_blank"
-							rel="noopener noreferrer"
-							aria-label={s.label}
-							class="w-[22px]"
-						>
-							<img src={s.icon} alt={s.label} />
-						</Icon>
-					))
-				}
+<footer class="base-footer !flex-col items-center !gap-10">
+	<Container class="flex gap-10 w-full"
+		><nav aria-label="Footer" class="flex flex-wrap gap-5 w-full text-left">
+			<Container class="min-w-fit flex-1">
+				<p class="heading-3 !text-start">Empresa</p>
+				<ul class="flex flex-col">
+					{
+						links
+							.filter(
+								(l) =>
+									l.href === "/" ||
+									l.href === `${enterpriseRoute}us` ||
+									l.href === `${enterpriseRoute}cases` ||
+									l.href === `${enterpriseRoute}contact`,
+							)
+							.map((l) => (
+								<li>
+									<Link
+										href={l.href}
+										class="text-[12px] !text-left"
+									>
+										{l.label}
+									</Link>
+								</li>
+							))
+					}
+				</ul>
 			</Container>
-			<Link
-				href={`mailto:${email}`}
-				class="text-[16px] !lowercase font-normal text-left !p-0"
-				>{email}</Link
-			>
-			<p class="text-center-italic text-left">
-				Medellín, Colombia (o remoto)
+			<Container class="min-w-fit flex-1">
+				<p class="heading-3 !text-start">Servicios</p>
+				<ul class="flex flex-col">
+					{
+						serviceLinks.map((s) => (
+							<li>
+								<Link
+									href={`${s.href}`}
+									class="text-[12px] !text-left"
+								>
+									{s.label}
+								</Link>
+							</li>
+						))
+					}
+				</ul>
+			</Container>
+			<Container class="min-w-fit flex-1">
+				<p class="heading-3 !text-start">Recursos</p>
+				<ul class="flex flex-col">
+					{
+						recursosLinks.map((l) => (
+							<li>
+								<Link
+									href={l.href}
+									class="text-[12px] !text-left"
+								>
+									{l.label}
+								</Link>
+							</li>
+						))
+					}
+				</ul>
+			</Container>
+			<Container class="min-w-fit flex-1">
+				<p class="heading-3 !text-start mb-2">Legal</p>
+				<ul class="flex flex-col">
+					{
+						legalLinks.slice(0, 3).map((link) => (
+							<li>
+								<Link
+									href={link.href}
+									class="text-[12px] !text-left"
+								>
+									{link.label}
+								</Link>
+							</li>
+						))
+					}
+				</ul>
+			</Container>
+			<Container class="min-w-fit flex-1">
+				<p class="heading-3 !text-start">Síguenos</p>
+				<ul class="flex justify-start gap-3">
+					{
+						socialLinks.map((s) => (
+							<Icon
+								href={s.href}
+								target="_blank"
+								rel="noopener noreferrer"
+								aria-label={s.label}
+								class="w-[22px]"
+							>
+								<img src={s.icon} alt={s.label} />
+							</Icon>
+						))
+					}
+				</ul>
+				<p class="text-sm-left mt-5">
+					¿Listo para empezar tu proyecto? <br /> Conversemos: <Link
+						href={`mailto:${email}`}
+						class="text-[16px] !lowercase font-normal text-left !p-0"
+						>{email}</Link
+					>
+				</p>
+			</Container>
+		</nav>
+		<Container class="w-full max-w-[520px]">
+			<p class="heading-3 !text-start">
+				Suscríbete a las novedades de Lúmina
 			</p>
+			<div class="p-3 flex flex-col gap-3">
+				<p class="text-xs-left">
+					Nuevos servicios, guías técnicas y casos reales. Sin spam.
+				</p>
+				<form
+					class="max-w-[520px] w-full flex flex-row gap-2"
+					autocomplete="off"
+				>
+					<input
+						type="email"
+						name="email"
+						required
+						placeholder="Tu correo electrónico"
+						class="input-form"
+						autocomplete="email"
+					/>
+					<Button
+						type="submit"
+						icon="ui/send-email-white"
+						text="Suscribirme"
+						class="text-[14px]"
+					/>
+				</form>
+			</div>
 		</Container>
 	</Container>
-
-	<nav
-		aria-label="Footer"
-		class="grid grid-cols-4 items-start gap-32 w-[70%] text-left"
-	>
-		<Container>
-			<p class="heading-3 !text-start">Empresa</p>
-			<ul class="flex flex-col">
-				{
-					empresaLinks.map((l) => (
-						<li>
-							<Link href={l.href} class="text-[12px]t !text-left">
-								{l.label}
-							</Link>
-						</li>
+	<Container class="w-full flex flex-col items-center">
+		<p class="text-xs-left">
+			Con 💙 desde Medellín, Colombia para el mundo.
+		</p>
+		<div class="inline-flex-center gap-16 mt-5">
+			<!--{
+				links
+					.filter((l) => l.label === "Inicio")
+					.map((l) => (
+						<a
+							href={l.href}
+							aria-label={l.label}
+							class="flex items-center gap-3"
+						>
+							{iconsSrc.brand ? (
+								<a>
+									<img
+										src={`${iconsSrc.brand}lumina-logo-light.svg`}
+										alt="Lúmina"
+										class="h-32 dark:hidden"
+									/>
+									<img
+										src={`${iconsSrc.brand}lumina-logo-dark.svg`}
+										alt="Lúmina"
+										class="h-32 hidden dark:block"
+									/>
+								</a>
+							) : null}
+						</a>
 					))
-				}
-			</ul>
-		</Container>
-		<Container>
-			<p class="heading-3 !text-start">Servicios</p>
-			<ul class="flex flex-col">
-				{
-					serviciosLinks.map((s) => (
-						<li>
-							<Link
-								href={`/enterprise/services/${s.slug}`}
-								class="text-[12px] !text-left"
-							>
-								{s.title}
-							</Link>
-						</li>
-					))
-				}
-			</ul>
-		</Container>
-		<Container>
-			<p class="heading-3 !text-start">Recursos</p>
-			<ul class="flex flex-col">
-				{
-					recursosLinks.map((l) => (
-						<li>
-							<Link href={l.href} class="text-[12px] !text-left">
-								{l.label}
-							</Link>
-						</li>
-					))
-				}
-			</ul>
-		</Container>
-		<Container>
-			<p class="heading-3 !text-start mb-2">Legal</p>
-			<ul class="flex flex-col">
-				{
-					legalLinks.slice(0, 3).map((link) => (
-						<li>
-							<Link
-								href={link.href}
-								class="text-[12px] !text-left"
-							>
-								{link.label}
-							</Link>
-						</li>
-					))
-				}
-			</ul>
-		</Container>
-	</nav>
+		}-->
+			<span class="text-body-xs text-[var(--text-primary)]">
+				© Lúmina {year}
+			</span>
+		</div>
+	</Container>
 </footer>
