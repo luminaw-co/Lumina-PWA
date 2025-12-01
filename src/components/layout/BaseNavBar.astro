@@ -5,23 +5,27 @@ import Icon from "@/components/ui/Icon.astro";
 import Link from "@/components/ui/Link.astro";
 import { services } from "@/data/services";
 
-const links = [
+export const iconsRoute = "/icons/";
+export const enterpriseRoute = "/enterprise/";
+
+export const links = [
 	{ href: "/", label: "Inicio" },
-	{ href: "/enterprise/services", label: "Servicios" },
-	{ href: "/enterprise/cases", label: "Clientes" },
-	{ href: "/enterprise/us", label: "Nosotros" },
-	{ href: "/enterprise/contact", label: "Contacto" },
+	{ href: `${enterpriseRoute}services`, label: "Servicios" },
+	{ href: `${enterpriseRoute}cases`, label: "Casos" },
+	{ href: `${enterpriseRoute}us`, label: "Nosotros" },
+	{ href: `${enterpriseRoute}contact`, label: "Contacto" },
 ];
 
-const serviceLinks = services.map((s) => ({
-	href: `/enterprise/services/${s.slug}`,
+export const serviceLinks = services.map((s) => ({
+	href: `${enterpriseRoute}services/${s.slug}`,
 	label: s.title,
-	desc: s.description,
+	desc: s.description ? s.description : undefined,
 }));
 
-const iconsSrc = {
-	ui: "/icons/ui/",
-	social: "/icons/social/",
+export const iconsSrc = {
+	ui: `${iconsRoute}ui/`,
+	social: `${iconsRoute}social/`,
+	brand: `/brand/`,
 };
 
 const pathname = Astro.url.pathname;
@@ -37,12 +41,12 @@ const isActive = (href: string) => pathname.startsWith(href);
 	>
 		<a href="/" aria-label="Inicio" class="flex items-center gap-3">
 			<img
-				src="/brand/lumina-logo-light.svg"
+				src={`${iconsSrc.brand}lumina-logo-light.svg`}
 				alt="Lúmina"
 				class="h-32 dark:hidden"
 			/>
 			<img
-				src="/brand/lumina-logo-dark.svg"
+				src={`${iconsSrc.brand}lumina-logo-dark.svg`}
 				alt="Lúmina"
 				class="h-32 hidden dark:block"
 			/>

@@ -48,7 +48,7 @@ const iconSrc = `/icons/${icon}.svg`;
 		<button type={type} class={`group ${base} ${extra}`}>
 			<Icon
 				src={iconSrc}
-				size="md"
+				size={type === "button" ? "md" : "sm"}
 				class="group-hover:scale-110 group-hover:rotate-12 transition-transform duration-200"
 			/>
 			{text}
