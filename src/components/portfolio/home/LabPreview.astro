@@ -19,11 +19,13 @@ interface Props {
 	id: string;
 }
 
+const portfolioRoute = "/portfolio/projects/";
+
 const {
 	title = "Laboratorio",
 	subtitle = "Creativo y Producción",
 	projects = [],
-	moreHref = "/portfolio/projects",
+	moreHref = `${portfolioRoute}`,
 } = Astro.props as Props;
 ---
 
@@ -50,7 +52,7 @@ const {
 					<Card
 						title={p.title}
 						cover={p.cover}
-						href={p.href ?? `/portfolio/projects/${p.slug}`}
+						href={p.href ?? `${portfolioRoute}${p.slug}`}
 						summary={p.summary}
 						links={p.links}
 					/>
@@ -58,5 +60,5 @@ const {
 			))
 		}
 	</ul>
-	<Link href={moreHref} class="nav-link">Ver más</Link>
+	<Link href={moreHref}>Ver más</Link>
 </section>

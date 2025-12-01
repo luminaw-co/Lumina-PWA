@@ -4,6 +4,12 @@
 		font-size: var(--heading-1);
 		line-height: 120%;
 	}
+	.heading-2 {
+		@apply font-semibold text-[var(--text-primary)] text-[28px];
+	}
+	.heading-3 {
+		@apply text-[18px] mb-3 text-[var(--text-primary)] md:text-center;
+	}
 	.flex-col-center-6 {
 		@apply flex flex-col gap-6 items-center justify-center;
 	}
@@ -52,6 +58,9 @@
 	.text-gradient-1 {
 		@apply font-bold bg-gradient-to-r from-brand-blue to-text-primary bg-clip-text text-transparent mb-3 text-center;
 	}
+	.text-gradient-2 {
+		@apply font-bold bg-gradient-to-r from-text-primary to-bg-page bg-clip-text text-transparent mb-3 text-center;
+	}
 	.text-modal {
 		@apply absolute -bottom-6 left-[50%] translate-x-[-50%] text-sm text-[var(--brand-blue)] opacity-0 transition-opacity duration-300;
 	}
@@ -81,9 +90,6 @@
 	}
 	.drop-fixed .drop-menu {
 		@apply opacity-100 translate-y-0 pointer-events-auto;
-	}
-	.heading-3 {
-		@apply text-[18px] mb-3 text-[var(--text-primary)] md:text-center;
 	}
 	.text-xs-left {
 		@apply text-[14px] text-[var(--text-primary)] text-left;
