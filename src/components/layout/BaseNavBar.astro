@@ -42,144 +42,22 @@ const isActive = (href: string) => pathname.startsWith(href);
 			border-radius: 0 !important;
 			background: red !important;
 			top: 0;
-			transform: translateX(100%);
+			/* Animación de slide-down */
+			transform: translateY(-100%);
 			opacity: 0;
 			transition:
 				transform 0.45s cubic-bezier(0.4, 0, 0.2, 1),
 				opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 		}
 		#mobile-menu.open {
-			transform: translateX(0);
+			transform: translateY(0);
 			opacity: 1;
 			pointer-events: auto;
 			visibility: visible;
 		}
-		#mobile-menu.closing {
-			transform: translateX(-100%);
-			opacity: 0;
-			/* NO pointer-events ni visibility aquí */
-			transition:
-				transform 0.45s cubic-bezier(0.4, 0, 0.2, 1),
-				opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-		}
 		#mobile-menu.closed {
-			transform: translateX(100%);
-			opacity: 0;
 			pointer-events: none;
 			visibility: hidden;
-		}
-		#mobile-menu .mobile-menu-content {
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-			justify-content: center;
-			height: 100%;
-			width: 100%;
-			padding: 0;
-			gap: 2.5rem;
-			position: relative;
-			z-index: 10;
-		}
-		#mobile-menu ul,
-		#mobile-menu .flex {
-			align-items: center !important;
-			justify-content: center !important;
-		}
-		#mobile-menu li,
-		#mobile-menu .mobile-anim {
-			opacity: 0;
-			transform: translateX(-40px);
-			transition:
-				opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-				transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-		}
-		#mobile-menu.open li,
-		#mobile-menu.open .mobile-anim {
-			opacity: 1;
-			transform: translateX(0);
-		}
-		#mobile-menu.closing li,
-		#mobile-menu.closing .mobile-anim {
-			opacity: 0;
-			transform: translateX(40px);
-			transition:
-				opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-				transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-		}
-		#mobile-menu-toggle,
-		#mobile-menu-close {
-			position: fixed;
-			top: 1.5rem;
-			right: 1.5rem;
-			z-index: 50;
-			background: transparent;
-			border: none;
-			padding: 0.5rem;
-			cursor: pointer;
-			display: flex;
-			align-items: center;
-			justify-content: center;
-		}
-		#mobile-menu-toggle.open {
-			display: none;
-		}
-		#mobile-menu-close {
-			display: none;
-		}
-		#mobile-menu.open + #mobile-menu-close {
-			display: flex;
-		}
-		#mobile-menu.open ~ #mobile-menu-toggle {
-			display: none;
-		}
-		#mobile-menu.open #mobile-menu-close {
-			display: flex;
-		}
-		#mobile-menu.open #mobile-menu-toggle {
-			display: none;
-		}
-		#mobile-menu.closing #mobile-menu-close {
-			display: flex;
-		}
-		#mobile-menu.closing #mobile-menu-toggle {
-			display: none;
-		}
-		/* Animación escalonada */
-		#mobile-menu.open li:nth-child(1),
-		#mobile-menu.closing li:nth-child(1) {
-			transition-delay: 0.1s;
-		}
-		#mobile-menu.open li:nth-child(2),
-		#mobile-menu.closing li:nth-child(2) {
-			transition-delay: 0.2s;
-		}
-		#mobile-menu.open li:nth-child(3),
-		#mobile-menu.closing li:nth-child(3) {
-			transition-delay: 0.3s;
-		}
-		#mobile-menu.open li:nth-child(4),
-		#mobile-menu.closing li:nth-child(4) {
-			transition-delay: 0.4s;
-		}
-		#mobile-menu.open li:nth-child(5),
-		#mobile-menu.closing li:nth-child(5) {
-			transition-delay: 0.5s;
-		}
-		#mobile-menu.open .mobile-anim:nth-child(1),
-		#mobile-menu.closing .mobile-anim:nth-child(1) {
-			transition-delay: 0.6s;
-		}
-		#mobile-menu.open .mobile-anim:nth-child(2),
-		#mobile-menu.closing .mobile-anim:nth-child(2) {
-			transition-delay: 0.7s;
-		}
-		#mobile-menu.open .mobile-anim:nth-child(3),
-		#mobile-menu.closing .mobile-anim:nth-child(3) {
-			transition-delay: 0.8s;
-		}
-		#mobile-menu.open .mobile-anim:nth-child(4),
-		#mobile-menu.closing .mobile-anim:nth-child(4) {
-			transition-delay: 0.9s;
 		}
 		details > ul {
 			transition:
@@ -199,24 +77,6 @@ const isActive = (href: string) => pathname.startsWith(href);
 		}
 		details > summary::-webkit-details-marker {
 			display: none;
-		}
-		#mobile-menu-overlay {
-			opacity: 1;
-			transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-			background: red !important;
-		}
-		#mobile-menu.closing #mobile-menu-overlay {
-			opacity: 0;
-			transition-delay: 0.5s; /* Espera a que salgan los elementos */
-		}
-		#mobile-menu.closed #mobile-menu-overlay {
-			opacity: 0;
-		}
-		#mobile-menu .mobile-menu-content {
-			z-index: 10;
-		}
-		#mobile-menu-overlay {
-			z-index: 0;
 		}
 	}
 </style>
@@ -357,11 +217,9 @@ const isActive = (href: string) => pathname.startsWith(href);
 			</button>
 		</div>
 
-		<!-- Botón de abrir menú mobile SIEMPRE visible en mobile -->
 		<button
-			id="mobile-menu-toggle"
-			type="button"
-			class="md:hidden p-2 hover:bg-[var(--ui-hover)]/10 fixed top-6 right-6 z-[60] bg-transparent"
+			class="md:hidden p-2 hover:bg-[var(--ui-hover)]/10"
+			id="menu-btn"
 			aria-expanded="false"
 			aria-controls="mobile-menu"
 			aria-label="Abrir menú"
@@ -391,11 +249,12 @@ const isActive = (href: string) => pathname.startsWith(href);
 		id="mobile-menu"
 		aria-label="Menú móvil"
 		aria-hidden="true"
-		class="md:hidden fixed left-0 top-0 w-screen h-screen z-50 flex flex-col closed"
+		class="md:hidden fixed left-0 top-0 w-screen h-full z-50 shadow-[var(--shadow-base)] closed"
 	>
-		<!-- Contenido del menú -->
-		<div class="mobile-menu-content">
-			<ul role="list" class="flex flex-col items-center gap-12 w-full">
+		<div
+			class="w-full h-full flex flex-col justify-between items-end gap-32 p-12 box-border"
+		>
+			<ul role="list" class="flex flex-col items-end gap-12 w-full">
 				{
 					links.map((l) => (
 						<li>
@@ -437,127 +296,77 @@ const isActive = (href: string) => pathname.startsWith(href);
 				}
 			</ul>
 
-			<div class="flex flex-col items-center gap-6 w-full">
-				<div class="flex items-center gap-4 mobile-anim">
-					<button
-						type="button"
-						class="p-2 rounded-lg hover:bg-[var(--ui-hover)]/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--ui-link)]"
-						aria-label="Cambiar idioma"
-						id="lang-toggle-mobile"
-					>
-						<Icon src="/icons/ui/switch-language.svg" size="md" />
-					</button>
+			<div class="flex items-center gap-4">
+				<button
+					type="button"
+					class="p-2 rounded-lg hover:bg-[var(--ui-hover)]/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--ui-link)]"
+					aria-label="Cambiar idioma"
+					id="lang-toggle-mobile"
+				>
+					<Icon src="/icons/ui/switch-language.svg" size="md" />
+				</button>
 
-					<button
-						id="theme-toggle-mobile"
-						aria-pressed="false"
-						class="p-2 pr-0 rounded-lg hover:bg-[var(--ui-hover)]/10"
-						aria-label="Cambiar tema"
-					>
-						<Icon
-							src="/icons/ui/sun.svg"
-							size="md"
-							class="hidden dark:inline-flex"
-						/>
-						<Icon
-							src="/icons/ui/moon.svg"
-							size="md"
-							class="dark:hidden"
-						/>
-					</button>
-				</div>
-
-				<div class="mobile-anim w-full flex justify-center">
-					<Button
-						href="mailto:contacto@lumina.dev"
-						target="_blank"
-						icon="ui/send-email-white"
-						text="Contáctame"
+				<button
+					id="theme-toggle-mobile"
+					aria-pressed="false"
+					class="p-2 pr-0 rounded-lg hover:bg-[var(--ui-hover)]/10"
+					aria-label="Cambiar tema"
+				>
+					<Icon
+						src="/icons/ui/sun.svg"
+						size="md"
+						class="hidden dark:inline-flex"
 					/>
-				</div>
+					<Icon
+						src="/icons/ui/moon.svg"
+						size="md"
+						class="dark:hidden"
+					/>
+				</button>
 			</div>
+
+			<Button
+				href="mailto:contacto@lumina.dev"
+				target="_blank"
+				icon="ui/send-email-white"
+				text="Contáctame"
+			/>
 		</div>
-		<!-- Overlay para cerrar al hacer clic fuera -->
-		<div
-			id="mobile-menu-overlay"
-			class="absolute inset-0 w-full h-full"
-			tabindex="-1"
-		>
-		</div>
-		<!-- Botón de cerrar SIEMPRE al final y con z-[70] para estar encima del overlay -->
-		<button
-			id="mobile-menu-close"
-			type="button"
-			class="md:hidden p-2 fixed top-6 right-6 z-[70] bg-transparent"
-			aria-label="Cerrar menú"
-			style="display: none;"
-		>
-			<Icon src="/icons/ui/close-blue.svg" />
-		</button>
 	</nav>
 
 	<script is:raw>
 		(function () {
-			const openBtn = document.getElementById("mobile-menu-toggle");
-			const closeBtn = document.getElementById("mobile-menu-close");
+			const btn = document.getElementById("menu-btn");
 			const menu = document.getElementById("mobile-menu");
-			const overlay = document.getElementById("mobile-menu-overlay");
-
-			let open = false;
-			let closingTimeout = null;
 
 			function openMenu() {
-				if (closingTimeout) clearTimeout(closingTimeout);
-				menu.classList.remove("closed", "closing");
+				menu.classList.remove("closed");
 				menu.classList.add("open");
-				openBtn.setAttribute("aria-expanded", "true");
+				btn.setAttribute("aria-expanded", "true");
 				menu.setAttribute("aria-hidden", "false");
-				closeBtn.style.display = "flex";
-				openBtn.style.display = "none";
-				open = true;
 			}
 
 			function closeMenu() {
-				if (!open) return;
 				menu.classList.remove("open");
-				menu.classList.add("closing");
-				closeBtn.style.display = "flex";
-				openBtn.style.display = "none";
-				open = false;
-				if (closingTimeout) clearTimeout(closingTimeout);
-				closingTimeout = setTimeout(() => {
-					menu.classList.remove("closing");
-					menu.classList.add("closed");
-					closeBtn.style.display = "none";
-					openBtn.style.display = "flex";
-				}, 800); // 0.5s para elementos + 0.3s para overlay
+				menu.classList.add("closed");
+				btn.setAttribute("aria-expanded", "false");
 				menu.setAttribute("aria-hidden", "true");
-				openBtn.setAttribute("aria-expanded", "false");
 			}
 
-			if (openBtn && menu && closeBtn) {
-				openBtn.addEventListener("click", () => {
-					openMenu();
-				});
+			if (btn && menu) {
+				let open = false;
 
-				closeBtn.addEventListener("click", () => {
-					closeMenu();
+				btn.addEventListener("click", () => {
+					open ? closeMenu() : openMenu();
+					open = !open;
 				});
 
 				document.addEventListener("keydown", (e) => {
 					if (e.key === "Escape" && open) {
 						closeMenu();
+						open = false;
 					}
 				});
-
-				// Cerrar al hacer clic fuera (overlay)
-				if (overlay) {
-					overlay.addEventListener("click", () => {
-						if (open) {
-							closeMenu();
-						}
-					});
-				}
 			}
 
 			// Dropmenu Servicios: click para fijar
