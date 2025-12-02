@@ -3,6 +3,7 @@ import Container from "@/components/ui/Container.astro";
 import Button from "@/components/ui/Button.astro";
 import Icon from "@/components/ui/Icon.astro";
 import Link from "@/components/ui/Link.astro";
+import email from "@/components/layout/BaseFooter.astro";
 import { services } from "@/data/services";
 
 export const iconsRoute = "/icons/";
@@ -32,14 +33,9 @@ const pathname = Astro.url.pathname;
 const isActive = (href: string) => pathname.startsWith(href);
 ---
 
-<header
-	class="fixed w-full top-0 z-50 backdrop-blur-lg backdrop-saturate-150 bg-[var(--nav-blur)] dark:bg-[var(--nav-blur)]"
->
-	<Container
-		as="div"
-		class="h-auto flex items-center justify-between mx-0 max-w-full p-12 md:px-16 lg:px-32"
-	>
-		<a href="/" aria-label="Inicio" class="flex items-center gap-3">
+<header class="header-nav">
+	<Container as="div" class="ctn-nav">
+		<a href="/" aria-label="Inicio" class="flex items-center">
 			<img
 				src={`${iconsSrc.brand}lumina-logo-light.svg`}
 				alt="Lúmina"
@@ -52,10 +48,7 @@ const isActive = (href: string) => pathname.startsWith(href);
 			/>
 		</a>
 
-		<nav
-			class="hidden md:flex items-center gap-32"
-			aria-label="Navegación principal"
-		>
+		<nav class="nav-desktop" aria-label="Navegación principal">
 			<ul role="list" class="flex items-center gap-32">
 				{
 					links.map((l) => (
@@ -66,7 +59,7 @@ const isActive = (href: string) => pathname.startsWith(href);
 						>
 							{l.label === "Servicios" ? (
 								<>
-									<div class="flex items-center select-none">
+									<div class="flex items-center">
 										<Link
 											href={l.href}
 											aria-current={
@@ -80,7 +73,7 @@ const isActive = (href: string) => pathname.startsWith(href);
 										</Link>
 										<button
 											type="button"
-											class="flex items-center justify-center w-6 h-6 hover:bg-[var(--brand-bluer)]/20 transition"
+											class="btn-icon"
 											id="services-drop-toggle"
 											aria-label="Mostrar menú de servicios"
 											tabindex="0"
@@ -110,7 +103,7 @@ const isActive = (href: string) => pathname.startsWith(href);
 											<li class="relative group/item">
 												<Link
 													href={s.href}
-													class="flex items-center py-4 transition w-full text-[14px] !text-left"
+													class="nav-item-drop"
 												>
 													<span class="text-left">
 														{s.label}
@@ -142,17 +135,14 @@ const isActive = (href: string) => pathname.startsWith(href);
 			</ul>
 		</nav>
 
-		<div class="hidden md:flex items-center gap-3">
-			<button
-				class="p-2 hover:bg-[var(--brand-bluer)]/10"
-				aria-label="Cambiar idioma"
-			>
+		<Container class="hidden md:flex items-center gap-3">
+			<button class="p-2" aria-label="Cambiar idioma">
 				<Icon src={`${iconsSrc.ui}switch-language.svg`} size="md" />
 			</button>
 			<button
 				id="theme-toggle"
 				aria-pressed="false"
-				class="p-2 hover:bg-[var(--brand-bluer)]/10"
+				class="p-2"
 				aria-label="Cambiar tema"
 			>
 				<Icon
@@ -166,10 +156,10 @@ const isActive = (href: string) => pathname.startsWith(href);
 					class="inline-flex dark:hidden"
 				/>
 			</button>
-		</div>
+		</Container>
 
 		<button
-			class="md:hidden p-2 hover:bg-[var(--brand-bluer)]/10"
+			class="md:hidden p-2"
 			id="menu-btn"
 			aria-expanded="false"
 			aria-controls="mobile-menu"
@@ -179,16 +169,13 @@ const isActive = (href: string) => pathname.startsWith(href);
 		</button>
 	</Container>
 
-	<Container
-		class="hidden md:flex fixed w-full left-0 z-40 justify-end items-center gap-4 px-32"
-		style="top: 6.0rem; height: 0;"
-	>
+	<Container class="ctn-sub-menu" style="top: 6.0rem; height: 0;">
 		<div class="flex gap-4 items-center justify-center">
 			<Link href="/portfolio/" style="padding: 0.75rem 1.25rem;">
 				Portfolio
 			</Link>
 			<Button
-				href="mailto:wavival.dev@luminaw.co"
+				href={`mailto:${email}`}
 				target="_blank"
 				icon="ui/send-email-white"
 				text="Solicitar servicio"
@@ -201,12 +188,18 @@ const isActive = (href: string) => pathname.startsWith(href);
 		id="mobile-menu"
 		aria-label="Menú móvil"
 		aria-hidden="true"
-		class="md:hidden fixed inset-0 z-50 bg-[var(--bg-page)] h-screen flex flex-col justify-between items-center transition-all duration-500 ease-in-out -translate-y-full opacity-0 pointer-events-none gap-10 p-20"
+		class="nav-mobile -translate-y-full opacity-0 pointer-events-none"
 	>
-		<ul
-			role="list"
-			class="flex flex-col items-start gap-12 max-w-[320px] w-full"
+		<button
+			type="button"
+			id="mobile-menu-close"
+			class="btn-close-menu"
+			aria-label="Cerrar menú"
 		>
+			<Icon src={`${iconsSrc.ui}close.svg`} size="md" />
+		</button>
+
+		<ul role="list" class="nav-item">
 			{
 				links.map((l) => (
 					<li>
@@ -288,7 +281,7 @@ const isActive = (href: string) => pathname.startsWith(href);
 				aria-label="Cambiar idioma"
 				id="lang-toggle-mobile"
 			>
-				<Icon src="/icons/ui/switch-language.svg" size="md" />
+				<Icon src={`${iconsSrc.ui}switch-language.svg`} size="md" />
 			</button>
 			<button
 				id="theme-toggle-mobile"
@@ -297,11 +290,15 @@ const isActive = (href: string) => pathname.startsWith(href);
 				aria-label="Cambiar tema"
 			>
 				<Icon
-					src="/icons/ui/sun.svg"
+					src={`${iconsSrc.ui}sun.svg`}
 					size="md"
 					class="hidden dark:inline-flex"
 				/>
-				<Icon src="/icons/ui/moon.svg" size="md" class="dark:hidden" />
+				<Icon
+					src={`${iconsSrc.ui}moon.svg`}
+					size="md"
+					class="dark:hidden"
+				/>
 			</button>
 		</Container>
 	</nav>
@@ -446,6 +443,16 @@ const isActive = (href: string) => pathname.startsWith(href);
 						}
 					});
 				});
+
+			// Botón cerrar menú mobile
+			const closeBtn = document.getElementById("mobile-menu-close");
+			if (closeBtn) {
+				closeBtn.addEventListener("click", () => {
+					closeMenu();
+					// Si tienes variable open, ponla en false:
+					if (typeof open !== "undefined") open = false;
+				});
+			}
 		})();
 	</script>
 </header>
