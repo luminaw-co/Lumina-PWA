@@ -32,55 +32,6 @@ const pathname = Astro.url.pathname;
 const isActive = (href: string) => pathname.startsWith(href);
 ---
 
-<style>
-	@media (max-width: 767px) {
-		#mobile-menu {
-			left: 0 !important;
-			right: 0 !important;
-			width: 100vw !important;
-			min-width: 0 !important;
-			border-radius: 0 !important;
-			background: red !important;
-			top: 0;
-			/* Animación de slide-down */
-			transform: translateY(-100%);
-			opacity: 0;
-			transition:
-				transform 0.45s cubic-bezier(0.4, 0, 0.2, 1),
-				opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-		}
-		#mobile-menu.open {
-			transform: translateY(0);
-			opacity: 1;
-			pointer-events: auto;
-			visibility: visible;
-		}
-		#mobile-menu.closed {
-			pointer-events: none;
-			visibility: hidden;
-		}
-		details > ul {
-			transition:
-				max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-				opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-			overflow: hidden;
-			max-height: 500px;
-			opacity: 1;
-		}
-		details:not([open]) > ul {
-			max-height: 0;
-			opacity: 0;
-			pointer-events: none;
-		}
-		details > summary {
-			list-style: none;
-		}
-		details > summary::-webkit-details-marker {
-			display: none;
-		}
-	}
-</style>
-
 <header
 	class="fixed w-full top-0 z-50 backdrop-blur-lg backdrop-saturate-150 bg-[var(--nav-blur)] dark:bg-[var(--nav-blur)]"
 >
@@ -245,93 +196,87 @@ const isActive = (href: string) => pathname.startsWith(href);
 		</div>
 	</Container>
 
+	{/* MENU MOBILE SOLO TAILWIND */}
 	<nav
 		id="mobile-menu"
 		aria-label="Menú móvil"
 		aria-hidden="true"
-		class="md:hidden fixed left-0 top-0 w-screen h-full z-50 shadow-[var(--shadow-base)] closed"
+		class="md:hidden fixed inset-0 z-50 bg-white flex flex-col justify-center items-center transition-all duration-500 ease-in-out -translate-y-full opacity-0 pointer-events-none"
 	>
-		<div
-			class="w-full h-full flex flex-col justify-between items-end gap-32 p-12 box-border"
-		>
-			<ul role="list" class="flex flex-col items-end gap-12 w-full">
-				{
-					links.map((l) => (
-						<li>
-							{l.label === "Servicios" ? (
-								<details class="w-full">
-									<summary class="cursor-pointer">
-										{l.label}
-									</summary>
-									<ul class="flex flex-col gap-2 mt-2">
-										{serviceLinks.map((s) => (
-											<li>
-												<Link
-													href={s.href}
-													class="flex flex-col px-4 py-2"
-												>
-													<span class="font-semibold">
-														{s.label}
-													</span>
-													<span class="text-xs">
-														{s.desc}
-													</span>
-												</Link>
-											</li>
-										))}
-									</ul>
-								</details>
-							) : (
-								<Link
-									href={l.href}
-									aria-current={
-										isActive(l.href) ? "page" : undefined
-									}
-								>
+		<ul role="list" class="flex flex-col items-center gap-12 w-full">
+			{
+				links.map((l) => (
+					<li>
+						{l.label === "Servicios" ? (
+							<details class="w-full">
+								<summary class="cursor-pointer list-none">
 									{l.label}
-								</Link>
-							)}
-						</li>
-					))
-				}
-			</ul>
+								</summary>
+								<ul class="flex flex-col gap-2 mt-2 transition-all duration-300 overflow-hidden max-h-[500px] opacity-100 data-[open=false]:max-h-0 data-[open=false]:opacity-0 data-[open=false]:pointer-events-none">
+									{serviceLinks.map((s) => (
+										<li>
+											<Link
+												href={s.href}
+												class="flex flex-col px-4 py-2"
+											>
+												<span class="font-semibold">
+													{s.label}
+												</span>
+												<span class="text-xs">
+													{s.desc}
+												</span>
+											</Link>
+										</li>
+									))}
+								</ul>
+							</details>
+						) : (
+							<Link
+								href={l.href}
+								aria-current={
+									isActive(l.href) ? "page" : undefined
+								}
+							>
+								{l.label}
+							</Link>
+						)}
+					</li>
+				))
+			}
+		</ul>
 
-			<div class="flex items-center gap-4">
-				<button
-					type="button"
-					class="p-2 rounded-lg hover:bg-[var(--ui-hover)]/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--ui-link)]"
-					aria-label="Cambiar idioma"
-					id="lang-toggle-mobile"
-				>
-					<Icon src="/icons/ui/switch-language.svg" size="md" />
-				</button>
+		<div class="flex items-center gap-4 mt-12">
+			<button
+				type="button"
+				class="p-2 rounded-lg hover:bg-[var(--ui-hover)]/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--ui-link)]"
+				aria-label="Cambiar idioma"
+				id="lang-toggle-mobile"
+			>
+				<Icon src="/icons/ui/switch-language.svg" size="md" />
+			</button>
 
-				<button
-					id="theme-toggle-mobile"
-					aria-pressed="false"
-					class="p-2 pr-0 rounded-lg hover:bg-[var(--ui-hover)]/10"
-					aria-label="Cambiar tema"
-				>
-					<Icon
-						src="/icons/ui/sun.svg"
-						size="md"
-						class="hidden dark:inline-flex"
-					/>
-					<Icon
-						src="/icons/ui/moon.svg"
-						size="md"
-						class="dark:hidden"
-					/>
-				</button>
-			</div>
-
-			<Button
-				href="mailto:contacto@lumina.dev"
-				target="_blank"
-				icon="ui/send-email-white"
-				text="Contáctame"
-			/>
+			<button
+				id="theme-toggle-mobile"
+				aria-pressed="false"
+				class="p-2 pr-0 rounded-lg hover:bg-[var(--ui-hover)]/10"
+				aria-label="Cambiar tema"
+			>
+				<Icon
+					src="/icons/ui/sun.svg"
+					size="md"
+					class="hidden dark:inline-flex"
+				/>
+				<Icon src="/icons/ui/moon.svg" size="md" class="dark:hidden" />
+			</button>
 		</div>
+
+		<Button
+			href="mailto:contacto@lumina.dev"
+			target="_blank"
+			icon="ui/send-email-white"
+			text="Contáctame"
+			class="mt-8"
+		/>
 	</nav>
 
 	<script is:raw>
@@ -340,15 +285,31 @@ const isActive = (href: string) => pathname.startsWith(href);
 			const menu = document.getElementById("mobile-menu");
 
 			function openMenu() {
-				menu.classList.remove("closed");
-				menu.classList.add("open");
+				menu.classList.remove(
+					"-translate-y-full",
+					"opacity-0",
+					"pointer-events-none",
+				);
+				menu.classList.add(
+					"translate-y-0",
+					"opacity-100",
+					"pointer-events-auto",
+				);
 				btn.setAttribute("aria-expanded", "true");
 				menu.setAttribute("aria-hidden", "false");
 			}
 
 			function closeMenu() {
-				menu.classList.remove("open");
-				menu.classList.add("closed");
+				menu.classList.add(
+					"-translate-y-full",
+					"opacity-0",
+					"pointer-events-none",
+				);
+				menu.classList.remove(
+					"translate-y-0",
+					"opacity-100",
+					"pointer-events-auto",
+				);
 				btn.setAttribute("aria-expanded", "false");
 				menu.setAttribute("aria-hidden", "true");
 			}
