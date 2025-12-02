@@ -357,17 +357,6 @@ const isActive = (href: string) => pathname.startsWith(href);
 			</button>
 		</div>
 
-		<!-- Botón de cerrar menú mobile (debe estar fuera del nav para que siempre exista en el DOM) -->
-		<button
-			id="mobile-menu-close"
-			type="button"
-			class="md:hidden p-2 fixed top-6 right-6 z-[60] bg-transparent"
-			aria-label="Cerrar menú"
-			style="display: none;"
-		>
-			<Icon src="/icons/ui/close-blue.svg" />
-		</button>
-
 		<!-- Botón de abrir menú mobile SIEMPRE visible en mobile -->
 		<button
 			id="mobile-menu-toggle"
@@ -495,6 +484,16 @@ const isActive = (href: string) => pathname.startsWith(href);
 			tabindex="-1"
 		>
 		</div>
+		<!-- Botón de cerrar SIEMPRE al final y con z-[70] para estar encima del overlay -->
+		<button
+			id="mobile-menu-close"
+			type="button"
+			class="md:hidden p-2 fixed top-6 right-6 z-[70] bg-transparent"
+			aria-label="Cerrar menú"
+			style="display: none;"
+		>
+			<Icon src="/icons/ui/close-blue.svg" />
+		</button>
 	</nav>
 
 	<script is:raw>
