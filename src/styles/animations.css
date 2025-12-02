@@ -12,6 +12,36 @@
 	animation: fadeUp 1s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
+@keyframes gridFade {
+	0% {
+		opacity: 0.28;
+	}
+	50% {
+		opacity: 0.42;
+	}
+	100% {
+		opacity: 0.28;
+	}
+}
+.animate-gridFade {
+	animation: gridFade 8s ease-in-out infinite alternate;
+}
+
+@keyframes floatY {
+	0% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(-32px);
+	}
+	100% {
+		transform: translateY(0);
+	}
+}
+.animate-floatY {
+	animation: floatY 6s ease-in-out infinite;
+}
+
 @media (max-width: 767px) {
 	details > ul {
 		transition:
@@ -26,7 +56,6 @@
 		opacity: 0;
 		pointer-events: none;
 	}
-	/* Quitar flecha nativa del summary */
 	details > summary {
 		list-style: none;
 	}

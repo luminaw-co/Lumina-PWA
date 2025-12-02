@@ -1,48 +1,55 @@
 ---
 import Button from "@/components/ui/Button.astro";
+import Container from "@/components/ui/Container.astro";
 import Link from "@/components/ui/Link.astro";
+import email from "@/components/layout/BaseNavBar.astro";
+import {
+	iconsSrc,
+	enterpriseRoute,
+} from "@/components/layout/BaseNavBar.astro";
 ---
 
-<style>
-	@keyframes fadeUp {
-		from {
-			opacity: 0;
-			transform: translateY(64px);
-		}
-		to {
-			opacity: 1;
-			transform: translateY(0);
-		}
-	}
-	.hero-fadeup {
-		animation: fadeUp 1s cubic-bezier(0.4, 0, 0.2, 1) both;
-	}
-</style>
-
-<section
-	class="hero-fadeup w-full flex justify-center items-center min-h-[60vh] py-12 flex-col gap-5 h-[350px] bg-gradient-to-b from-[var(--brand-blue)] to-[var(--bg-page)] rounded-2xl px-6 mx-auto"
->
-	<div class="w-full flex flex-col items-center px-6 md:px-16 py-10">
-		<h1 class="heading-1 text-white text-center mb-5">
-			Creamos productos digitales que funcionan.
-		</h1>
-		<p class="heading-2 text-white/90 text-center mb-8 max-w-2xl">
-			Diseño UX/UI y desarrollo web para emprendedores y pequeñas empresas
-			que buscan claridad, estructura y resultados reales.
-		</p>
-		<div class="flex flex-col sm:flex-row gap-4 mb-6">
-			<div class="flex gap-4 items-center justify-center">
-				<Link href="/portfolio/">Portfolio</Link>
-				<Button
-					href="mailto:wavival.dev@luminaw.co"
-					target="_blank"
-					icon="ui/send-email-white"
-					text="Solicitar servicio"
+<section class="hero-home">
+	<Container id="hero-grid-bg" class="grid-bg opacity-32" />
+	<Container class="ctn-hero">
+		<Container class="flex-1 flex items-center justify-center py-10">
+			<Container
+				class="relative w-full max-w-[440px] h-[380px] flex items-center justify-center z-[2] mx-auto"
+			>
+				<img
+					src={`${iconsSrc.isometrics}hero-isometric.svg`}
+					alt="Hero Illustration"
+					class="w-full h-full block object-contain rounded-3xl animate-floatY"
+					width="440"
+					height="380"
+					loading="lazy"
 				/>
-			</div>
-		</div>
-		<span class="text-center-italic">
-			Respuesta en menos de 24 horas.
-		</span>
-	</div>
+			</Container>
+		</Container>
+		<Container class="ctn-hero-1">
+			<h1 class="heading-1">
+				Creamos <span class="text-[var(--brand-blue)]">productos</span> digitales
+				que{" "}
+				<span class="text-[var(--brand-blue)]">funcionan</span>.
+			</h1>
+			<p class="heading-3 !text-left !m-0 max-w-2xl">
+				Diseño UX/UI y desarrollo web para emprendedores y pequeñas
+				empresas que buscan claridad, estructura y resultados reales.
+			</p>
+			<span class="text-xs-left italic">
+				Respuesta en menos de 24 horas.
+			</span>
+			<Container class="flex gap-4 items-center justify-start">
+				<Button
+					href={`${enterpriseRoute}contact`}
+					target="_self"
+					icon="ui/send-email-white"
+					text="Iniciar proyecto"
+				/>
+				<Link href={`${enterpriseRoute}services/`}>
+					Ver servicios
+				</Link>
+			</Container>
+		</Container>
+	</Container>
 </section>
