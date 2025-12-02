@@ -52,8 +52,8 @@ const socialLinks = [
 ---
 
 <footer class="base-footer !flex-col items-center !gap-10">
-	<Container class="flex gap-10 w-full"
-		><nav aria-label="Footer" class="flex flex-wrap gap-5 w-full text-left">
+	<Container class="flex flex-col gap-10 w-full 2xl:flex-row">
+		<nav aria-label="Footer" class="flex flex-wrap gap-5 w-full text-left">
 			<Container class="min-w-fit flex-1">
 				<p class="heading-3 !text-start">Empresa</p>
 				<ul class="flex flex-col">
@@ -130,7 +130,9 @@ const socialLinks = [
 					}
 				</ul>
 			</Container>
-			<Container class="min-w-fit flex-1">
+			<Container
+				class="min-w-fit flex-1 md:justify-items-center xl:justify-items-start 2xl:content-start 2xl:m-0"
+			>
 				<p class="heading-3 !text-start">Síguenos</p>
 				<ul class="flex justify-start gap-3">
 					{
@@ -156,12 +158,14 @@ const socialLinks = [
 				</p>
 			</Container>
 		</nav>
-		<Container class="w-full max-w-[520px]">
+		<Container
+			class="content-center w-full justify-items-center max-w-[520px] m-auto 2xl:content-start 2xl:justify-items-start 2xl:m-0"
+		>
 			<p class="heading-3 !text-start">
 				Suscríbete a las novedades de Lúmina
 			</p>
-			<div class="p-3 flex flex-col gap-3">
-				<p class="text-xs-left">
+			<div class="p-3 flex flex-col gap-3 max-w-[520px] w-full">
+				<p class="text-sm-center 2xl:text-left">
 					Nuevos servicios, guías técnicas y casos reales. Sin spam.
 				</p>
 				<form
