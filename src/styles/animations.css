@@ -1,0 +1,36 @@
+@keyframes fadeUp {
+	from {
+		opacity: 0;
+		transform: translateY(64px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+.hero-fadeup {
+	animation: fadeUp 1s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+@media (max-width: 767px) {
+	details > ul {
+		transition:
+			max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+			opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+		overflow: hidden;
+		max-height: 500px;
+		opacity: 1;
+	}
+	details:not([open]) > ul {
+		max-height: 0;
+		opacity: 0;
+		pointer-events: none;
+	}
+	/* Quitar flecha nativa del summary */
+	details > summary {
+		list-style: none;
+	}
+	details > summary::-webkit-details-marker {
+		display: none;
+	}
+}

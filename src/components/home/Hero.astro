@@ -1,5 +1,48 @@
 ---
-
+import Button from "@/components/ui/Button.astro";
+import Link from "@/components/ui/Link.astro";
 ---
 
-Hero
+<style>
+	@keyframes fadeUp {
+		from {
+			opacity: 0;
+			transform: translateY(64px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+	.hero-fadeup {
+		animation: fadeUp 1s cubic-bezier(0.4, 0, 0.2, 1) both;
+	}
+</style>
+
+<section
+	class="hero-fadeup w-full flex justify-center items-center min-h-[60vh] py-12 flex-col gap-5 h-[350px] bg-gradient-to-b from-[var(--brand-blue)] to-[var(--bg-page)] rounded-2xl px-6 mx-auto"
+>
+	<div class="w-full flex flex-col items-center px-6 md:px-16 py-10">
+		<h1 class="heading-1 text-white text-center mb-5">
+			Creamos productos digitales que funcionan.
+		</h1>
+		<p class="heading-2 text-white/90 text-center mb-8 max-w-2xl">
+			Diseño UX/UI y desarrollo web para emprendedores y pequeñas empresas
+			que buscan claridad, estructura y resultados reales.
+		</p>
+		<div class="flex flex-col sm:flex-row gap-4 mb-6">
+			<div class="flex gap-4 items-center justify-center">
+				<Link href="/portfolio/">Portfolio</Link>
+				<Button
+					href="mailto:wavival.dev@luminaw.co"
+					target="_blank"
+					icon="ui/send-email-white"
+					text="Solicitar servicio"
+				/>
+			</div>
+		</div>
+		<span class="text-center-italic">
+			Respuesta en menos de 24 horas.
+		</span>
+	</div>
+</section>
