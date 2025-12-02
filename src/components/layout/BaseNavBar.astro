@@ -201,35 +201,55 @@ const isActive = (href: string) => pathname.startsWith(href);
 		id="mobile-menu"
 		aria-label="Menú móvil"
 		aria-hidden="true"
-		class="md:hidden fixed inset-0 z-50 bg-white flex flex-col justify-center items-center transition-all duration-500 ease-in-out -translate-y-full opacity-0 pointer-events-none"
+		class="md:hidden fixed inset-0 z-50 bg-[var(--bg-page)] h-screen flex flex-col justify-center items-center transition-all duration-500 ease-in-out -translate-y-full opacity-0 pointer-events-none"
 	>
-		<ul role="list" class="flex flex-col items-center gap-12 w-full">
+		<ul
+			role="list"
+			class="flex flex-col items-start gap-12 max-w-[320px] w-full"
+		>
 			{
 				links.map((l) => (
 					<li>
 						{l.label === "Servicios" ? (
-							<details class="w-full">
-								<summary class="cursor-pointer list-none">
+							<div class="w-full flex items-center justify-between">
+								<Link
+									href={l.href}
+									class="font-semibold"
+									aria-current={
+										isActive(l.href) ? "page" : undefined
+									}
+								>
 									{l.label}
-								</summary>
-								<ul class="flex flex-col gap-2 mt-2 transition-all duration-300 overflow-hidden max-h-[500px] opacity-100 data-[open=false]:max-h-0 data-[open=false]:opacity-0 data-[open=false]:pointer-events-none">
-									{serviceLinks.map((s) => (
-										<li>
-											<Link
-												href={s.href}
-												class="flex flex-col px-4 py-2"
-											>
-												<span class="font-semibold">
-													{s.label}
-												</span>
-												<span class="text-xs">
-													{s.desc}
-												</span>
-											</Link>
-										</li>
-									))}
-								</ul>
-							</details>
+								</Link>
+								{/* Flecha para desplegar el submenú */}
+								<button
+									type="button"
+									class=" transition"
+									aria-label="Mostrar servicios"
+									onClick={(e) => {
+										const details = e.currentTarget
+											.closest("li")
+											.querySelector("details");
+										if (details)
+											details.open = !details.open;
+									}}
+								>
+									<svg
+										class="w-5 h-5 transition-transform duration-200"
+										viewBox="0 0 20 20"
+										fill="none"
+										xmlns="http://www.w3.org/2000/svg"
+									>
+										<path
+											d="M6 8L10 12L14 8"
+											stroke="currentColor"
+											stroke-width="2"
+											stroke-linecap="round"
+											stroke-linejoin="round"
+										/>
+									</svg>
+								</button>
+							</div>
 						) : (
 							<Link
 								href={l.href}
@@ -239,6 +259,26 @@ const isActive = (href: string) => pathname.startsWith(href);
 							>
 								{l.label}
 							</Link>
+						)}
+						{/* Submenú de servicios */}
+						{l.label === "Servicios" && (
+							<details class="w-full">
+								<summary class="hidden" />
+								<ul class="flex flex-col gap-2 transition-all duration-300 overflow-hidden max-h-[500px] opacity-100 data-[open=false]:max-h-0 data-[open=false]:opacity-0 data-[open=false]:pointer-events-none">
+									{serviceLinks.map((s) => (
+										<li>
+											<Link
+												href={s.href}
+												class="flex flex-col px-4 py-2 text-[14px]"
+											>
+												<span class="font-semibold">
+													{s.label}
+												</span>
+											</Link>
+										</li>
+									))}
+								</ul>
+							</details>
 						)}
 					</li>
 				))
