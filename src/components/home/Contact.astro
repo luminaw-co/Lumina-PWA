@@ -1,0 +1,55 @@
+---
+import Button from "@/components/ui/Button.astro";
+import Icon from "@/components/ui/Icon.astro";
+import Link from "@/components/ui/Link.astro";
+import TitleUI from "@/components/ui/TitleUI.astro";
+import Container from "@/components/ui/Container.astro";
+import { iconsSrc } from "@/components/layout/BaseNavBar.astro";
+
+const liveId = `live-${Math.random().toString(36).slice(2)}`;
+const linksWeb = {
+	email: "wavival.dev@luminaw.co",
+	whatsapp:
+		"https://wa.me/573021011753?text=Hola%2C%20me%20gustaria%20contratar%20un%20servicio",
+	figma: "https://www.figma.com/@wavival",
+	platzi: "https://www.platzi.com/p/wavival",
+};
+const links = [{ href: "/portfolio/more/contact", label: "Saber más" }];
+---
+
+<section
+	aria-label="Contacto rápido"
+	class="flex-col-center-10 w-full px-[32px] py-9"
+>
+	<Container class="">
+		<TitleUI
+			title="¿Lista tu empresa para su próximo proyecto digital?"
+			subtitle="Hablemos sobre lo que tu negocio necesita."
+		/>
+		<Container
+			class="relative w-full max-w-[440px] h-[380px] flex items-center justify-center z-[2] mx-auto"
+		>
+			<img
+				src={`${iconsSrc.isometrics}contact-isometric.svg`}
+				alt="Contact Illustration"
+				class="w-full h-full block object-contain rounded-3xl animate-floatY"
+				width="440"
+				height="380"
+				loading="lazy"
+			/>
+		</Container>
+
+		<Container class="mt-4">
+			<Button
+				href={`mailto:${linksWeb.email}`}
+				target="_blank"
+				icon="ui/send-email-white"
+				text="Agendar llamada"
+			/>
+		</Container>
+	</Container>
+
+	<p class="text-center-italic w-fit">
+		Respondemos en menos de 24 horas. Sin compromiso.
+	</p>
+</section>
