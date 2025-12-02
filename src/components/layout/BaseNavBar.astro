@@ -80,7 +80,7 @@ const isActive = (href: string) => pathname.startsWith(href);
 										</Link>
 										<button
 											type="button"
-											class="flex items-center justify-center w-6 h-6 hover:bg-[var(--ui-hover)]/20 transition"
+											class="flex items-center justify-center w-6 h-6 hover:bg-[var(--brand-bluer)]/20 transition"
 											id="services-drop-toggle"
 											aria-label="Mostrar menú de servicios"
 											tabindex="0"
@@ -144,7 +144,7 @@ const isActive = (href: string) => pathname.startsWith(href);
 
 		<div class="hidden md:flex items-center gap-3">
 			<button
-				class="p-2 hover:bg-[var(--ui-hover)]/10"
+				class="p-2 hover:bg-[var(--brand-bluer)]/10"
 				aria-label="Cambiar idioma"
 			>
 				<Icon src={`${iconsSrc.ui}switch-language.svg`} size="md" />
@@ -152,7 +152,7 @@ const isActive = (href: string) => pathname.startsWith(href);
 			<button
 				id="theme-toggle"
 				aria-pressed="false"
-				class="p-2 hover:bg-[var(--ui-hover)]/10"
+				class="p-2 hover:bg-[var(--brand-bluer)]/10"
 				aria-label="Cambiar tema"
 			>
 				<Icon
@@ -169,7 +169,7 @@ const isActive = (href: string) => pathname.startsWith(href);
 		</div>
 
 		<button
-			class="md:hidden p-2 hover:bg-[var(--ui-hover)]/10"
+			class="md:hidden p-2 hover:bg-[var(--brand-bluer)]/10"
 			id="menu-btn"
 			aria-expanded="false"
 			aria-controls="mobile-menu"
@@ -196,12 +196,12 @@ const isActive = (href: string) => pathname.startsWith(href);
 		</div>
 	</Container>
 
-	{/* MENU MOBILE SOLO TAILWIND */}
+	{}
 	<nav
 		id="mobile-menu"
 		aria-label="Menú móvil"
 		aria-hidden="true"
-		class="md:hidden fixed inset-0 z-50 bg-[var(--bg-page)] h-screen flex flex-col justify-center items-center transition-all duration-500 ease-in-out -translate-y-full opacity-0 pointer-events-none"
+		class="md:hidden fixed inset-0 z-50 bg-[var(--bg-page)] h-screen flex flex-col justify-between items-center transition-all duration-500 ease-in-out -translate-y-full opacity-0 pointer-events-none gap-10 p-20"
 	>
 		<ul
 			role="list"
@@ -211,60 +211,41 @@ const isActive = (href: string) => pathname.startsWith(href);
 				links.map((l) => (
 					<li>
 						{l.label === "Servicios" ? (
-							<div class="w-full flex items-center justify-between">
-								<Link
-									href={l.href}
-									class="font-semibold"
-									aria-current={
-										isActive(l.href) ? "page" : undefined
-									}
-								>
-									{l.label}
-								</Link>
-								{/* Flecha para desplegar el submenú */}
-								<button
-									type="button"
-									class=" transition"
-									aria-label="Mostrar servicios"
-									onClick={(e) => {
-										const details = e.currentTarget
-											.closest("li")
-											.querySelector("details");
-										if (details)
-											details.open = !details.open;
-									}}
-								>
-									<svg
-										class="w-5 h-5 transition-transform duration-200"
-										viewBox="0 0 20 20"
-										fill="none"
-										xmlns="http://www.w3.org/2000/svg"
+							<>
+								<div class="w-full flex items-center justify-start">
+									<Link
+										href={l.href}
+										class="font-semibold"
+										aria-current={
+											isActive(l.href)
+												? "page"
+												: undefined
+										}
 									>
-										<path
-											d="M6 8L10 12L14 8"
-											stroke="currentColor"
-											stroke-width="2"
-											stroke-linecap="round"
-											stroke-linejoin="round"
-										/>
-									</svg>
-								</button>
-							</div>
-						) : (
-							<Link
-								href={l.href}
-								aria-current={
-									isActive(l.href) ? "page" : undefined
-								}
-							>
-								{l.label}
-							</Link>
-						)}
-						{/* Submenú de servicios */}
-						{l.label === "Servicios" && (
-							<details class="w-full">
-								<summary class="hidden" />
-								<ul class="flex flex-col gap-2 transition-all duration-300 overflow-hidden max-h-[500px] opacity-100 data-[open=false]:max-h-0 data-[open=false]:opacity-0 data-[open=false]:pointer-events-none">
+										{l.label}
+									</Link>
+									<button
+										type="button"
+										class="transition mobile-servicios-toggle"
+										aria-label="Mostrar servicios"
+									>
+										<svg
+											class="w-5 h-5 transition-transform duration-200"
+											viewBox="0 0 20 20"
+											fill="none"
+											xmlns="http://www.w3.org/2000/svg"
+										>
+											<path
+												d="M6 8L10 12L14 8"
+												stroke="#1e90ff"
+												stroke-width="2"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+											/>
+										</svg>
+									</button>
+								</div>
+								<ul class="mobile-servicios-submenu flex flex-col gap-2 transition-all duration-300 overflow-hidden max-h-0 opacity-0 pointer-events-none pl-8">
 									{serviceLinks.map((s) => (
 										<li>
 											<Link
@@ -278,27 +259,41 @@ const isActive = (href: string) => pathname.startsWith(href);
 										</li>
 									))}
 								</ul>
-							</details>
+							</>
+						) : (
+							<Link
+								href={l.href}
+								aria-current={
+									isActive(l.href) ? "page" : undefined
+								}
+							>
+								{l.label}
+							</Link>
 						)}
 					</li>
 				))
 			}
 		</ul>
 
-		<div class="flex items-center gap-4 mt-12">
+		<Container class="flex items-center justify-start gap-3">
+			<Button
+				href="mailto:contacto@lumina.dev"
+				target="_blank"
+				icon="ui/send-email-white"
+				text="Contáctame"
+			/>
 			<button
 				type="button"
-				class="p-2 rounded-lg hover:bg-[var(--ui-hover)]/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--ui-link)]"
+				class="p-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--brand-blue)]"
 				aria-label="Cambiar idioma"
 				id="lang-toggle-mobile"
 			>
 				<Icon src="/icons/ui/switch-language.svg" size="md" />
 			</button>
-
 			<button
 				id="theme-toggle-mobile"
 				aria-pressed="false"
-				class="p-2 pr-0 rounded-lg hover:bg-[var(--ui-hover)]/10"
+				class="p-2"
 				aria-label="Cambiar tema"
 			>
 				<Icon
@@ -308,15 +303,7 @@ const isActive = (href: string) => pathname.startsWith(href);
 				/>
 				<Icon src="/icons/ui/moon.svg" size="md" class="dark:hidden" />
 			</button>
-		</div>
-
-		<Button
-			href="mailto:contacto@lumina.dev"
-			target="_blank"
-			icon="ui/send-email-white"
-			text="Contáctame"
-			class="mt-8"
-		/>
+		</Container>
 	</nav>
 
 	<script is:raw>
@@ -435,6 +422,30 @@ const isActive = (href: string) => pathname.startsWith(href);
 			toggles.forEach(
 				(b) => b && b.addEventListener("click", toggleTheme),
 			);
+
+			// Mobile Servicios desplegable
+			document
+				.querySelectorAll(".mobile-servicios-toggle")
+				.forEach((btn) => {
+					btn.addEventListener("click", function (e) {
+						e.preventDefault();
+						const submenu = btn
+							.closest("li")
+							.querySelector(".mobile-servicios-submenu");
+						if (submenu) {
+							submenu.classList.toggle("max-h-0");
+							submenu.classList.toggle("opacity-0");
+							submenu.classList.toggle("pointer-events-none");
+							submenu.classList.toggle("max-h-[500px]");
+							submenu.classList.toggle("opacity-100");
+							submenu.classList.toggle("pointer-events-auto");
+							// Opcional: rotar flecha
+							btn.querySelector("svg").classList.toggle(
+								"rotate-180",
+							);
+						}
+					});
+				});
 		})();
 	</script>
 </header>
