@@ -27,7 +27,7 @@ import { iconsSrc } from "@/components/layout/BaseNavBar.astro";
 		/>
 		<form
 			id="contactForm"
-			class="w-full flex flex-col gap-5 items-center"
+			class="w-full flex flex-col gap-5 items-center relative"
 			autocomplete="off"
 			action="/api/submit-contact"
 			method="post"
@@ -84,6 +84,91 @@ import { iconsSrc } from "@/components/layout/BaseNavBar.astro";
 			<p class="text-xs-left !text-center mt-1">
 				Te contactamos para coordinar un horario.
 			</p>
+			<div
+				id="modalStatus"
+				class="w-full mt-2 transition-all duration-500 ease-in-out opacity-0 scale-95 pointer-events-none absolute left-0"
+				style="top:100%;"
+			>
+				<span
+					id="modalMessage"
+					class="block w-full px-4 py-3 rounded-lg bg-[var(--status-success)] text-[var(--text-dark)] shadow-lg text-center"
+				></span>
+			</div>
 		</form>
+		<script>
+			document.addEventListener("DOMContentLoaded", function () {
+				const form = document.getElementById("contactForm");
+				const modal = document.getElementById("modalStatus");
+				const modalMsg = document.getElementById("modalMessage");
+
+				if (!form || !modal || !modalMsg) return;
+
+				let timeoutId = null;
+				function showModal(message, success = true) {
+					modalMsg.textContent = message;
+					modal.classList.remove(
+						"opacity-0",
+						"scale-95",
+						"pointer-events-none",
+					);
+					modal.classList.add(
+						"opacity-100",
+						"scale-100",
+						"pointer-events-auto",
+					);
+					modalMsg.style.background = success
+						? "var(--status-success)"
+						: "var(--status-error)";
+					modalMsg.style.color = "var(--text-dark)";
+					if (timeoutId) clearTimeout(timeoutId);
+					timeoutId = setTimeout(hideModal, 4000);
+				}
+				function hideModal() {
+					modal.classList.remove(
+						"opacity-100",
+						"scale-100",
+						"pointer-events-auto",
+					);
+					modal.classList.add(
+						"opacity-0",
+						"scale-95",
+						"pointer-events-none",
+					);
+				}
+
+				form.addEventListener("submit", async function (e) {
+					e.preventDefault();
+					const formData = new FormData(form);
+
+					try {
+						const response = await fetch(
+							form.getAttribute("action") ||
+								"/api/submit-contact",
+							{
+								method: "POST",
+								body: formData,
+							},
+						);
+						if (response.ok) {
+							showModal(
+								"¡Formulario enviado correctamente!",
+								true,
+							);
+							if (typeof form.reset === "function") form.reset();
+						} else {
+							showModal(
+								"Error al enviar el formulario. Intenta de nuevo.",
+								false,
+							);
+						}
+					} catch {
+						showModal(
+							"Error de conexión. Intenta de nuevo.",
+							false,
+						);
+					}
+				});
+			});
+		</script>
 	</Container>
 </section>
