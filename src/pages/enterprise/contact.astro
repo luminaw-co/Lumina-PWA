@@ -109,7 +109,8 @@ import Button from "@/components/ui/Button.astro";
 					class="text-[var(--button-sm)] mt-2"
 				/>
 				<p class="text-xs-left !text-center mt-1">
-					Te contactamos para coordinar un horario.
+					Te contactaremos en menos de 24 horas. No compartimos tu
+					información con terceros.
 				</p>
 				<div
 					id="modalStatus"
@@ -169,10 +170,6 @@ import Button from "@/components/ui/Button.astro";
 					const formData = new FormData(form);
 					const data = Object.fromEntries(formData);
 
-					// Aquí puedes manejar el envío del formulario, por ejemplo, enviándolo a un servidor
-					// await fetch('/tu-endpoint', { method: 'POST', body: JSON.stringify(data) });
-
-					// Simulación de respuesta del servidor
 					setTimeout(() => {
 						showModal("¡Formulario enviado con éxito!", true);
 						form.reset();

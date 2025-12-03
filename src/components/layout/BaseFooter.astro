@@ -171,6 +171,7 @@ const socialLinks = [
 				<form
 					class="max-w-[520px] w-full flex flex-row gap-2"
 					autocomplete="off"
+					onsubmit="event.preventDefault(); window.location.href = 'https://magic.beehiiv.com/v1/f706746d-cfa3-48e0-ac2f-13a90a9554fd?email=' + encodeURIComponent(this.email.value);"
 				>
 					<input
 						type="email"
