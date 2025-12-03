@@ -1,55 +1,89 @@
 ---
 import Button from "@/components/ui/Button.astro";
-import Icon from "@/components/ui/Icon.astro";
-import Link from "@/components/ui/Link.astro";
-import TitleUI from "@/components/ui/TitleUI.astro";
 import Container from "@/components/ui/Container.astro";
+import TitleUI from "@/components/ui/TitleUI.astro";
 import { iconsSrc } from "@/components/layout/BaseNavBar.astro";
-
-const liveId = `live-${Math.random().toString(36).slice(2)}`;
-const linksWeb = {
-	email: "wavival.dev@luminaw.co",
-	whatsapp:
-		"https://wa.me/573021011753?text=Hola%2C%20me%20gustaria%20contratar%20un%20servicio",
-	figma: "https://www.figma.com/@wavival",
-	platzi: "https://www.platzi.com/p/wavival",
-};
-const links = [{ href: "/portfolio/more/contact", label: "Saber más" }];
 ---
 
 <section
-	aria-label="Contacto rápido"
-	class="flex-col-center-10 w-full px-[32px] py-9"
+	aria-label="Agendar llamada"
+	class="relative w-full max-w-[1424px] min-h-[100dvh] py-12 rounded-b-[20px] px-6 mx-auto overflow-hidden bg-gradient-to-t from-[var(--brand-blue)] to-[var(--bg-page)] mt-4"
 >
-	<Container class="">
+	<Container id="hero-grid-bg" class="grid-bg opacity-32" />
+	<Container
+		class="max-w-[440px] w-full rounded-[var(--radius-lg)] p-6 flex flex-col items-center gap-5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[2]"
+	>
 		<TitleUI
-			title="¿Lista tu empresa para su próximo proyecto digital?"
-			subtitle="Hablemos sobre lo que tu negocio necesita."
+			title="Agendar llamada"
+			subtitle="Conversemos sobre tu proyecto."
 		/>
-		<Container
-			class="relative w-full max-w-[440px] h-[380px] flex items-center justify-center z-[2] mx-auto"
+		<img
+			src={`${iconsSrc.isometrics}contact-isometric.svg`}
+			alt="Contact Illustration"
+			class="w-full max-w-[220px] h-auto block object-contain rounded-[var(--radius-lg)] mb-2 animate-floatY"
+			width="220"
+			height="160"
+			loading="lazy"
+		/>
+		<form
+			id="contactForm"
+			class="w-full flex flex-col gap-5 items-center"
+			autocomplete="off"
+			action="/api/submit-contact"
+			method="post"
 		>
-			<img
-				src={`${iconsSrc.isometrics}contact-isometric.svg`}
-				alt="Contact Illustration"
-				class="w-full h-full block object-contain rounded-3xl animate-floatY"
-				width="440"
-				height="380"
-				loading="lazy"
-			/>
-		</Container>
-
-		<Container class="mt-4">
+			<div class="w-full flex flex-col gap-1">
+				<label for="name" class="text-xs-left">Nombre</label>
+				<input
+					id="name"
+					type="text"
+					name="name"
+					required
+					placeholder="¿Cómo te llamas?"
+					class="input-form"
+					autocomplete="name"
+					style="background: var(--bg-card); color: var(--text-primary); border-radius: var(--radius-md);"
+				/>
+			</div>
+			<div class="w-full flex flex-col gap-1">
+				<label for="email" class="text-xs-left"
+					>Correo electrónico</label
+				>
+				<input
+					id="email"
+					type="email"
+					name="email"
+					required
+					placeholder="¿Dónde te escribimos?"
+					class="input-form"
+					autocomplete="email"
+					style="background: var(--bg-card); color: var(--text-primary); border-radius: var(--radius-md);"
+				/>
+			</div>
+			<div class="w-full flex flex-col gap-1">
+				<label for="phone" class="text-xs-left">
+					Teléfono <span class="text-xs">(opcional)</span>
+				</label>
+				<input
+					id="phone"
+					type="tel"
+					name="phone"
+					placeholder="¿Prefieres WhatsApp o llamada?"
+					class="input-form"
+					autocomplete="tel"
+					style="background: var(--bg-card); color: var(--text-primary); border-radius: var(--radius-md);"
+				/>
+			</div>
+			<input type="hidden" name="source" value="contact-page" />
 			<Button
-				href={`mailto:${linksWeb.email}`}
-				target="_blank"
+				type="submit"
 				icon="ui/send-email-white"
 				text="Agendar llamada"
+				class="text-[var(--button-sm)] mt-2"
 			/>
-		</Container>
+			<p class="text-xs-left !text-center mt-1">
+				Te contactamos para coordinar un horario.
+			</p>
+		</form>
 	</Container>
-
-	<p class="text-center-italic w-fit">
-		Respondemos en menos de 24 horas. Sin compromiso.
-	</p>
 </section>

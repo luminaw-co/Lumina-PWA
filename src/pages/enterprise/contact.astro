@@ -1,9 +1,67 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
-import CtaContact from "@/components/portfolio/home/CtaContact.astro";
+import Container from "@/components/ui/Container.astro";
+import Button from "@/components/ui/Button.astro";
 ---
 
 <BaseLayout>
-	Lúmina Enterprise - Contacto
-	<CtaContact />
+	<Container
+		class="content-center w-full justify-items-center max-w-[520px] m-auto 2xl:content-start 2xl:justify-items-start 2xl:m-0"
+	>
+		<p class="heading-3 !text-start">Agendar llamada con Lúmina</p>
+		<div class="p-3 flex flex-col gap-3 max-w-[520px] w-full">
+			<p class="text-sm-center 2xl:text-left">
+				Completa el formulario y te contactaremos en menos de 24 horas.
+			</p>
+			<form
+				class="max-w-[520px] w-full flex flex-col gap-2"
+				autocomplete="off"
+			>
+				<input
+					type="text"
+					name="name"
+					required
+					placeholder="Nombre completo"
+					class="input-form"
+					autocomplete="name"
+				/>
+				<input
+					type="email"
+					name="email"
+					required
+					placeholder="Correo electrónico"
+					class="input-form"
+					autocomplete="email"
+				/>
+				<input
+					type="tel"
+					name="phone"
+					placeholder="Teléfono (opcional)"
+					class="input-form"
+					autocomplete="tel"
+				/>
+				<select name="objective" required class="input-form">
+					<option value="" disabled selected>
+						Selecciona el objetivo
+					</option>
+					<option>Diseño UX/UI</option>
+					<option>Desarrollo web</option>
+					<option>Mejora o actualización (rediseño)</option>
+					<option>Automatización / IA</option>
+					<option>Otro</option>
+				</select>
+				<textarea
+					name="message"
+					placeholder="Cuéntanos brevemente sobre tu proyecto (opcional)."
+					class="input-form"
+					rows="3"></textarea>
+				<Button
+					type="submit"
+					icon="ui/send-email-white"
+					text="Agendar llamada"
+					class="text-[14px]"
+				/>
+			</form>
+		</div>
+	</Container>
 </BaseLayout>
