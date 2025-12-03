@@ -189,6 +189,15 @@ const socialLinks = [
 						class="text-[14px]"
 					/>
 				</form>
+				<div
+					id="newsletterModalStatus"
+					class="w-full mt-2 flex align-self-center transition-all duration-500 ease-in-out opacity-0 scale-95 pointer-events-none"
+				>
+					<span
+						id="newsletterModalMessage"
+						class="block w-full px-4 py-3 rounded-lg bg-[var(--status-success)] text-[var(--text-dark)] shadow-lg text-center"
+					></span>
+				</div>
 			</div>
 		</Container>
 	</Container>
@@ -228,15 +237,6 @@ const socialLinks = [
 			</span>
 		</div>
 	</Container>
-	<div
-		id="modalStatus"
-		class="w-full mt-2 transition-all duration-500 ease-in-out opacity-0 scale-95 pointer-events-none"
-	>
-		<span
-			id="modalMessage"
-			class="block w-full px-4 py-3 rounded-lg bg-[var(--status-success)] text-[var(--text-dark)] shadow-lg text-center"
-		></span>
-	</div>
 </footer>
 
 <script>
@@ -244,13 +244,13 @@ const socialLinks = [
 		const form = document.querySelector(
 			'form[action="https://app.loops.so/api/newsletter-form/cmiq9zksu0550zx0jpay8zjdv"]',
 		);
-		const modal = document.getElementById("modalStatus");
-		const modalMsg = document.getElementById("modalMessage");
+		const modal = document.getElementById("newsletterModalStatus");
+		const modalMsg = document.getElementById("newsletterModalMessage");
 
 		if (!form || !modal || !modalMsg) return;
 
 		let timeoutId = null;
-		function showModal(message, success = true) {
+		function showNewsletterModal(message, success = true) {
 			modalMsg.textContent = message;
 			modal.classList.remove(
 				"opacity-0",
@@ -267,9 +267,9 @@ const socialLinks = [
 				: "var(--status-error)";
 			modalMsg.style.color = "var(--text-dark)";
 			if (timeoutId) clearTimeout(timeoutId);
-			timeoutId = setTimeout(hideModal, 4000);
+			timeoutId = setTimeout(hideNewsletterModal, 4000);
 		}
-		function hideModal() {
+		function hideNewsletterModal() {
 			modal.classList.remove(
 				"opacity-100",
 				"scale-100",
@@ -294,13 +294,22 @@ const socialLinks = [
 					},
 				});
 				if (response.ok) {
-					showModal("¡Suscripción exitosa!", true);
+					showNewsletterModal(
+						"¡Suscripción exitosa! Revisa tu bandeja de entrada.",
+						true,
+					);
 					if (typeof form.reset === "function") form.reset();
 				} else {
-					showModal("Error al suscribirte. Intenta de nuevo.", false);
+					showNewsletterModal(
+						"Error al suscribirte. Intenta de nuevo.",
+						false,
+					);
 				}
 			} catch {
-				showModal("Error de conexión. Intenta de nuevo.", false);
+				showNewsletterModal(
+					"Error de conexión. Intenta de nuevo.",
+					false,
+				);
 			}
 		});
 	});
