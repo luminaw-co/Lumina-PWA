@@ -1,5 +1,59 @@
 ---
-
+import Button from "@/components/ui/Button.astro";
+import Container from "@/components/ui/Container.astro";
+import Link from "@/components/ui/Link.astro";
+import email from "@/components/layout/BaseNavBar.astro";
+import {
+	iconsSrc,
+	enterpriseRoute,
+} from "@/components/layout/BaseNavBar.astro";
 ---
 
-Hero
+<section class="hero-home">
+	<Container id="hero-grid-bg" class="grid-bg opacity-32" />
+	<Container class="ctn-hero">
+		<Container class="flex-1 flex items-center justify-center py-10">
+			<Container
+				class="relative w-full max-w-[440px] h-[380px] flex items-center justify-center z-[2] mx-auto"
+			>
+				<img
+					src={`${iconsSrc.isometrics}hero-isometric.svg`}
+					alt="Hero Illustration"
+					class="w-full h-full block object-contain rounded-3xl animate-floatY"
+					width="440"
+					height="380"
+					loading="lazy"
+				/>
+			</Container>
+		</Container>
+		<Container
+			class="ctn-hero-1 flex flex-col text-center items-start justify-start text-left"
+		>
+			<h1 class="heading-1">
+				Creamos <span class="text-[var(--brand-blue)]">productos</span> digitales
+				que{" "}
+				<span class="text-[var(--brand-blue)]">funcionan</span>.
+			</h1>
+			<p class="heading-3 !m-0 max-w-2xl !text-left">
+				Diseño UX/UI y desarrollo web para emprendedores y pequeñas
+				empresas que buscan claridad, estructura y resultados reales.
+			</p>
+			<span class="text-xs-left italic">
+				Respuesta en menos de 24 horas.
+			</span>
+			<Container
+				class="flex gap-4 items-center justify-center md:items-start md:justify-start"
+			>
+				<Button
+					href={`${enterpriseRoute}contact`}
+					target="_self"
+					icon="ui/send-email-white"
+					text="Iniciar proyecto"
+				/>
+				<Link href={`${enterpriseRoute}services/`}>
+					Ver servicios
+				</Link>
+			</Container>
+		</Container>
+	</Container>
+</section>

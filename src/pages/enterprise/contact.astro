@@ -1,9 +1,184 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import Container from "@/components/ui/Container.astro";
+import Button from "@/components/ui/Button.astro";
 ---
 
 <BaseLayout>
-	<main class="min-h-screen bg-[var(--bg-page)] px-6 py-[var(--space-64)]">
-		Lúmina Enterprise - Contacto
-	</main>
+	<Container
+		class="content-center min-h-screen w-full justify-items-center max-w-[520px] m-auto 2xl:content-start 2xl:justify-items-start 2xl:m-0"
+	>
+		<p class="heading-3 !text-start">Agendar llamada con Lúmina</p>
+		<div class="p-3 flex flex-col gap-3 max-w-[520px] w-full">
+			<p class="text-sm-center 2xl:text-left">
+				Completa el formulario y te contactaremos en menos de 24 horas.
+			</p>
+			<form
+				id="contactForm"
+				class="max-w-[520px] w-full flex flex-col gap-2 relative"
+				autocomplete="off"
+				action="/api/submit-contact"
+				method="post"
+			>
+				<div class="w-full flex flex-col gap-1">
+					<label for="name" class="text-xs-left">Nombre</label>
+					<input
+						id="name"
+						type="text"
+						name="name"
+						required
+						placeholder="¿Cómo te llamas?"
+						class="input-form"
+						autocomplete="name"
+						style="background: var(--bg-card); color: var(--text-primary); border-radius: var(--radius-md);"
+					/>
+				</div>
+				<div class="w-full flex flex-col gap-1">
+					<label for="email" class="text-xs-left"
+						>Correo electrónico</label
+					>
+					<input
+						id="email"
+						type="email"
+						name="email"
+						required
+						placeholder="¿Dónde te escribimos?"
+						class="input-form"
+						autocomplete="email"
+						style="background: var(--bg-card); color: var(--text-primary); border-radius: var(--radius-md);"
+					/>
+				</div>
+				<div class="w-full flex flex-col gap-1">
+					<label for="phone" class="text-xs-left">
+						Teléfono <span class="text-xs">(opcional)</span>
+					</label>
+					<input
+						id="phone"
+						type="tel"
+						name="phone"
+						placeholder="¿Prefieres WhatsApp o llamada?"
+						class="input-form"
+						autocomplete="tel"
+						style="background: var(--bg-card); color: var(--text-primary); border-radius: var(--radius-md);"
+					/>
+				</div>
+				<div class="w-full flex flex-col gap-1">
+					<label for="objective" class="text-xs-left">Objetivo</label>
+					<select
+						name="objective"
+						id="objective"
+						required
+						class="input-form"
+						style="
+							background: var(--bg-card);
+							color: var(--text-primary);
+							border-radius: var(--radius-md);
+							border: 1px solid var(--border-input, #e5e7eb);
+							padding: 0.75rem 1rem;
+							font-size: 1rem;
+							appearance: none;
+							box-shadow: none;
+						"
+					>
+						<option value="" disabled selected>
+							Selecciona el objetivo
+						</option>
+						<option>Diseño UX/UI</option>
+						<option>Desarrollo web</option>
+						<option>Mejora o actualización (rediseño)</option>
+						<option>Automatización / IA</option>
+						<option>Otro</option>
+					</select>
+				</div>
+				<div class="w-full flex flex-col gap-1">
+					<label for="message" class="text-xs-left">Mensaje</label>
+					<textarea
+						id="message"
+						name="message"
+						placeholder="Cuéntanos brevemente sobre tu proyecto (opcional)."
+						class="input-form"
+						rows="3"
+						style="background: var(--bg-card); color: var(--text-primary); border-radius: var(--radius-md);"
+					></textarea>
+				</div>
+				<input type="hidden" name="source" value="contact-page" />
+				<Button
+					type="submit"
+					icon="ui/send-email-white"
+					text="Agendar llamada"
+					class="text-[var(--button-sm)] mt-2"
+				/>
+				<p class="text-xs-left !text-center mt-1">
+					Te contactamos para coordinar un horario.
+				</p>
+				<div
+					id="modalStatus"
+					class="w-full mt-2 transition-all duration-500 ease-in-out opacity-0 scale-95 pointer-events-none absolute left-0"
+					style="top:100%;"
+				>
+					<span
+						id="modalMessage"
+						class="block w-full px-4 py-3 rounded-lg bg-[var(--status-success)] text-[var(--text-dark)] shadow-lg text-center"
+					></span>
+				</div>
+			</form>
+		</div>
+		<script>
+			document.addEventListener("DOMContentLoaded", function () {
+				const form = document.getElementById("contactForm");
+				const modal = document.getElementById("modalStatus");
+				const modalMsg = document.getElementById("modalMessage");
+
+				if (!form || !modal || !modalMsg) return;
+
+				let timeoutId = null;
+				function showModal(message, success = true) {
+					modalMsg.textContent = message;
+					modal.classList.remove(
+						"opacity-0",
+						"scale-95",
+						"pointer-events-none",
+					);
+					modal.classList.add(
+						"opacity-100",
+						"scale-100",
+						"pointer-events-auto",
+					);
+					modalMsg.style.background = success
+						? "var(--status-success)"
+						: "var(--status-error)";
+					modalMsg.style.color = "var(--text-dark)";
+					if (timeoutId) clearTimeout(timeoutId);
+					timeoutId = setTimeout(hideModal, 4000);
+				}
+				function hideModal() {
+					modal.classList.remove(
+						"opacity-100",
+						"scale-100",
+						"pointer-events-auto",
+					);
+					modal.classList.add(
+						"opacity-0",
+						"scale-95",
+						"pointer-events-none",
+					);
+				}
+
+				form.addEventListener("submit", async (e) => {
+					e.preventDefault();
+					const formData = new FormData(form);
+					const data = Object.fromEntries(formData);
+
+					// Aquí puedes manejar el envío del formulario, por ejemplo, enviándolo a un servidor
+					// await fetch('/tu-endpoint', { method: 'POST', body: JSON.stringify(data) });
+
+					// Simulación de respuesta del servidor
+					setTimeout(() => {
+						showModal("¡Formulario enviado con éxito!", true);
+						form.reset();
+					}, 1000);
+				});
+			});
+		</script>
+	</Container>
 </BaseLayout>
