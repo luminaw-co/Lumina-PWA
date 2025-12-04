@@ -171,7 +171,8 @@ const socialLinks = [
 				<form
 					class="max-w-[520px] w-full flex flex-row gap-2"
 					autocomplete="off"
-					onsubmit="event.preventDefault(); window.location.href = 'https://magic.beehiiv.com/v1/f706746d-cfa3-48e0-ac2f-13a90a9554fd?email=' + encodeURIComponent(this.email.value);"
+					method="POST"
+					action="https://app.loops.so/api/newsletter-form/cmiq9zksu0550zx0jpay8zjdv"
 				>
 					<input
 						type="email"
@@ -188,6 +189,15 @@ const socialLinks = [
 						class="text-[14px]"
 					/>
 				</form>
+				<div
+					id="newsletterModalStatus"
+					class="w-full mt-2 flex align-self-center transition-all duration-500 ease-in-out opacity-0 scale-95 pointer-events-none"
+				>
+					<span
+						id="newsletterModalMessage"
+						class="block w-full px-4 py-3 rounded-lg bg-[var(--status-success)] text-[var(--text-dark)] shadow-lg text-center"
+					></span>
+				</div>
 			</div>
 		</Container>
 	</Container>
@@ -228,3 +238,79 @@ const socialLinks = [
 		</div>
 	</Container>
 </footer>
+
+<script>
+	document.addEventListener("DOMContentLoaded", function () {
+		const form = document.querySelector(
+			'form[action="https://app.loops.so/api/newsletter-form/cmiq9zksu0550zx0jpay8zjdv"]',
+		);
+		const modal = document.getElementById("newsletterModalStatus");
+		const modalMsg = document.getElementById("newsletterModalMessage");
+
+		if (!form || !modal || !modalMsg) return;
+
+		let timeoutId = null;
+		function showNewsletterModal(message, success = true) {
+			modalMsg.textContent = message;
+			modal.classList.remove(
+				"opacity-0",
+				"scale-95",
+				"pointer-events-none",
+			);
+			modal.classList.add(
+				"opacity-100",
+				"scale-100",
+				"pointer-events-auto",
+			);
+			modalMsg.style.background = success
+				? "var(--status-success)"
+				: "var(--status-error)";
+			modalMsg.style.color = "var(--text-dark)";
+			if (timeoutId) clearTimeout(timeoutId);
+			timeoutId = setTimeout(hideNewsletterModal, 4000);
+		}
+		function hideNewsletterModal() {
+			modal.classList.remove(
+				"opacity-100",
+				"scale-100",
+				"pointer-events-auto",
+			);
+			modal.classList.add("opacity-0", "scale-95", "pointer-events-none");
+		}
+
+		form.addEventListener("submit", async function (e) {
+			e.preventDefault();
+			const formData = new FormData(form);
+			const params = new URLSearchParams();
+			for (const [key, value] of formData.entries()) {
+				params.append(key, value);
+			}
+			try {
+				const response = await fetch(form.action, {
+					method: "POST",
+					body: params,
+					headers: {
+						"Content-Type": "application/x-www-form-urlencoded",
+					},
+				});
+				if (response.ok) {
+					showNewsletterModal(
+						"¡Suscripción exitosa! Revisa tu bandeja de entrada.",
+						true,
+					);
+					if (typeof form.reset === "function") form.reset();
+				} else {
+					showNewsletterModal(
+						"Error al suscribirte. Intenta de nuevo.",
+						false,
+					);
+				}
+			} catch {
+				showNewsletterModal(
+					"Error de conexión. Intenta de nuevo.",
+					false,
+				);
+			}
+		});
+	});
+</script>
