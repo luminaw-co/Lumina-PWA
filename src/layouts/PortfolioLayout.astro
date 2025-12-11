@@ -3,6 +3,7 @@ import "@/styles/global.css";
 import "@/styles/tokens.css";
 import PortfolioNavBar from "@/components/layout/PortfolioNavBar.astro";
 import PortfolioFooter from "@/components/layout/PortfolioFooter.astro";
+import WhatsappCTA from "@/components/ui/WhatsappCTA.astro";
 
 interface Props {
 	title?: string;
@@ -34,7 +35,10 @@ const { title = "Lúmina", description = "Portafolio de Valentina Ramírez" } =
 		class="min-h-dvh bg-[var(--bg-page)] dark:bg-[var(--bg-page) text-[var(--ui-text)] antialiased"
 	>
 		<PortfolioNavBar />
-		<main><slot /></main>
+		<main>
+			<slot />
+			<WhatsappCTA />
+		</main>
 		<PortfolioFooter />
 		<script type="module">
 			import "../scripts/theme-toggle.ts";

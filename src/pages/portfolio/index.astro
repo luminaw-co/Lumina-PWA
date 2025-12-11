@@ -4,6 +4,7 @@ import Hero from "@/components/portfolio/home/Hero.astro";
 import LabPreview from "@/components/portfolio/home/LabPreview.astro";
 import AboutPreview from "@/components/portfolio/home/AboutPreview.astro";
 import CtaContact from "@/components/portfolio/home/CtaContact.astro";
+import WhatsappCTA from "@/components/ui/WhatsappCTA.astro";
 import "@/styles/global.css";
 
 const labProjects = [
@@ -18,15 +19,6 @@ const labProjects = [
 			github: "https://github.com/wavival/Ubuntu",
 		},
 	},
-	{
-		title: "CryptoNest",
-		slug: "cryptonest",
-		cover: "/images/projects/cryptonest/icon.svg",
-		alt: "Icono de CryptoNest",
-		links: {
-			github: "https://github.com/wavival/cryptonest",
-		},
-	},
 ];
 ---
 
@@ -34,8 +26,6 @@ const labProjects = [
 	<Hero />
 
 	<LabPreview projects={labProjects} id="projects" />
-
 	<AboutPreview id="about" />
-
 	<CtaContact />
 </PortfolioLayout>

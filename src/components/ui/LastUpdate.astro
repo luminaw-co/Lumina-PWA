@@ -1,0 +1,23 @@
+---
+import { execSync } from "child_process";
+
+let lastUpdated = "";
+try {
+	const iso = execSync("git log -1 --format=%cI -- .", {
+		encoding: "utf8",
+	}).trim();
+	lastUpdated = new Date(iso).toLocaleString("es-ES", {
+		dateStyle: "medium",
+		timeStyle: "short",
+	});
+} catch {
+	lastUpdated = new Date().toLocaleString("es-ES", {
+		dateStyle: "medium",
+		timeStyle: "short",
+	});
+}
+---
+
+<p class="text-[var(--text-primary)] text-center text-sm mt-5">
+	Última actualización: {lastUpdated}
+</p>
