@@ -4,16 +4,61 @@ import { motion, useAnimation } from "framer-motion";
 const imgsRoute = "/images/services/";
 
 const defaultItems = [
-	{ id: "ui", title: "Diseño UX/UI", src: `${imgsRoute}ui-design.webp` },
 	{
-		id: "web",
-		title: "Desarrollo web",
-		src: `${imgsRoute}web-development.webp`,
+		id: "audit",
+		title: "Auditoría web",
+		src: `${imgsRoute}audit.jpg`,
+		desc: "Revisión de código y diseño de un sitio y sugerencias de corrección.",
+		priceUsd: 120,
 	},
 	{
-		id: "consult",
-		title: "Consultorías",
-		src: `${imgsRoute}automation.webp`,
+		id: "consult-ux",
+		title: "Consultoría UX/UI",
+		src: `${imgsRoute}consulting.jpg`,
+		desc: "Sesiones 1:1 sobre diseño o desarrollo.",
+		priceUsd: 150,
+	},
+	{
+		id: "landing",
+		title: "Desarrollo de landing page",
+		src: `${imgsRoute}dev-landing.jpg`,
+		desc: "Desarrollo de página web estática e informativa (1 página con 4 secciones principales y CTA).",
+		priceUsd: 250,
+	},
+	{
+		id: "pwa-ui",
+		title: "Diseño de PWA",
+		src: `${imgsRoute}pwa-design.jpg`,
+		desc: "Diseño de aplicación web progresiva desde 6 hasta 20 páginas.",
+		priceUsd: 720,
+	},
+	{
+		id: "multipage",
+		title: "Desarrollo de sitio web",
+		src: `${imgsRoute}dev-site.jpg`,
+		desc: "Desarrollo de página web responsiva desde 3 hasta 10 páginas.",
+		priceUsd: 750,
+	},
+	{
+		id: "landing-ui",
+		title: "Diseño de landing page",
+		src: `${imgsRoute}landing-design.jpg`,
+		desc: "Diseño de página web estática e informativa (1 pantalla con 4 secciones principales y CTA).",
+		priceUsd: 100,
+	},
+	{
+		id: "ux-review",
+		title: "Revisión UX",
+		src: `${imgsRoute}review.jpg`,
+		desc: "Revisión de cumplimiento de principios de diseño UX.",
+		priceUsd: 80,
+	},
+	{
+		id: "site-ui",
+		title: "Diseño de sitio web",
+		src: `${imgsRoute}site-design.jpg`,
+		desc: "Diseño de sitio web con varias páginas (desde 3 pantallas).",
+		priceUsd: 750,
 	},
 ];
 
@@ -34,8 +79,8 @@ function getTranslateX(el) {
 	return 0;
 }
 
-export default function ServicesSlider({ items = defaultItems, speed = 30 }) {
-	const duration = Math.max(8, Number(speed) || 30);
+export default function ServicesSlider({ items = defaultItems, speed = 80 }) {
+	const duration = Math.max(20, Number(speed) || 80);
 	const controls = useAnimation();
 	const containerRef = useRef(null);
 	const trackRef = useRef(null);
@@ -131,11 +176,11 @@ export default function ServicesSlider({ items = defaultItems, speed = 30 }) {
 	return (
 		<div
 			ref={containerRef}
-			className="w-full max-w-[1424px] m-auto overflow-hidden h-max-content py-5 relative"
+			className="w-full max-w-[1424px] m-auto overflow-hidden h-max-content py-5 relative fadeup"
 		>
 			<motion.div
 				ref={trackRef}
-				className="flex items-center gap-6 z-0"
+				className="flex items-center gap-10 z-0"
 				initial={false}
 				animate={controls}
 				style={{ willChange: "transform" }}
@@ -148,7 +193,7 @@ export default function ServicesSlider({ items = defaultItems, speed = 30 }) {
 							key={`${it.id ?? idx}-${idx}`}
 							onMouseEnter={() => handleMouseEnter(visibleIdx)}
 							onMouseLeave={handleMouseLeave}
-							className="relative flex-shrink-0 w-1/3 md:w-1/4 lg:w-1/4 aspect-[4/3] rounded-xl overflow-hidden shadow-md shadow-[var(--shadow-base)] bg-[var(--bg-card)]"
+							className="relative flex-shrink-0 w-[300px] h-[380px] md:w-[340px] md:h-[420px] rounded-lg overflow-hidden shadow-md shadow-[var(--shadow-base)] bg-[var(--bg-card)]"
 						>
 							<img
 								src={it.src}
@@ -156,33 +201,40 @@ export default function ServicesSlider({ items = defaultItems, speed = 30 }) {
 								className="w-full h-full object-cover"
 								loading="lazy"
 							/>
-							<div className="absolute left-0 bottom-0 w-full h-3/4 px-4 bg-gradient-to-t from-[var(--brand-dark)] to-transparent text-[var(--brand-blue)] text-2xl font-semibold flex items-end justify-center pb-5">
+							<div className="absolute left-0 bottom-0 w-full h-3/4 px-4 bg-gradient-to-t from-[var(--brand-dark)] to-transparent text-[var(--brand-blue)] text-2xl font-semibold flex items-end justify-center pb-5 text-center">
 								{it.title}
 							</div>
 
-							{isHovered && (
-								<div className="absolute inset-0 bg-black/65 flex flex-col items-center justify-center gap-4 px-4 text-center text-white">
-									<h3 className="text-[18px] md:text-[20px] font-semibold">
-										{it.title}
-									</h3>
-									<p className="text-sm md:text-base max-w-[220px]">
-										{it.desc}
-									</p>
-									<div className="text-lg md:text-xl font-semibold">
-										USD {it.priceUsd}
-									</div>
-									<a
-										href={`https://wa.me/?text=${encodeURIComponent(
-											`Hola, quiero cotizar: ${it.title} - USD ${it.priceUsd}`,
-										)}`}
-										target="_blank"
-										rel="noreferrer"
-										className="inline-block bg-[var(--brand-blue)] text-white px-4 py-2 rounded-md text-sm md:text-base"
-									>
-										cotizar en whatsapp
-									</a>
+							<motion.div
+								initial={{ y: "100%", opacity: 0 }}
+								animate={
+									isHovered
+										? { y: "0%", opacity: 1 }
+										: { y: "100%", opacity: 0 }
+								}
+								transition={{ duration: 0.28, ease: "easeOut" }}
+								className="absolute inset-0 bg-black/85 flex flex-col items-stretch justify-center gap-6 px-3 text-white"
+							>
+								<h3 className="w-full text-[18px] md:text-[20px] font-semibold text-center">
+									{it.title}
+								</h3>
+								<p className="w-full text-sm md:text-base text-center">
+									{it.desc}
+								</p>
+								<div className="w-full text-sm italic font-semibold text-center">
+									Desde USD {it.priceUsd}
 								</div>
-							)}
+								<a
+									href={`https://wa.me/573021011753?text=${encodeURIComponent(
+										`Hola, quiero cotizar: ${it.title} - desde USD ${it.priceUsd}`,
+									)}`}
+									target="_blank"
+									rel="noreferrer"
+									className="link"
+								>
+									Cotizar por WhatsApp
+								</a>
+							</motion.div>
 						</div>
 					);
 				})}

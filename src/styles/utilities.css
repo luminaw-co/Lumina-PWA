@@ -27,7 +27,7 @@
 		@apply grid md:grid-cols-2 gap-6 place-self-center items-center;
 	}
 	.hero-home {
-		@apply relative w-full max-w-[1424px] flex justify-between items-center min-h-[80vh] py-12 rounded-t-[20px] px-6 mx-auto overflow-hidden bg-gradient-to-b from-[var(--brand-blue)] to-[var(--bg-page)] mt-4 hero-fadeup;
+		@apply relative w-full max-w-[1424px] flex justify-between items-center min-h-[80vh] py-12 rounded-t-[20px] px-6 mx-auto overflow-hidden bg-gradient-to-b from-[var(--brand-blue)] to-[var(--bg-page)] mt-4 fadeup;
 	}
 	.header-nav {
 		@apply fixed w-full top-0 z-50 backdrop-blur-lg backdrop-saturate-150 bg-[var(--nav-blur)] dark:bg-[var(--nav-blur)];
