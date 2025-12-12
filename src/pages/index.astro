@@ -1,7 +1,8 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Hero from "@/components/home/Hero.astro";
-import ServicesSlider from "@/components/home/ServicesSlider";
+import Services from "@/components/home/Services.astro";
+import Process from "@/components/home/Process.astro";
 import Contact from "@/components/home/Contact.astro";
 export const prerender = true;
 ---
@@ -11,7 +12,8 @@ export const prerender = true;
 		class="min-h-screen bg-[var(--bg-page)] px-6 py-[var(--space-64)] flex flex-col gap-24"
 	>
 		<Hero />
-		<ServicesSlider client:load />
+		<Services />
+		<Process />
 		<Contact />
 	</main>
 </BaseLayout>

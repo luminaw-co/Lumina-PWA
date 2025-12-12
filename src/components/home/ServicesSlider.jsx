@@ -176,7 +176,7 @@ export default function ServicesSlider({ items = defaultItems, speed = 80 }) {
 	return (
 		<div
 			ref={containerRef}
-			className="w-full max-w-[1424px] m-auto overflow-hidden h-max-content py-5 relative fadeup"
+			className="w-full max-w-[1424px] m-auto overflow-hidden h-max-content py-5 relative"
 		>
 			<motion.div
 				ref={trackRef}

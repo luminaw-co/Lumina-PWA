@@ -1,0 +1,53 @@
+---
+import TitleUI from "@/components/ui/TitleUI.astro";
+import Chip from "@/components/ui/Chip.astro";
+import Link from "@/components/ui/Link.astro";
+
+const steps = [
+	{
+		title: "Hablemos claro",
+		desc: "Nos cuentas qué necesitas, qué quieres lograr y en qué punto está tu proyecto. Sin tecnicismos, sin rodeos. Solo claridad desde el primer minuto.",
+	},
+	{
+		title: "Te propongo la solución ideal",
+		desc: "Analizo tu caso y te presento la opción más eficiente según tu presupuesto, tu tiempo y tu objetivo. Nada inflado, nada innecesario. Solo lo que realmente te sirve.",
+	},
+	{
+		title: "Construcción rápida y transparente",
+		desc: "Trabajo contigo paso a paso. Te muestro avances, explico decisiones y te mantengo al tanto del progreso. Todo lo ves, todo se valida, nada te toma por sorpresa.",
+	},
+	{
+		title: "Entrega lista para usar",
+		desc: "Te entrego tu producto funcionando, organizado y con instrucciones simples para que puedas usarlo sin depender de nadie. Y, si lo necesitas, seguimos trabajando juntos.",
+	},
+];
+---
+
+<section class="py-8 w-full max-w-[1424px] m-auto">
+	<TitleUI title="Proceso" subtitle="Así trabajo" />
+	<div class="mt-6 flex flex-wrap gap-6 mx-auto">
+		{
+			steps.map((step, i) => (
+				<article
+					class="flex-shrink-0 w-full sm:w-[48%] lg:w-[23%] flex flex-col gap-4 p-6 rounded-2xl border border-[var(--brand-blue)] shadow-[var(--shadow-base)]"
+					aria-label={`Paso ${i + 1}`}
+				>
+					<div class="flex items-end gap-3">
+						<Chip class="flex gap-4 !font-semibold !text-[var(--accent-link)]">
+							{`Paso ${i + 1}`}
+						</Chip>
+					</div>
+					<h3 class="text-lg font-semibold leading-tight">
+						{step.title}
+					</h3>
+					<p class="text-sm leading-relaxed">{step.desc}</p>
+				</article>
+			))
+		}
+		<div class="mt-auto">
+			<Link href="#contact" class="text-[var(--brand-blue)]">
+				Quiero empezar
+			</Link>
+		</div>
+	</div>
+</section>
