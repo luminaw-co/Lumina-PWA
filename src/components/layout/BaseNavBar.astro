@@ -23,6 +23,10 @@ export const serviceLinks = services.map((s) => ({
 	desc: s.description ? s.description : undefined,
 }));
 
+export const usLinks = [
+	{ href: "/portfolio/", label: "Portafolio de Valentina Ramírez" },
+];
+
 export const iconsSrc = {
 	ui: `${iconsRoute}ui/`,
 	social: `${iconsRoute}social/`,
@@ -55,7 +59,17 @@ const isActive = (href: string) => pathname.startsWith(href);
 					links.map((l) => (
 						<li
 							class={
-								l.label === "Servicios" ? "relative group" : ""
+								l.label === "Servicios" ||
+								l.label === "Nosotros"
+									? "relative group"
+									: ""
+							}
+							id={
+								l.label === "Servicios"
+									? "services-group"
+									: l.label === "Nosotros"
+										? "us-group"
+										: undefined
 							}
 						>
 							{l.label === "Servicios" ? (
@@ -120,6 +134,59 @@ const isActive = (href: string) => pathname.startsWith(href);
 										))}
 									</ul>
 								</>
+							) : l.label === "Nosotros" ? (
+								<>
+									<div class="flex items-center">
+										<Link
+											href={l.href}
+											aria-current={
+												isActive(l.href)
+													? "page"
+													: undefined
+											}
+											tabindex="0"
+										>
+											{l.label}
+										</Link>
+										<button
+											type="button"
+											class="btn-icon"
+											id="us-drop-toggle"
+											aria-label="Mostrar menú de nosotros"
+											tabindex="0"
+										>
+											<svg
+												class="w-10 h-10 transition-transform duration-200 pointer-events-none"
+												viewBox="0 0 20 20"
+												fill="none"
+												xmlns="http://www.w3.org/2000/svg"
+												id="us-drop-arrow"
+											>
+												<path
+													d="M6 8L10 12L14 8"
+													stroke="#1E90FF"
+													stroke-width="2"
+													stroke-linecap="round"
+													stroke-linejoin="round"
+												/>
+											</svg>
+										</button>
+									</div>
+									<ul class="drop-menu" id="us-drop-menu">
+										{usLinks.map((u) => (
+											<li class="relative group/item">
+												<Link
+													href={u.href}
+													class="nav-item-drop"
+												>
+													<span class="text-left">
+														{u.label}
+													</span>
+												</Link>
+											</li>
+										))}
+									</ul>
+								</>
 							) : (
 								<Link
 									href={l.href}
@@ -172,14 +239,11 @@ const isActive = (href: string) => pathname.startsWith(href);
 
 	<Container class="ctn-sub-menu" style="top: 6.0rem; height: 0;">
 		<div class="flex gap-4 items-center justify-center">
-			<Link href="/portfolio/" style="padding: 0.75rem 1.25rem;">
-				Portfolio
-			</Link>
 			<Button
 				href={`mailto:${email}`}
 				target="_blank"
 				icon="ui/send-email-white"
-				text="Solicitar servicio"
+				text="Solicitar cotización"
 			/>
 		</div>
 	</Container>
@@ -254,6 +318,56 @@ const isActive = (href: string) => pathname.startsWith(href);
 									))}
 								</ul>
 							</>
+						) : l.label === "Nosotros" ? (
+							<>
+								<div class="w-full flex items-center justify-start">
+									<Link
+										href={l.href}
+										class="font-semibold"
+										aria-current={
+											isActive(l.href)
+												? "page"
+												: undefined
+										}
+									>
+										{l.label}
+									</Link>
+									<button
+										type="button"
+										class="transition mobile-servicios-toggle"
+										aria-label="Mostrar opciones de nosotros"
+									>
+										<svg
+											class="w-5 h-5 transition-transform duration-200"
+											viewBox="0 0 20 20"
+											fill="none"
+											xmlns="http://www.w3.org/2000/svg"
+										>
+											<path
+												d="M6 8L10 12L14 8"
+												stroke="#1e90ff"
+												stroke-width="2"
+												stroke-linecap="round"
+												stroke-linejoin="round"
+											/>
+										</svg>
+									</button>
+								</div>
+								<ul class="mobile-servicios-submenu flex flex-col gap-2 transition-all duration-300 overflow-hidden max-h-0 opacity-0 pointer-events-none pl-8">
+									{usLinks.map((u) => (
+										<li>
+											<Link
+												href={u.href}
+												class="flex flex-col px-4 py-2 text-[14px]"
+											>
+												<span class="font-semibold">
+													{u.label}
+												</span>
+											</Link>
+										</li>
+									))}
+								</ul>
+							</>
 						) : (
 							<Link
 								href={l.href}
@@ -271,10 +385,10 @@ const isActive = (href: string) => pathname.startsWith(href);
 
 		<Container class="flex items-center justify-start gap-3">
 			<Button
-				href="mailto:contacto@lumina.dev"
+				href={`mailto:${email}`}
 				target="_blank"
 				icon="ui/send-email-white"
-				text="Contáctame"
+				text="Enviar email"
 			/>
 			<button
 				type="button"
@@ -355,7 +469,6 @@ const isActive = (href: string) => pathname.startsWith(href);
 				});
 			}
 
-			// Dropmenu Servicios: click para fijar
 			const dropToggle = document.getElementById("services-drop-toggle");
 			const dropMenu = document.getElementById("services-drop-menu");
 			const dropArrow = document.getElementById("services-drop-arrow");
@@ -383,7 +496,33 @@ const isActive = (href: string) => pathname.startsWith(href);
 				});
 			}
 
-			// Theme toggles
+			const usDropToggle = document.getElementById("us-drop-toggle");
+			const usDropMenu = document.getElementById("us-drop-menu");
+			const usDropArrow = document.getElementById("us-drop-arrow");
+			const usDropGroup = document.getElementById("us-group");
+			let usDropFixed = false;
+
+			if (usDropToggle && usDropMenu && usDropArrow && usDropGroup) {
+				usDropToggle.addEventListener("click", (e) => {
+					e.stopPropagation();
+					usDropFixed = !usDropFixed;
+					usDropGroup.classList.toggle("drop-fixed", usDropFixed);
+					usDropArrow.classList.toggle("rotate-180", usDropFixed);
+				});
+
+				document.addEventListener("click", (e) => {
+					if (
+						usDropFixed &&
+						!usDropMenu.contains(e.target) &&
+						!usDropToggle.contains(e.target)
+					) {
+						usDropFixed = false;
+						usDropGroup.classList.remove("drop-fixed");
+						usDropArrow.classList.remove("rotate-180");
+					}
+				});
+			}
+
 			const ids = ["theme-toggle", "theme-toggle-mobile"];
 			const toggles = ids
 				.map((id) => document.getElementById(id))
@@ -421,7 +560,6 @@ const isActive = (href: string) => pathname.startsWith(href);
 				(b) => b && b.addEventListener("click", toggleTheme),
 			);
 
-			// Mobile Servicios desplegable
 			document
 				.querySelectorAll(".mobile-servicios-toggle")
 				.forEach((btn) => {
@@ -437,7 +575,6 @@ const isActive = (href: string) => pathname.startsWith(href);
 							submenu.classList.toggle("max-h-[500px]");
 							submenu.classList.toggle("opacity-100");
 							submenu.classList.toggle("pointer-events-auto");
-							// Opcional: rotar flecha
 							btn.querySelector("svg").classList.toggle(
 								"rotate-180",
 							);
@@ -445,12 +582,10 @@ const isActive = (href: string) => pathname.startsWith(href);
 					});
 				});
 
-			// Botón cerrar menú mobile
 			const closeBtn = document.getElementById("mobile-menu-close");
 			if (closeBtn) {
 				closeBtn.addEventListener("click", () => {
 					closeMenu();
-					// Si tienes variable open, ponla en false:
 					if (typeof open !== "undefined") open = false;
 				});
 			}

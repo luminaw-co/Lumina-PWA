@@ -3,7 +3,7 @@ import "@/styles/global.css";
 import "@/styles/tokens.css";
 import PortfolioNavBar from "@/components/layout/PortfolioNavBar.astro";
 import PortfolioFooter from "@/components/layout/PortfolioFooter.astro";
-import WhatsappCTA from "@/components/ui/WhatsappCTA.astro";
+import CtaWhatsappW from "@/components/ui/CtaWhatsappW.astro";
 
 interface Props {
 	title?: string;
@@ -37,7 +37,7 @@ const { title = "Lúmina", description = "Portafolio de Valentina Ramírez" } =
 		<PortfolioNavBar />
 		<main>
 			<slot />
-			<WhatsappCTA />
+			<CtaWhatsappW />
 		</main>
 		<PortfolioFooter />
 		<script type="module">

@@ -54,20 +54,14 @@
 		},
 		true,
 	);
-	document.addEventListener(
-		"submit",
-		(ev) => {
-			const f = ev.target;
-			if (
-				f &&
-				(f.target === "_blank" ||
-					(f.dataset && f.dataset.noLoader !== undefined))
-			)
-				return;
-			show();
-		},
-		true,
-	);
+	document.addEventListener("submit", function (e) {
+		if (
+			e?.submitter?.dataset?.noLoader === "true" ||
+			e.target?.dataset?.noLoader === "true"
+		) {
+			return;
+		}
+	});
 	window.addEventListener("beforeunload", show);
 	window.addEventListener("DOMContentLoaded", hide);
 	window.addEventListener("pageshow", hide);

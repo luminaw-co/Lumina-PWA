@@ -15,9 +15,6 @@ const year = new Date().getFullYear();
 
 export const email = "contact@luminaw.co";
 
-const slogan =
-	"Si no se entiende, no sirve. Diseñamos y desarrollamos para que las cosas simplemente tengan sentido.";
-
 const legalRoute = "/legal/";
 
 const recursosLinks = [
@@ -35,19 +32,19 @@ const legalLinks = [
 
 const socialLinks = [
 	{
-		href: "https://www.linkedin.com/company/luminaw",
+		href: "https://www.instagram.com/luminaw.co",
+		icon: `${iconsSrc.social}instagram.svg`,
+		label: "Instagram",
+	},
+	{
+		href: "https://www.linkedin.com/company/lumina-w",
 		icon: `${iconsSrc.social}linkedin.svg`,
 		label: "LinkedIn",
 	},
 	{
-		href: "https://github.com/luminaw",
-		icon: `${iconsSrc.social}github.svg`,
-		label: "GitHub",
-	},
-	{
-		href: "https://www.instagram.com/luminaw",
-		icon: `${iconsSrc.ui}see-demo.svg`,
-		label: "Instagram",
+		href: "https://wa.me/573108283088?text=Hola%2C%20me%20gustar%C3%ADa%20cotizar%20un%20servicio%2C%20por%20favor",
+		icon: `${iconsSrc.social}whatsapp.svg`,
+		label: "WhatsApp",
 	},
 ];
 ---
@@ -138,24 +135,35 @@ const socialLinks = [
 				<ul class="flex justify-start gap-3">
 					{
 						socialLinks.map((s) => (
-							<Icon
-								href={s.href}
-								target="_blank"
-								rel="noopener noreferrer"
-								aria-label={s.label}
-								class="w-[22px]"
-							>
-								<img src={s.icon} alt={s.label} />
-							</Icon>
+							<li>
+								<Link
+									href={s.href}
+									target="_blank"
+									rel="noopener noreferrer"
+									aria-label={s.label}
+									class="inline-block !p-0"
+								>
+									<Icon
+										src={s.icon}
+										alt={s.label}
+										class="w-[22px]"
+										size="md"
+									/>
+								</Link>
+							</li>
 						))
 					}
 				</ul>
 				<p class="text-sm-left mt-5">
-					¿Listo para empezar tu proyecto? <br /> Conversemos: <Link
+					¿Listo para empezar tu proyecto? <br /> Conversemos:
+					<Link
 						href={`mailto:${email}`}
-						class="text-[16px] !lowercase font-normal text-left !p-0"
-						>{email}</Link
+						class="!lowercase !p-0"
+						target="_blank"
+						rel="noopener noreferrer"
 					>
+						{email}
+					</Link>
 				</p>
 			</Container>
 		</nav>
@@ -174,6 +182,7 @@ const socialLinks = [
 					autocomplete="off"
 					method="POST"
 					action="https://app.loops.so/api/newsletter-form/cmiq9zksu0550zx0jpay8zjdv"
+					data-no-loader="true"
 				>
 					<input
 						type="email"
@@ -188,6 +197,8 @@ const socialLinks = [
 						icon="ui/send-email-white"
 						text="Suscribirme"
 						class="text-[14px]"
+						data-no-loader="true"
+						showLoader={false}
 					/>
 				</form>
 				<div
@@ -208,39 +219,12 @@ const socialLinks = [
 		</p>
 		<LastUpdate />
 		<div class="inline-flex-center gap-16 mt-5">
-			<!--{
-				links
-					.filter((l) => l.label === "Inicio")
-					.map((l) => (
-						<a
-							href={l.href}
-							aria-label={l.label}
-							class="flex items-center gap-3"
-						>
-							{iconsSrc.brand ? (
-								<a>
-									<img
-										src={`${iconsSrc.brand}lumina-logo-light.svg`}
-										alt="Lúmina"
-										class="h-32 dark:hidden"
-									/>
-									<img
-										src={`${iconsSrc.brand}lumina-logo-dark.svg`}
-										alt="Lúmina"
-										class="h-32 hidden dark:block"
-									/>
-								</a>
-							) : null}
-						</a>
-					))
-		}-->
 			<span class="text-body-xs text-[var(--text-primary)]">
 				© Lúmina {year}
 			</span>
 		</div>
 	</Container>
 </footer>
-
 <script>
 	document.addEventListener("DOMContentLoaded", function () {
 		const form = document.querySelector(
