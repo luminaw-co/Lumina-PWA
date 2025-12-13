@@ -5,24 +5,110 @@ import BaseLayout from "@/layouts/BaseLayout.astro";
 export async function getStaticPaths() {
 	return services.map((service) => ({
 		params: { slug: service.slug },
-		props: { service },
 	}));
 }
 
-const { service } = Astro.props;
+const propsService = (Astro.props && (Astro.props as any).service) || null;
+const slug = Astro.params && Astro.params.slug;
+type Service = (typeof services)[number];
+
+const serviceOrUndefined = (propsService ??
+	services.find((s) => s.slug === slug)) as Service | undefined;
+
+if (!serviceOrUndefined) {
+	throw new Error(`Service not found for slug: ${slug}`);
+}
+
+const service = serviceOrUndefined;
+
+const related = services.filter(
+	(s) => s.category === service.category && s.slug !== service.slug,
+);
 ---
 
 <BaseLayout
-	title={`${service.title} - Lúmina Enterprise`}
-	description={service.description}
+	title={`${service.title ?? "Servicio"} - Lúmina Enterprise`}
+	description={service.description ?? ""}
 >
 	<main class="min-h-screen bg-[var(--bg-page)] px-6 py-[var(--space-64)]">
-		<h1 class="text-4xl font-bold mb-8">{service.title}</h1>
-		<p class="text-lg mb-16">{service.description}</p>
-		<img
-			src={service.image}
-			alt={service.title}
-			class="w-full max-w-4xl mx-auto rounded-lg shadow-lg"
-		/>
+		{
+			service.title && (
+				<h1 class="text-4xl font-bold mb-8">{service.title}</h1>
+			)
+		}
+
+		{
+			service.description && (
+				<p class="text-lg mb-8">{service.description}</p>
+			)
+		}
+
+		{
+			service.image && (
+				<img
+					src={service.image}
+					alt={service.title ?? "imagen del servicio"}
+					class="w-full max-w-4xl mx-auto rounded-lg shadow-lg mb-8"
+				/>
+			)
+		}
+
+		{
+			service.content && (
+				<section
+					class="prose max-w-4xl m-auto"
+					aria-labelledby="service-content"
+				>
+					<h2 id="service-content" class="sr-only">
+						Detalle
+					</h2>
+					<div set:html={service.content} />
+				</section>
+			)
+		}
+
+		{
+			service.category && (
+				<p class="mt-6 text-sm text-[var(--text-secondary)]">
+					Categoría: {service.category}
+				</p>
+			)
+		}
+
+		{}
+		{
+			related.length > 0 && (
+				<section class="max-w-4xl m-auto mt-12">
+					<h3 class="text-2xl font-semibold mb-4">
+						Más en {service.category}
+					</h3>
+					<div class="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+						{(related as any[]).map((r) => (
+							<a
+								href={`/enterprise/services/${r.slug ?? r.id}`}
+								class="flex items-center gap-3 p-3 bg-[var(--bg-card)] rounded shadow-sm hover:shadow-md transition-shadow"
+							>
+								<img
+									src={r.image ?? r.src}
+									alt={r.title ?? r.slug}
+									class="w-20 h-14 object-cover rounded"
+									loading="lazy"
+								/>
+								<div>
+									<div class="font-semibold text-sm">
+										{r.title ?? r.slug}
+									</div>
+									{(r.priceUsd ?? r.price) && (
+										<div class="text-xs text-[var(--text-secondary)]">
+											Desde USD {r.priceUsd ?? r.price}
+										</div>
+									)}
+								</div>
+							</a>
+						))}
+					</div>
+				</section>
+			)
+		}
 	</main>
 </BaseLayout>

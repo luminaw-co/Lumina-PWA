@@ -1,9 +1,127 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import TitleUI from "@/components/ui/TitleUI.astro";
+
+const imgsRoute = "/images/services/";
+
+const items = [
+	{
+		id: "audit",
+		title: "Auditoría web",
+		src: `${imgsRoute}audit.jpg`,
+		desc: "Revisión de código y diseño de un sitio y sugerencias de corrección.",
+		priceUsd: 120,
+	},
+	{
+		id: "consult-ux",
+		title: "Consultoría UX/UI",
+		src: `${imgsRoute}consulting.jpg`,
+		desc: "Sesiones 1:1 sobre diseño o desarrollo.",
+		priceUsd: 150,
+	},
+	{
+		id: "landing",
+		title: "Desarrollo de landing page",
+		src: `${imgsRoute}dev-landing.jpg`,
+		desc: "Desarrollo de página web estática e informativa (1 página con 4 secciones principales y CTA).",
+		priceUsd: 250,
+	},
+	{
+		id: "pwa-ui",
+		title: "Diseño de PWA",
+		src: `${imgsRoute}pwa-design.jpg`,
+		desc: "Diseño de aplicación web progresiva desde 6 hasta 20 páginas.",
+		priceUsd: 720,
+	},
+	{
+		id: "multipage",
+		title: "Desarrollo de sitio web",
+		src: `${imgsRoute}dev-site.jpg`,
+		desc: "Desarrollo de página web responsiva desde 3 hasta 10 páginas.",
+		priceUsd: 750,
+	},
+	{
+		id: "landing-ui",
+		title: "Diseño de landing page",
+		src: `${imgsRoute}landing-design.jpg`,
+		desc: "Diseño de página web estática e informativa (1 pantalla con 4 secciones principales y CTA).",
+		priceUsd: 100,
+	},
+	{
+		id: "ux-review",
+		title: "Revisión UX",
+		src: `${imgsRoute}review.jpg`,
+		desc: "Revisión de cumplimiento de principios de diseño UX.",
+		priceUsd: 80,
+	},
+	{
+		id: "site-ui",
+		title: "Diseño de sitio web",
+		src: `${imgsRoute}site-design.jpg`,
+		desc: "Diseño de sitio web con varias páginas (desde 3 pantallas).",
+		priceUsd: 750,
+	},
+];
 ---
 
 <BaseLayout>
-	<main class="min-h-screen bg-[var(--bg-page)] px-6 py-[var(--space-64)]">
-		Lúmina Enterprise - Servicios
+	<main class="min-h-screen px-6 py-[var(--space-64)]">
+		<section class="max-w-[1424px] mx-auto flex flex-col gap-10">
+			<TitleUI
+				title="Servicios plug-and-play"
+				subtitle="Para construir contigo"
+			/>
+
+			<div
+				class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+			>
+				{
+					items.map((it) => (
+						<article
+							key={it.id}
+							class="group relative rounded-lg overflow-hidden shadow-md shadow-[var(--shadow-base)] bg-[var(--bg-card)]"
+						>
+							<div class="relative flex-shrink-0 w-[300px] h-[380px] md:w-[340px] md:h-[420px]">
+								<img
+									src={it.src}
+									alt={it.title}
+									class="w-full h-full object-cover"
+									loading="lazy"
+								/>
+
+								<div class="absolute left-0 bottom-0 w-full h-3/4 px-4 bg-gradient-to-t from-[var(--brand-dark)] to-transparent text-[var(--brand-blue)] text-2xl font-semibold flex items-end justify-center pb-5 text-center">
+									{it.title}
+								</div>
+
+								<div
+									class="absolute inset-0 bg-black/85 flex flex-col items-stretch justify-center gap-6 px-3 text-white transform translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100"
+									style="transition: transform 0.28s ease-out, opacity 0.28s ease-out;"
+								>
+									<h3 class="w-full text-[18px] md:text-[20px] font-semibold text-center">
+										{it.title}
+									</h3>
+									<p class="w-full text-sm md:text-base text-center">
+										{it.desc}
+									</p>
+									<div class="w-full text-sm italic font-semibold text-center">
+										Desde USD {it.priceUsd}
+									</div>
+									<a
+										href={`https://wa.me/573021011753?text=${encodeURIComponent(
+											`Hola, quiero cotizar: ${it.title} - desde USD ${it.priceUsd}`,
+										)}`}
+										target="_blank"
+										rel="noreferrer"
+										class="link"
+									>
+										Cotizar por WhatsApp
+									</a>
+								</div>
+							</div>
+						</article>
+					))
+				}
+			</div>
+		</section>
 	</main>
 </BaseLayout>

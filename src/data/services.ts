@@ -15,7 +15,7 @@ export const services = [
 	},
 	{
 		slug: "design",
-		title: "UX/UI y Diseño de Producto",
+		title: "Diseño UX/UI",
 		description: "Diseño visual, experiencia y arquitectura UX",
 		image: "/img/services/diseno.jpg",
 		content: `
@@ -27,7 +27,7 @@ export const services = [
       </ul>
     `,
 	},
-	{
+	/*{
 		slug: "automation",
 		title: "Automatizaciones",
 		description: "Workflows con n8n, Zapier, Airtable",
@@ -68,7 +68,7 @@ export const services = [
         <li>Endurecimiento de servidores y apps</li>
       </ul>
     `,
-	},
+	},*/
 	{
 		slug: "consulting",
 		title: "Consultoría & Auditoría Técnica",
