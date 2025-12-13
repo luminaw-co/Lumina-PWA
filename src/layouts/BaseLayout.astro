@@ -4,6 +4,7 @@ import "@/styles/tokens.css";
 import BaseNavBar from "@/components/layout/BaseNavBar.astro";
 import BaseFooter from "@/components/layout/BaseFooter.astro";
 import WhatsappCTA from "@/components/ui/WhatsappCTA.astro";
+import Loader from "@/components/ui/Loader.jsx";
 
 interface Props {
 	title?: string;
@@ -15,7 +16,7 @@ const { title = "Lúmina", description = "Portafolio de Valentina Ramírez" } =
 
 <html
 	lang="es"
-	class="scroll-smooth bg-[var(--bg-page)] dark:bg-[var(--bg-page)"
+	class="scroll-smooth bg-[var(--bg-page)] dark:bg-[var(--bg-page)]"
 >
 	<head>
 		<meta charset="utf-8" />
@@ -36,10 +37,14 @@ const { title = "Lúmina", description = "Portafolio de Valentina Ramírez" } =
 	>
 		<BaseNavBar />
 		<main>
+			<div id="global-loader" class="hidden" aria-hidden="true">
+				<Loader fullScreen={true} />
+			</div>
 			<slot />
 			<WhatsappCTA />
 		</main>
 		<BaseFooter />
+		<script src="/scripts/nav-loader.js" defer></script>
 		<script type="module">
 			import "../scripts/theme-toggle.ts";
 			import "../scripts/nav-menu.ts";

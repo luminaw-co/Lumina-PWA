@@ -1,0 +1,55 @@
+---
+import TitleUI from "@/components/ui/TitleUI.astro";
+import CaseCard from "@/components/ui/CaseCard.astro";
+import Link from "@/components/ui/Link.astro";
+
+const cases = [
+	{
+		project: "Landing page de Ubuntu",
+		problem:
+			"Necesidad de una presencia digital clara para comunicar propósito y captar usuarios",
+		service: "Desarrollo de landing page",
+		result: "Landing page funcional y escalable, con formulario conectado a base de datos y desplegada en Netlify",
+		href: "/cases/",
+		cover: "/images/projects/ubuntu /mockup.png",
+	},
+	{
+		project: "Diseño y desarrollo de portafolio",
+		problem:
+			"Ausencia de presencia digital clara y dificultad para mostrar proyectos",
+		service: "Diseño UI/UX + Desarrollo Frontend",
+		result: "Portafolio moderno y funcional que comunica identidad y facilita la presentación de proyectos",
+		href: "/cases/",
+		cover: "/images/projects/lumina/mockup.png",
+	},
+];
+---
+
+<section
+	class="py-8 w-full max-w-[1424px] m-auto flex flex-col items-center gap-9 h-1/2"
+>
+	<div class="ctn-hero !justify-end mb-4">
+		<TitleUI
+			title="De la idea al logro"
+			subtitle="Historias de código y confianza"
+		/>
+	</div>
+
+	<div
+		class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6 m-auto place-items-center"
+	>
+		{
+			cases.map((c) => (
+				<CaseCard
+					project={c.project}
+					problem={c.problem}
+					service={c.service}
+					result={c.result}
+					href={c.href}
+					cover={c.cover}
+				/>
+			))
+		}
+	</div>
+	<Link href="/enterprise/cases/">Ver todos los casos</Link>
+</section>

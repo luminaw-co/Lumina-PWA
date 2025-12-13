@@ -1,9 +1,16 @@
 {
-  "css.lint.unknownAtRules": "ignore",
-  "tailwindCSS.includeLanguages": {
-    "astro": "html",
-    "postcss": "css",
-    "plaintext": "html"
-  },
-  "tailwindCSS.experimental.configFile": "tailwind.config.mjs"
+	"css.lint.unknownAtRules": "ignore",
+	"tailwindCSS.includeLanguages": {
+		"astro": "html",
+		"postcss": "css",
+		"plaintext": "html"
+	},
+	"tailwindCSS.experimental.configFile": "tailwind.config.mjs",
+	"python-envs.pythonProjects": [
+		{
+			"path": "src/scripts",
+			"envManager": "ms-python.python:venv",
+			"packageManager": "ms-python.python:pip"
+		}
+	]
 }
