@@ -6,7 +6,7 @@ import Button from "@/components/ui/Button.astro";
 
 <BaseLayout>
 	<Container
-		class="content-center min-h-screen w-full justify-items-center max-w-[520px] m-auto 2xl:content-start 2xl:justify-items-start 2xl:m-0"
+		class="content-center min-h-screen w-full justify-items-center max-w-[520px] m-auto"
 	>
 		<p class="heading-3 !text-start">Agendar llamada con Lúmina</p>
 		<div class="p-3 flex flex-col gap-3 max-w-[520px] w-full">
@@ -17,7 +17,7 @@ import Button from "@/components/ui/Button.astro";
 				id="contactForm"
 				class="max-w-[520px] w-full flex flex-col gap-2 relative"
 				autocomplete="off"
-				action="/api/submit-contact"
+				action="/api/submit-lead"
 				method="post"
 			>
 				<div class="w-full flex flex-col gap-1">
@@ -27,7 +27,7 @@ import Button from "@/components/ui/Button.astro";
 						type="text"
 						name="name"
 						required
-						placeholder="¿Cómo te llamas?"
+						placeholder="Ingresa tu nombre completo"
 						class="input-form"
 						autocomplete="name"
 						style="background: var(--bg-card); color: var(--text-primary); border-radius: var(--radius-md);"
@@ -42,54 +42,101 @@ import Button from "@/components/ui/Button.astro";
 						type="email"
 						name="email"
 						required
-						placeholder="¿Dónde te escribimos?"
+						placeholder="Ingresa tu correo electrónico"
 						class="input-form"
 						autocomplete="email"
 						style="background: var(--bg-card); color: var(--text-primary); border-radius: var(--radius-md);"
 					/>
 				</div>
 				<div class="w-full flex flex-col gap-1">
-					<label for="phone" class="text-xs-left">
-						Teléfono <span class="text-xs">(opcional)</span>
-					</label>
-					<input
-						id="phone"
-						type="tel"
-						name="phone"
-						placeholder="¿Prefieres WhatsApp o llamada?"
-						class="input-form"
-						autocomplete="tel"
-						style="background: var(--bg-card); color: var(--text-primary); border-radius: var(--radius-md);"
-					/>
+					<label for="phone" class="text-xs-left">Teléfono</label>
+					<div class="flex gap-2">
+						<input
+							id="phone"
+							type="tel"
+							name="phone"
+							required
+							placeholder="+57 3001234567"
+							pattern="^\+\d{1,3}[\s\d().-]{6,}$"
+							title="Incluye el indicativo (ej. +57) seguido del número. Mínimo 6 dígitos."
+							aria-describedby="phone-hint"
+							class="input-form flex-1"
+							autocomplete="tel"
+							aria-label="Teléfono con indicativo (ej. +57 3001234567)"
+							style="background: var(--bg-card); color: var(--text-primary); border-radius: var(--radius-md);"
+						/>
+					</div>
 				</div>
-				<div class="w-full flex flex-col gap-1">
-					<label for="objective" class="text-xs-left">Objetivo</label>
-					<select
-						name="objective"
-						id="objective"
-						required
-						class="input-form"
-						style="
-							background: var(--bg-card);
-							color: var(--text-primary);
-							border-radius: var(--radius-md);
-							border: 1px solid var(--border-input, #e5e7eb);
-							padding: 0.75rem 1rem;
-							font-size: 1rem;
-							appearance: none;
-							box-shadow: none;
-						"
-					>
-						<option value="" disabled selected>
-							Selecciona el objetivo
-						</option>
-						<option>Diseño UX/UI</option>
-						<option>Desarrollo web</option>
-						<option>Mejora o actualización (rediseño)</option>
-						<option>Automatización / IA</option>
-						<option>Otro</option>
-					</select>
-				</div>
+				<fieldset class="w-full flex flex-col gap-1">
+					<label class="text-xs-left">Objetivo</label>
+
+					<div class="flex gap-2 flex-wrap">
+						<div>
+							<input
+								type="radio"
+								id="obj-design"
+								name="objective"
+								value="Diseño UX/UI"
+								class="sr-only peer"
+								required
+							/>
+							<label
+								for="obj-design"
+								class="input-form inline-flex items-center px-4 py-2 rounded cursor-pointer select-none peer-checked:bg-[var(--accent-link)] peer-checked:text-white peer-checked:shadow-md"
+							>
+								Diseño UX/UI
+							</label>
+						</div>
+
+						<div>
+							<input
+								type="radio"
+								id="obj-dev"
+								name="objective"
+								value="Desarrollo web"
+								class="sr-only peer"
+							/>
+							<label
+								for="obj-dev"
+								class="input-form inline-flex items-center px-4 py-2 rounded cursor-pointer select-none peer-checked:bg-[var(--accent-link)] peer-checked:text-white peer-checked:shadow-md"
+							>
+								Desarrollo web
+							</label>
+						</div>
+
+						<div>
+							<input
+								type="radio"
+								id="obj-consult"
+								name="objective"
+								value="Consultoría"
+								class="sr-only peer"
+							/>
+							<label
+								for="obj-consult"
+								class="input-form inline-flex items-center px-4 py-2 rounded cursor-pointer select-none peer-checked:bg-[var(--accent-link)] peer-checked:text-white peer-checked:shadow-md"
+							>
+								Consultoría
+							</label>
+						</div>
+
+						<div>
+							<input
+								type="radio"
+								id="obj-other"
+								name="objective"
+								value="Otro"
+								class="sr-only peer"
+							/>
+							<label
+								for="obj-other"
+								class="input-form inline-flex items-center px-4 py-2 rounded cursor-pointer select-none peer-checked:bg-[var(--accent-link)] peer-checked:text-white peer-checked:shadow-md"
+							>
+								Otro
+							</label>
+						</div>
+					</div>
+				</fieldset>
 				<div class="w-full flex flex-col gap-1">
 					<label for="message" class="text-xs-left">Mensaje</label>
 					<textarea
@@ -129,7 +176,6 @@ import Button from "@/components/ui/Button.astro";
 				const form = document.getElementById("contactForm");
 				const modal = document.getElementById("modalStatus");
 				const modalMsg = document.getElementById("modalMessage");
-
 				if (!form || !modal || !modalMsg) return;
 
 				let timeoutId = null;
@@ -168,12 +214,57 @@ import Button from "@/components/ui/Button.astro";
 				form.addEventListener("submit", async (e) => {
 					e.preventDefault();
 					const formData = new FormData(form);
-					const data = Object.fromEntries(formData);
 
-					setTimeout(() => {
-						showModal("¡Formulario enviado con éxito!", true);
-						form.reset();
-					}, 1000);
+					// Validación adicional: el teléfono debe incluir indicativo (+...)
+					const phoneInput = document.getElementById("phone");
+					if (phoneInput) {
+						const raw = (phoneInput.value || "").trim();
+						// Normalizar para comprobar: quitar espacios/paréntesis/guiones
+						const normalized = raw.replace(/[\s().-]+/g, "");
+						const digitsOnly = normalized.replace(/\D/g, "");
+						if (
+							!normalized.startsWith("+") ||
+							digitsOnly.length < 6
+						) {
+							showModal(
+								"Por favor incluye el indicativo en el teléfono (ej. +57) antes del número.",
+								false,
+							);
+							phoneInput.focus();
+							return;
+						}
+						// actualizar formData con la versión normalizada
+						formData.set("phone", normalized);
+					}
+
+					try {
+						const resp = await fetch(
+							form.getAttribute("action") || "/api/submit-lead",
+							{
+								method: "POST",
+								body: formData,
+							},
+						);
+						if (resp.ok) {
+							showModal("¡Formulario enviado con éxito!", true);
+							form.reset();
+						} else {
+							let detail = "";
+							try {
+								const json = await resp.json();
+								detail = json?.error ? ` — ${json.error}` : "";
+							} catch {}
+							showModal(
+								"Error al enviar el formulario." + detail,
+								false,
+							);
+						}
+					} catch (err) {
+						showModal(
+							"Error de conexión. Intenta de nuevo.",
+							false,
+						);
+					}
 				});
 			});
 		</script>

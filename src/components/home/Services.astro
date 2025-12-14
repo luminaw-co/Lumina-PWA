@@ -1,0 +1,19 @@
+---
+import ServicesSlider from "./ServicesSlider.jsx";
+import Link from "@/components/ui/Link.astro";
+import TitleUI from "@/components/ui/TitleUI.astro";
+---
+
+<section
+	id="services"
+	class="container mx-auto w-full max-w-[1424px] m-auto flex flex-col gap-5 items-center"
+>
+	<div class="ctn-hero !justify-end">
+		<TitleUI
+			title="Catálogo comercial"
+			subtitle="Nuevos servicios disponibles"
+		/>
+	</div>
+	<ServicesSlider client:load />
+	<Link href="/enterprise/services/"> Ver todos los servicios </Link>
+</section>

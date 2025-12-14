@@ -1,9 +1,48 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import Container from "@/components/ui/Container.astro";
+import Link from "@/components/ui/Link.astro";
+import CtaWhatsappL from "@/components/ui/CtaWhatsappL.astro";
+export const prerender = true;
+
+const info = {
+	title: "¿En construcción?",
+	description:
+		"Estamos trabajando para mejorar tu experiencia. Vuelve pronto y descubre las novedades.",
+};
+const routes = [{ href: "/", label: "Volver al inicio" }];
+const icons = [
+	{
+		src: "/icons/illustrations/isometrics/building-isometric.svg",
+	},
+];
 ---
 
-<BaseLayout>
-	<main class="min-h-screen bg-[var(--bg-page)] px-6 py-[var(--space-64)]">
-		Lúmina Enterprise - Vacantes
+<BaseLayout title="Construyendo Lúmina">
+	<main
+		class="h-screen grid place-items-center px-6 text-center bg-[var(--bg-page)] m-0 p-56 gap-[14px]"
+	>
+		<Container class="flex-col-center-6">
+			<Container
+				class="relative w-full max-w-[440px] h-[380px] flex items-center justify-center z-[2] mx-auto"
+			>
+				<img
+					src={icons[0].src}
+					alt="Hero Illustration"
+					class="w-full h-full block object-contain rounded-3xl animate-floatY"
+					width="440"
+					height="380"
+					loading="lazy"
+				/>
+			</Container>
+			<h1 class="text-[36px] font-bold text-[var(--brand-blue)]">
+				{info.title}
+			</h1>
+			<p class="text-[var(--text-primary)] opacity-90 max-w-[30rem]">
+				{info.description}
+			</p>
+			<Link href={routes[0].href} rel="noopener">{routes[0].label}</Link>
+		</Container>
+		<CtaWhatsappL />
 	</main>
 </BaseLayout>

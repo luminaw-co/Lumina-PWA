@@ -1,28 +1,139 @@
 ---
 import { services } from "@/data/services";
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import TitleUI from "@/components/ui/TitleUI.astro";
+import Link from "@/components/ui/Link.astro";
+import MiniCard from "@/components/ui/MiniCard.astro";
 
 export async function getStaticPaths() {
 	return services.map((service) => ({
 		params: { slug: service.slug },
-		props: { service },
 	}));
 }
 
-const { service } = Astro.props;
+const propsService = (Astro.props && (Astro.props as any).service) || null;
+const slug = Astro.params && Astro.params.slug;
+type Service = (typeof services)[number];
+
+const serviceOrUndefined = (propsService ??
+	services.find((s) => s.slug === slug)) as Service | undefined;
+
+if (!serviceOrUndefined) {
+	throw new Error(`Service not found for slug: ${slug}`);
+}
+
+const service = serviceOrUndefined;
+
+const related = services.filter((s) => s.slug !== service.slug);
 ---
 
 <BaseLayout
-	title={`${service.title} - Lúmina Enterprise`}
-	description={service.description}
+	title={`${service.title ?? "Servicio"} - Lúmina Enterprise`}
+	description={service.description ?? ""}
 >
-	<main class="min-h-screen bg-[var(--bg-page)] px-6 py-[var(--space-64)]">
-		<h1 class="text-4xl font-bold mb-8">{service.title}</h1>
-		<p class="text-lg mb-16">{service.description}</p>
-		<img
-			src={service.image}
-			alt={service.title}
-			class="w-full max-w-4xl mx-auto rounded-lg shadow-lg"
-		/>
+	<main
+		class="min-h-screen bg-[var(--bg-page)] w-full max-w-[1200px] m-auto py-[var(--space-64)] flex flex-col gap-5 px-6"
+	>
+		{
+			service.title && service.description && (
+				<TitleUI title={service.title} subtitle={service.description} />
+			)
+		}
+
+		<div class="grid md:grid-cols-2 gap-5 place-items-center">
+			{
+				service.image && (
+					<img
+						src={service.image}
+						alt={service.title ?? "imagen del servicio"}
+						class="w-full max-w-4xl mx-auto rounded-lg shadow-lg shadow-[var(--shadow-base)]"
+						loading="lazy"
+					/>
+				)
+			}
+
+			<div class="flex flex-col gap-5">
+				<h3 class="text-gradient-1 text-[22px] md:text-start !mb-0">
+					¿Cómo te ayudamos con este servicio?
+				</h3>
+				{
+					service.longDesc && (
+						<section
+							class="prose max-w-4xl m-auto"
+							aria-labelledby="service-longdesc"
+						>
+							<h2
+								id="service-longdesc"
+								class="sr-only text-[var(--text-primary)]"
+							>
+								Descripción
+							</h2>
+							<p class="text-[var(--text-primary)]">
+								{service.longDesc}
+							</p>
+						</section>
+					)
+				}
+
+				{
+					service.bullets && service.bullets.length > 0 && (
+						<section class="max-w-4xl">
+							<h3 class="text-xl font-semibold text-[var(--text-primary)]">
+								Incluye
+							</h3>
+							<ul class="flex flex-col gap-4 list-disc list-inside text-[var(--text-primary)] pl-3 mt-2">
+								{service.bullets.map((b) => (
+									<li>{b}</li>
+								))}
+							</ul>
+						</section>
+					)
+				}
+
+				{
+					(service.price ?? service.price === 0) && (
+						<p class="text-lg font-semibold text-[var(--text-primary)]">
+							Desde USD {service.price}
+						</p>
+					)
+				}
+
+				<Link
+					href={`https://wa.me/573108283088?text=${encodeURIComponent(
+						`Hola, quiero cotizar: ${service.title} desde USD ${service.price}`,
+					)}`}
+					target="_blank"
+					rel="noreferrer"
+					class="!text-left !pl-0"
+				>
+					Cotizar por WhatsApp
+				</Link>
+			</div>
+		</div>
+
+		{
+			related.length > 0 && (
+				<section class="w-full mt-12">
+					<h3 class="text-2xl font-semibold mb-4 text-[var(--text-primary)]">
+						Otros servicios
+					</h3>
+
+					<div class="w-full flex flex-wrap items-start gap-4 justify-start">
+						{related.map((r) => (
+							<Link
+								href={`/enterprise/services/${r.slug}`}
+								class="inline-block"
+							>
+								<MiniCard
+									text={r.title}
+									icon={r.image}
+									class="!w-fit capitalize !gap-5"
+								/>
+							</Link>
+						))}
+					</div>
+				</section>
+			)
+		}
 	</main>
 </BaseLayout>

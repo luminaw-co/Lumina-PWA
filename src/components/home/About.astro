@@ -1,0 +1,61 @@
+---
+import TitleUI from "@/components/ui/TitleUI.astro";
+import Container from "@/components/ui/Container.astro";
+import Link from "@/components/ui/Link.astro";
+---
+
+<section
+	class="w-full max-w-[1424px] m-auto rounded-md md:min-h-[600px] flex flex-col items-center gap-5"
+>
+	<div class="ctn-hero !justify-end">
+		<TitleUI
+			title="Más que un equipo"
+			subtitle="Un ecosistema: nuestra esencia"
+		/>
+	</div>
+	<div
+		class="flex flex-col md:flex-row md:items-center gap-6 max-w-[900px] relative m-auto bg-[var(--bg-card)] p-9 rounded-xl shadow-[var(--shadow-base)] rounded-bl-none"
+	>
+		<Container id="hero-grid-bg" class="grid-bg opacity-32" />
+		<div class="w-full flex justify-center">
+			<img
+				src="/brand/profile.png"
+				alt="Foto de Valentina Ramírez"
+				class="rounded-img-320 max-w-full"
+			/>
+		</div>
+
+		<div class="w-full flex flex-col gap-5 items-center self-center">
+			<article class="">
+				<h3 class="text-gradient-1 text-[22px] md:text-start">
+					Lúmina es más que un estudio digital.
+				</h3>
+				<p class="text-sm leading-relaxed text-[var(--text-primary)]">
+					Es una forma clara de convertir ideas en productos que
+					funcionan desde el primer día. Diseñamos y desarrollamos
+					experiencias digitales simples, usables y escalables para
+					emprendedores pequeñas empresas que necesitan avanzar sin
+					caos ni sobreingeniería.
+				</p>
+			</article>
+			<article class="">
+				<p
+					class="text-sm leading-relaxed text-[var(--text-primary)] mt-4"
+				>
+					Detrás de Lúmina estoy yo, Valentina, <span
+						class="text-[var(--brand-blue)] font-bold"
+						>frontend developer</span
+					> y
+					<span class="text-[var(--brand-blue)] font-bold"
+						>diseñadora de interfaces</span
+					>. Coordino diseño, desarrollo y estructura para que cada
+					proyecto tenga coherencia, velocidad y sentido desde el
+					inicio. Lúmina nace como un estudio pequeño, enfocado y
+					flexible, preparado para crecer junto a los productos que
+					construimos.
+				</p>
+			</article>
+		</div>
+	</div>
+	<Link href="/enterprise/us">Conocer al equipo</Link>
+</section>
