@@ -8,7 +8,7 @@ import Button from "@/components/ui/Button.astro";
 	<Container
 		class="content-center min-h-screen w-full justify-items-center max-w-[520px] m-auto"
 	>
-		<p class="heading-3 !text-start">Agendar llamada con Lúmina</p>
+		<p class="heading-3 !text-start">Agendar cita en Lúmina</p>
 		<div class="p-3 flex flex-col gap-3 max-w-[520px] w-full">
 			<p class="text-sm-center 2xl:text-left">
 				Completa el formulario y te contactaremos en menos de 24 horas.
@@ -173,10 +173,16 @@ import Button from "@/components/ui/Button.astro";
 		</div>
 		<script>
 			document.addEventListener("DOMContentLoaded", function () {
-				const form = document.getElementById("contactForm");
+				const formEl = document.getElementById("contactForm");
 				const modal = document.getElementById("modalStatus");
 				const modalMsg = document.getElementById("modalMessage");
-				if (!form || !modal || !modalMsg) return;
+				if (
+					!(formEl instanceof HTMLFormElement) ||
+					!(modal instanceof HTMLElement) ||
+					!(modalMsg instanceof HTMLElement)
+				)
+					return;
+				const form = formEl;
 
 				let timeoutId = null;
 				function showModal(message, success = true) {
@@ -213,13 +219,11 @@ import Button from "@/components/ui/Button.astro";
 
 				form.addEventListener("submit", async (e) => {
 					e.preventDefault();
-					const formData = new FormData(form);
 
-					// Validación adicional: el teléfono debe incluir indicativo (+...)
 					const phoneInput = document.getElementById("phone");
-					if (phoneInput) {
+					let formData;
+					if (phoneInput && phoneInput instanceof HTMLInputElement) {
 						const raw = (phoneInput.value || "").trim();
-						// Normalizar para comprobar: quitar espacios/paréntesis/guiones
 						const normalized = raw.replace(/[\s().-]+/g, "");
 						const digitsOnly = normalized.replace(/\D/g, "");
 						if (
@@ -233,8 +237,10 @@ import Button from "@/components/ui/Button.astro";
 							phoneInput.focus();
 							return;
 						}
-						// actualizar formData con la versión normalizada
+						formData = new FormData(form);
 						formData.set("phone", normalized);
+					} else {
+						formData = new FormData(form);
 					}
 
 					try {

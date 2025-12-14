@@ -10,4 +10,7 @@ export default defineConfig({
 	integrations: [tailwind(), mdx(), react()],
 	output: "server",
 	adapter: netlify(),
+	vite: {
+		envPrefix: ["PUBLIC_", "VITE_"],
+	},
 });

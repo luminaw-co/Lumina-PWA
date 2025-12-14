@@ -1,40 +1,48 @@
 import type { APIContext } from "astro";
-import fs from "fs/promises";
-import path from "path";
-
-function escapeCsv(value: unknown) {
-	return `"${String(value ?? "").replace(/"/g, '""')}"`;
-}
+import { Client } from "@notionhq/client";
 
 export async function POST({ request }: APIContext) {
 	try {
-		const form = await request.formData();
-		const name = String(form.get("name") ?? "");
-		const email = String(form.get("email") ?? "");
-		const phone = String(form.get("phone") ?? "");
-		const objective = String(form.get("objective") ?? "");
-		const message = String(form.get("message") ?? "");
-		const source = String(form.get("source") ?? "");
-		const timestamp = new Date().toISOString();
+		const NOTION_TOKEN = process.env.NOTION_TOKEN;
+		const NOTION_DATABASE_ID = process.env.NOTION_DATABASE_ID;
 
-		const dataDir = path.join(process.cwd(), "data");
-		await fs.mkdir(dataDir, { recursive: true });
-		const csvPath = path.join(dataDir, "leads.csv");
-
-		try {
-			await fs.access(csvPath);
-		} catch {
-			const header =
-				"timestamp,name,email,phone,objective,message,source\n";
-			await fs.writeFile(csvPath, header, "utf8");
+		if (!NOTION_TOKEN || !NOTION_DATABASE_ID) {
+			console.error("Missing NOTION_TOKEN or NOTION_DATABASE_ID");
+			return new Response(
+				JSON.stringify({
+					ok: false,
+					error: "Server env not configured",
+				}),
+				{
+					status: 500,
+					headers: { "Content-Type": "application/json" },
+				},
+			);
 		}
 
-		const row =
-			[timestamp, name, email, phone, objective, message, source]
-				.map(escapeCsv)
-				.join(",") + "\n";
+		const notion = new Client({ auth: NOTION_TOKEN });
 
-		await fs.appendFile(csvPath, row, "utf8");
+		const form = await request.formData();
+		const nombre = String(form.get("name") ?? "");
+		const correo = String(form.get("email") ?? "");
+		const telefono = String(form.get("phone") ?? "");
+		const objetivo = String(form.get("objective") ?? "");
+		const mensaje = String(form.get("message") ?? "");
+		const fecha = new Date().toISOString();
+
+		await notion.pages.create({
+			parent: { database_id: NOTION_DATABASE_ID },
+			properties: {
+				Nombre: { title: [{ text: { content: nombre } }] },
+				Correo: { email: correo },
+				Teléfono: { rich_text: [{ text: { content: telefono } }] },
+				Objetivo: { select: { name: objetivo } },
+				Mensaje: mensaje
+					? { rich_text: [{ text: { content: mensaje } }] }
+					: { rich_text: [] },
+				Fecha: { date: { start: fecha } },
+			},
+		});
 
 		return new Response(JSON.stringify({ ok: true }), {
 			status: 200,
