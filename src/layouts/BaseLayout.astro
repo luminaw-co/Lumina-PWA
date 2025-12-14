@@ -3,6 +3,8 @@ import "@/styles/global.css";
 import "@/styles/tokens.css";
 import BaseNavBar from "@/components/layout/BaseNavBar.astro";
 import BaseFooter from "@/components/layout/BaseFooter.astro";
+import CtaWhatsappL from "@/components/ui/CtaWhatsappL.astro";
+import Loader from "@/components/ui/Loader.jsx";
 
 interface Props {
 	title?: string;
@@ -14,7 +16,7 @@ const { title = "Lúmina", description = "Portafolio de Valentina Ramírez" } =
 
 <html
 	lang="es"
-	class="scroll-smooth bg-[var(--bg-page)] dark:bg-[var(--bg-page)"
+	class="scroll-smooth bg-[var(--bg-page)] dark:bg-[var(--bg-page)]"
 >
 	<head>
 		<meta charset="utf-8" />
@@ -31,11 +33,18 @@ const { title = "Lúmina", description = "Portafolio de Valentina Ramírez" } =
 	</head>
 
 	<body
-		class="min-h-dvh bg-[var(--bg-page)] dark:bg-[var(--bg-page) text-[var(--ui-text)] antialiased"
+		class="min-h-dvh bg-[var(--bg-page)] dark:bg-[var(--bg-page)] antialiased"
 	>
 		<BaseNavBar />
-		<main><slot /></main>
+		<main>
+			<div id="global-loader" class="hidden" aria-hidden="true">
+				<Loader fullScreen={true} />
+			</div>
+			<slot />
+			<CtaWhatsappL />
+		</main>
 		<BaseFooter />
+		<script src="/scripts/nav-loader.js" defer></script>
 		<script type="module">
 			import "../scripts/theme-toggle.ts";
 			import "../scripts/nav-menu.ts";

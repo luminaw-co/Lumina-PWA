@@ -1,0 +1,84 @@
+---
+import Link from "@/components/ui/Link.astro";
+import Chip from "@/components/ui/Chip.astro";
+
+interface Props {
+	project: string;
+	problem?: string;
+	service?: string;
+	result?: string;
+	href?: string;
+	cover?: string;
+	alt?: string;
+}
+
+const {
+	project,
+	problem = "",
+	service = "",
+	result = "",
+	href = "#",
+	cover = "",
+	alt = `${project} — caso`,
+} = Astro.props as Props;
+---
+
+<article
+	itemscope
+	itemtype="https://schema.org/CreativeWork"
+	aria-labelledby={`lab-${project}-heading`}
+	class="bg-[var(--bg-card)] shadow-[var(--shadow-base)] overflow-hidden rounded-md w-full max-w-2xl md:h-80 flex flex-col md:flex-row gap-4"
+>
+	<meta itemprop="name" content={project} />
+
+	<figure
+		class="w-full md:w-1/2 h-full md:h-full flex-shrink-0 overflow-hidden bg-[var(--bg-page)] rounded-tr-lg rounded-br-lg transform transition-transform duration-300 ease-out hover:scale-105 p-8"
+	>
+		{
+			cover ? (
+				<img
+					src={cover}
+					alt={alt}
+					itemprop="image"
+					loading="lazy"
+					decoding="async"
+					class="w-full h-full object-contain"
+				/>
+			) : (
+				<div class="w-full h-full flex items-center justify-center text-[var(--text-primary)]">
+					<span class="px-3 py-1 bg-[var(--bg-muted)] rounded text-sm">
+						Sin imagen
+					</span>
+				</div>
+			)
+		}
+		<figcaption class="sr-only">{project}</figcaption>
+	</figure>
+
+	<div class="w-full md:w-1/2 p-6 flex flex-col justify-evenly gap-3">
+		<h3
+			id={`lab-${project}-heading`}
+			class="text-lg font-semibold text-[var(--text-primary)] leading-tight"
+		>
+			{project}
+		</h3>
+
+		{problem && <p class="text-sm text-[var(--text-primary)]">{problem}</p>}
+
+		{
+			result && (
+				<p class="text-sm text-[var(--text-primary)]">
+					<span class="font-semibold">Resultado:</span>
+					<span class="ml-2">{result}</span>
+				</p>
+			)
+		}
+
+		{service && <Chip class="w-fit">{service}</Chip>}
+		<div class="mt-4">
+			<Link href={href} aria-label={`Ver caso: ${project}`}>
+				Ver caso
+			</Link>
+		</div>
+	</div>
+</article>

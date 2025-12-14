@@ -1,17 +1,23 @@
 ---
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import Hero from "@/components/home/Hero.astro";
+import Services from "@/components/home/Services.astro";
+import Process from "@/components/home/Process.astro";
+import About from "@/components/home/About.astro";
+import Cases from "@/components/home/Cases.astro";
 import Contact from "@/components/home/Contact.astro";
 export const prerender = true;
-
-const lastUpdated = "24 de septiembre de 2025";
 ---
 
 <BaseLayout title="Lúmina - Diseño y desarrollo digital">
-	<main
-		class="min-h-screen bg-[var(--bg-page)] px-6 py-[var(--space-64)] flex flex-col gap-24"
+	<div
+		class="min-h-screen bg-[var(--bg-page)] px-6 py-[var(--space-64)] flex flex-col gap-10"
 	>
 		<Hero />
+		<Services />
+		<Process />
+		<About />
+		<Cases />
 		<Contact />
-	</main>
+	</div>
 </BaseLayout>
