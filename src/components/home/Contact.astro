@@ -6,16 +6,16 @@ import { iconsSrc } from "@/components/layout/BaseNavBar.astro";
 ---
 
 <section
-	aria-label="Agendar llamada"
+	aria-label="Agendar cita"
 	id="contact"
-	class="relative w-full max-w-[1424px] min-h-[100dvh] py-12 rounded-b-[20px] px-6 mx-auto overflow-hidden bg-gradient-to-t from-[var(--brand-blue)] to-[var(--bg-page)] mt-4"
+	class="relative w-full max-w-[1424px] min-h-[100dvh] rounded-b-[20px] mx-auto overflow-hidden bg-gradient-to-t from-[var(--brand-blue)] to-[var(--bg-page)]"
 >
 	<Container id="hero-grid-bg" class="grid-bg opacity-32" />
 	<Container
 		class="max-w-[440px] w-full rounded-[var(--radius-lg)] p-6 flex flex-col items-center gap-5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[2]"
 	>
 		<TitleUI
-			title="Agendar llamada"
+			title="Agendar cita"
 			subtitle="Conversemos sobre tu proyecto."
 		/>
 		<img
@@ -40,7 +40,7 @@ import { iconsSrc } from "@/components/layout/BaseNavBar.astro";
 					type="text"
 					name="name"
 					required
-					placeholder="¿Cómo te llamas?"
+					placeholder="Ingresa tu nombre completo"
 					class="input-form"
 					autocomplete="name"
 					style="background: var(--bg-card); color: var(--text-primary); border-radius: var(--radius-md);"
@@ -55,7 +55,7 @@ import { iconsSrc } from "@/components/layout/BaseNavBar.astro";
 					type="email"
 					name="email"
 					required
-					placeholder="¿Dónde te escribimos?"
+					placeholder="Ingresa tu correo electrónico"
 					class="input-form"
 					autocomplete="email"
 					style="background: var(--bg-card); color: var(--text-primary); border-radius: var(--radius-md);"
@@ -65,21 +65,24 @@ import { iconsSrc } from "@/components/layout/BaseNavBar.astro";
 				<label for="phone" class="text-xs-left">
 					Teléfono <span class="text-xs">(opcional)</span>
 				</label>
-				<input
-					id="phone"
-					type="tel"
-					name="phone"
-					placeholder="¿Prefieres WhatsApp o llamada?"
-					class="input-form"
-					autocomplete="tel"
-					style="background: var(--bg-card); color: var(--text-primary); border-radius: var(--radius-md);"
-				/>
+				<div class="flex gap-2">
+					<input
+						id="phone"
+						type="tel"
+						name="phone"
+						placeholder="+57 3001234567"
+						class="input-form flex-1"
+						autocomplete="tel"
+						aria-label="Teléfono con indicativo (ej. +57 3001234567)"
+						style="background: var(--bg-card); color: var(--text-primary); border-radius: var(--radius-md);"
+					/>
+				</div>
 			</div>
 			<input type="hidden" name="source" value="contact-page" />
 			<Button
 				type="submit"
 				icon="ui/send-email-white"
-				text="Agendar llamada"
+				text="Agendar cita"
 				class="text-[var(--button-sm)] mt-2"
 			/>
 			<p class="text-xs-left !text-center mt-1">
@@ -101,6 +104,7 @@ import { iconsSrc } from "@/components/layout/BaseNavBar.astro";
 				const form = document.getElementById("contactForm");
 				const modal = document.getElementById("modalStatus");
 				const modalMsg = document.getElementById("modalMessage");
+				const phoneInput = document.getElementById("phone");
 
 				if (!form || !modal || !modalMsg) return;
 
@@ -140,6 +144,27 @@ import { iconsSrc } from "@/components/layout/BaseNavBar.astro";
 				form.addEventListener("submit", async function (e) {
 					e.preventDefault();
 					const formData = new FormData(form);
+
+					if (phoneInput) {
+						const raw = (phoneInput.value || "").trim();
+						if (raw) {
+							const normalized = raw.replace(/[\s().-]+/g, "");
+							const digitsOnly = normalized.replace(/\D/g, "");
+							if (
+								!normalized.startsWith("+") ||
+								digitsOnly.length < 6
+							) {
+								showModal(
+									"Por favor incluye el indicativo (ej. +57) seguido del número.",
+									false,
+								);
+								return;
+							}
+							formData.set("phone", normalized);
+						} else {
+							formData.set("phone", "");
+						}
+					}
 
 					try {
 						const response = await fetch(

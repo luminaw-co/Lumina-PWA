@@ -27,12 +27,12 @@ const {
 	itemscope
 	itemtype="https://schema.org/CreativeWork"
 	aria-labelledby={`lab-${project}-heading`}
-	class="bg-[var(--bg-card)] shadow-[var(--shadow-base)] overflow-hidden rounded-md w-full max-w-2xl h-80 flex flex-col md:flex-row"
+	class="bg-[var(--bg-card)] shadow-[var(--shadow-base)] overflow-hidden rounded-md w-full max-w-2xl md:h-80 flex flex-col md:flex-row gap-4"
 >
 	<meta itemprop="name" content={project} />
 
 	<figure
-		class="w-full md:w-1/2 h-40 md:h-full flex-shrink-0 overflow-hidden bg-[var(--bg-page)] rounded-tr-lg rounded-br-lg transform transition-transform duration-300 ease-out hover:scale-105"
+		class="w-full md:w-1/2 h-full md:h-full flex-shrink-0 overflow-hidden bg-[var(--bg-page)] rounded-tr-lg rounded-br-lg transform transition-transform duration-300 ease-out hover:scale-105 p-8"
 	>
 		{
 			cover ? (

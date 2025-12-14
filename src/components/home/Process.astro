@@ -23,14 +23,14 @@ const steps = [
 ];
 ---
 
-<section class="flex flex-col gap-5 py-8 w-full max-w-[1424px] m-auto">
+<section class="flex flex-col gap-5 w-full max-w-[1424px] m-auto items-center">
 	<div class="ctn-hero !justify-end">
 		<TitleUI
 			title="El viaje del proyecto"
 			subtitle="En cuatro sencillos pasos"
 		/>
 	</div>
-	<div class="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+	<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
 		{
 			steps.map((step, i) => (
 				<article
@@ -53,7 +53,5 @@ const steps = [
 			))
 		}
 	</div>
-	<div class="flex justify-center mt-8">
-		<Link href="#contact"> Quiero empezar </Link>
-	</div>
+	<Link href="#contact"> Quiero empezar </Link>
 </section>
