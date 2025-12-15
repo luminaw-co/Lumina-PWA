@@ -38,19 +38,19 @@ export async function POST({ request }: APIContext) {
 		await notion.pages.create({
 			parent: { database_id: NOTION_DATABASE_ID },
 			properties: {
-				Nombre: { title: [{ text: { content: nombre } }] },
-				Correo: { email: correo || null },
-				Teléfono: telefono
+				Name: { title: [{ text: { content: nombre } }] },
+				Email: { email: correo || null },
+				Phone: telefono
 					? { phone_number: telefono }
 					: { phone_number: null },
-				Objetivo: { select: { name: objetivo || "Agenda rápida" } },
-				Mensaje: {
+				Objective: { select: { name: objetivo || "Agenda rápida" } },
+				Message: {
 					rich_text: [
 						{ text: { content: mensaje || "Sin mensaje" } },
 					],
 				},
-				Fecha: { date: { start: acquisition } },
-				Source: { rich_text: [{ text: { content: source } }] },
+				Date: { date: { start: acquisition } },
+				Source: { select: { name: source } },
 			},
 		});
 
