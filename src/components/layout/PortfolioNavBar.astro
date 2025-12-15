@@ -5,6 +5,7 @@ import Icon from "@/components/ui/Icon.astro";
 import Link from "@/components/ui/Link.astro";
 
 const links = [
+	{ href: "/portfolio", label: "Inicio" },
 	{ href: "/", label: "Lúmina" },
 	{ href: "/portfolio/projects", label: "Proyectos" },
 	{ href: "/portfolio/more/about", label: "Sobre mí" },
@@ -38,15 +39,6 @@ const isActive = (href: string) => pathname.startsWith(href);
 			aria-label="Navegación principal"
 		>
 			<ul role="list" class="flex items-center gap-32">
-				<li>
-					<Link
-						href="/"
-						class="nav-link uppercase"
-						aria-label="Inicio"
-					>
-						Inicio
-					</Link>
-				</li>
 				{
 					links.map((l) => (
 						<li>
@@ -55,7 +47,7 @@ const isActive = (href: string) => pathname.startsWith(href);
 								aria-current={
 									isActive(l.href) ? "page" : undefined
 								}
-								class="nav-link uppercase"
+								class="nav-link"
 							>
 								{l.label}
 							</Link>
