@@ -25,22 +25,32 @@ export async function POST({ request }: APIContext) {
 		const form = await request.formData();
 		const nombre = String(form.get("name") ?? "");
 		const correo = String(form.get("email") ?? "");
-		const telefono = String(form.get("phone") ?? "");
-		const objetivo = String(form.get("objective") ?? "");
-		const mensaje = String(form.get("message") ?? "");
-		const fecha = new Date().toISOString();
+		const telefonoRaw = form.get("phone");
+		const telefono = telefonoRaw ? String(telefonoRaw).trim() : "";
+		const objetivo = String(form.get("objective") ?? "Agenda rápida");
+		const mensaje = String(form.get("message") ?? "Sin mensaje");
+		const acquisition =
+			String(
+				form.get("sent_at") ?? form.get("acquisition") ?? "",
+			).trim() || new Date().toISOString();
+		const source = String(form.get("source") ?? "");
 
 		await notion.pages.create({
 			parent: { database_id: NOTION_DATABASE_ID },
 			properties: {
 				Nombre: { title: [{ text: { content: nombre } }] },
-				Correo: { email: correo },
-				Teléfono: { rich_text: [{ text: { content: telefono } }] },
-				Objetivo: { select: { name: objetivo } },
-				Mensaje: mensaje
-					? { rich_text: [{ text: { content: mensaje } }] }
-					: { rich_text: [] },
-				Fecha: { date: { start: fecha } },
+				Correo: { email: correo || null },
+				Teléfono: telefono
+					? { phone_number: telefono }
+					: { phone_number: null },
+				Objetivo: { select: { name: objetivo || "Agenda rápida" } },
+				Mensaje: {
+					rich_text: [
+						{ text: { content: mensaje || "Sin mensaje" } },
+					],
+				},
+				Fecha: { date: { start: acquisition } },
+				Source: { rich_text: [{ text: { content: source } }] },
 			},
 		});
 

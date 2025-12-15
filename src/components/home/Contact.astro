@@ -30,7 +30,7 @@ import { iconsSrc } from "@/components/layout/BaseNavBar.astro";
 			id="contactForm"
 			class="w-full flex flex-col gap-5 items-center relative"
 			autocomplete="off"
-			action="/api/submit-contact"
+			action="/api/submit-lead"
 			method="post"
 		>
 			<div class="w-full flex flex-col gap-1">
@@ -78,7 +78,10 @@ import { iconsSrc } from "@/components/layout/BaseNavBar.astro";
 					/>
 				</div>
 			</div>
+
 			<input type="hidden" name="source" value="contact-page" />
+			<input type="hidden" id="sentAt" name="sent_at" value="" />
+
 			<Button
 				type="submit"
 				icon="ui/send-email-white"
@@ -105,6 +108,7 @@ import { iconsSrc } from "@/components/layout/BaseNavBar.astro";
 				const modal = document.getElementById("modalStatus");
 				const modalMsg = document.getElementById("modalMessage");
 				const phoneInput = document.getElementById("phone");
+				const sentAtInput = document.getElementById("sentAt"); // nuevo
 
 				if (!form || !modal || !modalMsg) return;
 
@@ -143,6 +147,15 @@ import { iconsSrc } from "@/components/layout/BaseNavBar.astro";
 
 				form.addEventListener("submit", async function (e) {
 					e.preventDefault();
+
+					// setear la fecha de envío justo antes de construir FormData
+					if (
+						sentAtInput &&
+						sentAtInput instanceof HTMLInputElement
+					) {
+						sentAtInput.value = new Date().toISOString();
+					}
+
 					const formData = new FormData(form);
 
 					if (phoneInput) {
