@@ -5,6 +5,7 @@ import Icon from "@/components/ui/Icon.astro";
 import Link from "@/components/ui/Link.astro";
 
 const links = [
+	{ href: "/", label: "Lúmina" },
 	{ href: "/portfolio/projects", label: "Proyectos" },
 	{ href: "/portfolio/more/about", label: "Sobre mí" },
 ];
@@ -107,7 +108,7 @@ const isActive = (href: string) => pathname.startsWith(href);
 		id="mobile-menu"
 		aria-label="Menú móvil"
 		aria-hidden="true"
-		class="md:hidden absolute right-16 top-42 w-auto h-auto rounded-2xl bg-[var(--bg-blur)] p-5 overflow-hidden backdrop-blur-lg shadow-[var(--shadow-base)] opacity-0 translate-y-2 scale-95 invisible pointer-events-none transition-all duration-300 ease-out will-change-transform will-change-opacity motion-reduce:transition-none"
+		class="md:hidden absolute right-16 top-42 w-auto h-auto rounded-2xl bg-[var(--bg-page)] p-5 overflow-hidden backdrop-blur-lg shadow-[var(--shadow-base)] opacity-0 translate-y-2 scale-95 invisible pointer-events-none transition-all duration-300 ease-out will-change-transform will-change-opacity motion-reduce:transition-none"
 	>
 		<div class="h-full flex flex-col justify-between items-end gap-32">
 			<ul role="list" class="flex flex-col items-end gap-12">

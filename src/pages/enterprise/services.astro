@@ -73,7 +73,7 @@ const items = [
 			/>
 
 			<div
-				class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
+				class="grid gap-6 grid-cols-[repeat(auto-fit,minmax(300px,1fr))] lg:grid-cols-[repeat(auto-fit,minmax(400px,420px))] place-content-center"
 			>
 				{
 					items.map((it) => (
@@ -81,11 +81,13 @@ const items = [
 							key={it.id}
 							class="group relative rounded-lg overflow-hidden shadow-md shadow-[var(--shadow-base)] bg-[var(--bg-card)]"
 						>
-							<div class="relative flex-shrink-0 w-[300px] h-[380px] md:w-[340px] md:h-[420px]">
+							<div class="relative w-full">
+								<div class="pt-[75%]" />
+
 								<img
 									src={it.src}
 									alt={it.title}
-									class="w-full h-full object-cover"
+									class="absolute inset-0 w-full h-full object-cover"
 									loading="lazy"
 								/>
 

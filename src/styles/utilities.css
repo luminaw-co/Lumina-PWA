@@ -39,7 +39,7 @@
 		@apply hidden md:flex items-center gap-32;
 	}
 	.nav-mobile {
-		@apply md:hidden fixed inset-0 z-50 bg-[var(--bg-page)] h-screen flex flex-col justify-between items-center transition-all duration-500 ease-in-out gap-10 p-20;
+		@apply md:hidden fixed inset-0 z-50 bg-[var(--bg-page)] h-dvh flex flex-col justify-between items-start transition-all duration-500 ease-in-out gap-10 p-20;
 	}
 	.nav-item-drop {
 		@apply flex items-center py-4 transition w-full text-[14px] !text-left;
@@ -105,7 +105,7 @@
 		@apply flex gap-5 py-2 overflow-x-auto overscroll-x-contain snap-x snap-mandatory scroll-smooth shrink-0 [scrollbar-width:thin] [scrollbar-color:var(--brand-blue)_transparent] [&::-webkit-scrollbar]:h-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:rounded-full active:[&::-webkit-scrollbar-thumb]:bg-[var(--brand-blue)] [&::-webkit-scrollbar-corner]:bg-transparent;
 	}
 	.base-footer {
-		@apply backdrop-blur backdrop-saturate-150 bg-[var(--bg-blur)] dark:bg-[var(--bg-blur)] md:px-16 lg:px-24 w-full px-[32px] py-[24px] opacity-90 inline-flex flex-col justify-center items-center gap-6 md:flex-row md:justify-between md:items-center md:gap-0 md:opacity-100;
+		@apply backdrop-blur backdrop-saturate-150 bg-[var(--bg-blur)] dark:bg-[var(--bg-blur)] md:px-16 lg:px-24 w-full px-3 py-5 opacity-90 inline-flex flex-col justify-center items-center gap-6 md:flex-row md:justify-between md:items-center md:gap-0 md:opacity-100;
 	}
 	.rounded-img-320 {
 		@apply w-[320px] h-[320px] rounded-full object-cover bg-gradient-to-b from-brand-blue to-bg-page shadow-md shadow-[var(--shadow-base)];
@@ -145,5 +145,9 @@
 	}
 	.ctn-hero-1 {
 		@apply flex-1 flex flex-col items-start md:px-0 md:py-10 text-left gap-5;
+	}
+	.grid-autofit {
+		@apply grid;
+		grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 	}
 }

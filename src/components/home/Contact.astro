@@ -79,7 +79,7 @@ import { iconsSrc } from "@/components/layout/BaseNavBar.astro";
 				</div>
 			</div>
 
-			<input type="hidden" name="source" value="contact-page" />
+			<input type="hidden" name="source" value="home-page" />
 			<input type="hidden" id="sentAt" name="sent_at" value="" />
 
 			<Button
@@ -104,13 +104,19 @@ import { iconsSrc } from "@/components/layout/BaseNavBar.astro";
 		</form>
 		<script>
 			document.addEventListener("DOMContentLoaded", function () {
-				const form = document.getElementById("contactForm");
+				const formEl = document.getElementById("contactForm");
 				const modal = document.getElementById("modalStatus");
 				const modalMsg = document.getElementById("modalMessage");
 				const phoneInput = document.getElementById("phone");
-				const sentAtInput = document.getElementById("sentAt"); // nuevo
+				const sentAtInput = document.getElementById("sentAt");
 
-				if (!form || !modal || !modalMsg) return;
+				if (
+					!(formEl instanceof HTMLFormElement) ||
+					!(modal instanceof HTMLElement) ||
+					!(modalMsg instanceof HTMLElement)
+				)
+					return;
+				const form = formEl;
 
 				let timeoutId = null;
 				function showModal(message, success = true) {
@@ -148,7 +154,6 @@ import { iconsSrc } from "@/components/layout/BaseNavBar.astro";
 				form.addEventListener("submit", async function (e) {
 					e.preventDefault();
 
-					// setear la fecha de envío justo antes de construir FormData
 					if (
 						sentAtInput &&
 						sentAtInput instanceof HTMLInputElement
@@ -158,7 +163,7 @@ import { iconsSrc } from "@/components/layout/BaseNavBar.astro";
 
 					const formData = new FormData(form);
 
-					if (phoneInput) {
+					if (phoneInput && phoneInput instanceof HTMLInputElement) {
 						const raw = (phoneInput.value || "").trim();
 						if (raw) {
 							const normalized = raw.replace(/[\s().-]+/g, "");
@@ -171,6 +176,7 @@ import { iconsSrc } from "@/components/layout/BaseNavBar.astro";
 									"Por favor incluye el indicativo (ej. +57) seguido del número.",
 									false,
 								);
+								phoneInput.focus();
 								return;
 							}
 							formData.set("phone", normalized);
@@ -180,14 +186,11 @@ import { iconsSrc } from "@/components/layout/BaseNavBar.astro";
 					}
 
 					try {
-						const response = await fetch(
-							form.getAttribute("action") ||
-								"/api/submit-contact",
-							{
-								method: "POST",
-								body: formData,
-							},
-						);
+						const action = form.action || "/api/submit-lead";
+						const response = await fetch(action, {
+							method: "POST",
+							body: formData,
+						});
 						if (response.ok) {
 							showModal(
 								"¡Formulario enviado correctamente!",
@@ -195,8 +198,13 @@ import { iconsSrc } from "@/components/layout/BaseNavBar.astro";
 							);
 							if (typeof form.reset === "function") form.reset();
 						} else {
+							let detail = "";
+							try {
+								const json = await response.json();
+								detail = json?.error ? ` — ${json.error}` : "";
+							} catch {}
 							showModal(
-								"Error al enviar el formulario. Intenta de nuevo.",
+								"Error al enviar el formulario." + detail,
 								false,
 							);
 						}

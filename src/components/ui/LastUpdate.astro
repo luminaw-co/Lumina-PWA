@@ -1,19 +1,24 @@
 ---
 import { execSync } from "child_process";
 
+const TIMEZONE = "America/Bogota";
+
 let lastUpdated = "";
 try {
 	const iso = execSync("git log -1 --format=%cI -- .", {
 		encoding: "utf8",
 	}).trim();
-	lastUpdated = new Date(iso).toLocaleString("es-ES", {
+	const date = iso ? new Date(iso) : new Date();
+	lastUpdated = date.toLocaleString("es-ES", {
 		dateStyle: "medium",
 		timeStyle: "short",
+		timeZone: TIMEZONE,
 	});
 } catch {
 	lastUpdated = new Date().toLocaleString("es-ES", {
 		dateStyle: "medium",
 		timeStyle: "short",
+		timeZone: TIMEZONE,
 	});
 }
 ---

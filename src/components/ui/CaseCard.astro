@@ -8,6 +8,7 @@ interface Props {
 	service?: string;
 	result?: string;
 	href?: string;
+	target?: string;
 	cover?: string;
 	alt?: string;
 }
@@ -76,7 +77,11 @@ const {
 
 		{service && <Chip class="w-fit">{service}</Chip>}
 		<div class="mt-4">
-			<Link href={href} aria-label={`Ver caso: ${project}`}>
+			<Link
+				href={href}
+				target="_blank"
+				aria-label={`Ver caso: ${project}`}
+			>
 				Ver caso
 			</Link>
 		</div>

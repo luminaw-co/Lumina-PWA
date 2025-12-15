@@ -253,7 +253,7 @@ const isActive = (href: string) => pathname.startsWith(href);
 		id="mobile-menu"
 		aria-label="Menú móvil"
 		aria-hidden="true"
-		class="nav-mobile -translate-y-full opacity-0 pointer-events-none"
+		class="nav-mobile -translate-y-full opacity-0 pointer-events-none h-dynamic"
 	>
 		<button
 			type="button"
@@ -308,7 +308,7 @@ const isActive = (href: string) => pathname.startsWith(href);
 										<li>
 											<Link
 												href={s.href}
-												class="flex flex-col px-4 py-2 text-[14px]"
+												class="flex flex-col px-4 py-2 text-[14px] !text-left"
 											>
 												<span class="font-semibold">
 													{s.label}
@@ -358,7 +358,7 @@ const isActive = (href: string) => pathname.startsWith(href);
 										<li>
 											<Link
 												href={u.href}
-												class="flex flex-col px-4 py-2 text-[14px]"
+												class="flex flex-col px-4 py-2 text-[14px] !text-left"
 											>
 												<span class="font-semibold">
 													{u.label}
@@ -383,38 +383,42 @@ const isActive = (href: string) => pathname.startsWith(href);
 			}
 		</ul>
 
-		<Container class="flex items-center justify-start gap-3">
+		<Container
+			class="flex flex-col-reverse items-start justify-start gap-3"
+		>
 			<Button
 				href={`mailto:${email}`}
 				target="_blank"
 				icon="ui/send-email-white"
 				text="Enviar email"
 			/>
-			<button
-				type="button"
-				class="p-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--brand-blue)]"
-				aria-label="Cambiar idioma"
-				id="lang-toggle-mobile"
-			>
-				<Icon src={`${iconsSrc.ui}switch-language.svg`} size="md" />
-			</button>
-			<button
-				id="theme-toggle-mobile"
-				aria-pressed="false"
-				class="p-2"
-				aria-label="Cambiar tema"
-			>
-				<Icon
-					src={`${iconsSrc.ui}sun.svg`}
-					size="md"
-					class="hidden dark:inline-flex"
-				/>
-				<Icon
-					src={`${iconsSrc.ui}moon.svg`}
-					size="md"
-					class="dark:hidden"
-				/>
-			</button>
+			<div class="flex gap-4 items-center justify-center">
+				<button
+					type="button"
+					class="p-2"
+					aria-label="Cambiar idioma"
+					id="lang-toggle-mobile"
+				>
+					<Icon src={`${iconsSrc.ui}switch-language.svg`} size="md" />
+				</button>
+				<button
+					id="theme-toggle-mobile"
+					aria-pressed="false"
+					class="p-2"
+					aria-label="Cambiar tema"
+				>
+					<Icon
+						src={`${iconsSrc.ui}sun.svg`}
+						size="md"
+						class="hidden dark:inline-flex"
+					/>
+					<Icon
+						src={`${iconsSrc.ui}moon.svg`}
+						size="md"
+						class="dark:hidden"
+					/>
+				</button>
+			</div>
 		</Container>
 	</nav>
 

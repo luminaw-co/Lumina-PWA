@@ -2,11 +2,12 @@
 interface Props {
 	title: string;
 	subtitle?: string;
+	class?: string;
 }
-const { title, subtitle } = Astro.props;
+const { title, subtitle, class: customClass } = Astro.props;
 ---
 
-<header class="lg:max-w-[1024px] lg:w-full">
+<header class={`lg:max-w-[1024px] lg:w-full ${customClass}`}>
 	<h2 class="title-ui">
 		{title}
 	</h2>
